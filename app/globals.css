@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@layer base {
+  :root {
+    /* JFinder Cool Blue Tech Theme */
+    --color-primary: #0ea5e9;       /* Sky 500 */
+    --color-primary-dark: #0284c7;  /* Sky 600 */
+    --color-primary-light: #38bdf8; /* Sky 400 */
+    --color-secondary: #06b6d4;     /* Cyan 500 */
+    --color-accent: #22d3ee;        /* Cyan 400 */
+
+    /* Deep Space Blue Backgrounds */
+    --color-bg-dark: #020617;       /* Slate 950 */
+    --color-bg-darker: #000000;     /* Pure Black */
+
+    /* Glassmorphism Cards */
+    --color-card-bg: rgba(15, 23, 42, 0.4); /* Slate 900 / 40% */
+    --color-card-border: rgba(56, 189, 248, 0.2); /* Sky 400 / 20% */
+  }
+
+  body {
+    background-color: var(--color-bg-darker);
+    background-image:
+      radial-gradient(circle at 50% 0%, #0c4a6e 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, #1e1b4b 0%, transparent 40%);
+    background-attachment: fixed;
+    color: #e2e8f0;
+  }
+
+  /* Utility classes for extreme transparency */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-card {
+    background: rgba(15, 23, 42, 0.3);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--color-card-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  /* Text Gradients */
+  .text-gradient-blue {
+    background: linear-gradient(135deg, #22d3ee 0%, #38bdf8 50%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Leaflet custom styles override */
+  .leaflet-popup-content-wrapper {
+    background: rgba(15, 23, 42, 0.9) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid #38bdf8;
+    border-radius: 12px;
+    color: white;
+  }
+
+  .leaflet-popup-tip {
+    background: rgba(15, 23, 42, 0.9) !important;
+  }
+}
