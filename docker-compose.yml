@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # 1. CƠ SỞ DỮ LIỆU: PostgreSQL với PostGIS (Hỗ trợ dữ liệu bản đồ địa lý)
+  db:
+    image: postgis/postgis:14-3.3
+    restart: always
+    environment:
+      - POSTGRES_USER=jfinder
+      - POSTGRES_PASSWORD=jfinder_password
+      - POSTGRES_DB=jfinder_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  # 2. TRỤC TÍCH HỢP: n8n (Automation)
+  n8n:
+    image: n8nio/n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=db
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=jfinder_db
+      - DB_POSTGRESDB_USER=jfinder
+      - DB_POSTGRESDB_PASSWORD=jfinder_password
+    links:
+      - db
+    volumes:
+      - n8n_data:/home/node/.n8n
+      # Mount thư mục scripts crawler vào n8n để nó có thể gọi lệnh python
+      - ./scripts:/scripts
+      - ./data:/data
+
+  # 3. BI DASHBOARD: Apache Superset (Phiên bản Lite cho demo)
+  # Lưu ý: Superset khởi động khá lâu (2-3 phút)
+  superset:
+    image: apache/superset
+    restart: always
+    ports:
+      - "8088:8088"
+    environment:
+      - SUPERSET_SECRET_KEY=jfinder_super_secret_key_12345
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+  n8n_data:

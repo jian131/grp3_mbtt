@@ -1,10 +1,18 @@
 'use client';
 
+import { useState } from 'react';
 import RentalHeatmap from '@/components/Map/RentalHeatmap';
 import VisualSearch from '@/components/Search/VisualSearch';
 import { Filter, Layers, Map as MapIcon, ChevronDown, Satellite } from 'lucide-react';
+import { Listing, getDistricts } from '@/app/data/mockListings';
 
 export default function MapPage() {
+  const [district, setDistrict] = useState<string>('');
+  const [priceRange, setPriceRange] = useState<number>(100);
+  const [listingType, setListingType] = useState<Listing['type'] | undefined>(undefined);
+
+  const districts = getDistricts();
+
   return (
     <div className="flex h-[calc(100vh-80px)] mt-20 relative overflow-hidden font-sans">
 
@@ -21,26 +29,61 @@ export default function MapPage() {
         <div className="space-y-6">
           <div className="space-y-3">
             <div className="flex justify-between items-center text-sm">
-              <span className="text-gray-300">Khoảng giá</span>
-              <span className="text-cyan-400 font-bold">5Tr - 100Tr+</span>
+              <span className="text-gray-300">Khoảng giá tối đa</span>
+              <span className="text-cyan-400 font-bold">{priceRange} Triệu+</span>
             </div>
-            <input type="range" min="5" max="100" className="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-cyan-500 hover:accent-cyan-400" />
+            <input
+              type="range"
+              min="5"
+              max="300"
+              step="5"
+              value={priceRange}
+              onChange={(e) => setPriceRange(Number(e.target.value))}
+              className="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-cyan-500 hover:accent-cyan-400"
+            />
             <div className="flex justify-between text-xs text-gray-500">
               <span>5 triệu</span>
-              <span>100 triệu+</span>
+              <span>300 triệu+</span>
             </div>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm text-gray-400">Bán kính tìm kiếm</label>
+            <label className="text-sm text-gray-400">Khu vực (Quận/Huyện)</label>
             <div className="relative">
-              <select className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm text-gray-200 appearance-none outline-none focus:border-cyan-500/50 transition-colors cursor-pointer hover:bg-white/10">
-                <option>500m (Đi bộ được)</option>
-                <option>1km (Khu vực lân cận)</option>
-                <option>3km (Cấp Quận)</option>
-                <option>5km (Toàn thành phố)</option>
+              <select
+                value={district}
+                onChange={(e) => setDistrict(e.target.value)}
+                className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm text-gray-200 appearance-none outline-none focus:border-cyan-500/50 transition-colors cursor-pointer hover:bg-white/10"
+              >
+                <option value="">Toàn Thành Phố</option>
+                {districts.map(d => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
               </select>
               <ChevronDown className="absolute right-3 top-3.5 w-4 h-4 text-gray-500 pointer-events-none" />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm text-gray-400">Loại mặt bằng</label>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { id: 'shophouse', label: 'Shophouse' },
+                { id: 'kiosk', label: 'Kiosk' },
+                { id: 'office', label: 'Văn phòng' },
+                { id: 'retail', label: 'Cửa hàng' },
+              ].map((type) => (
+                <button
+                  key={type.id}
+                  onClick={() => setListingType(listingType === type.id ? undefined : type.id as Listing['type'])}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${listingType === type.id
+                      ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400'
+                      : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
+                    }`}
+                >
+                  {type.label}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -71,7 +114,11 @@ export default function MapPage() {
 
       {/* Main Map Area */}
       <div className="flex-1 relative bg-slate-900 border-l border-white/10">
-        <RentalHeatmap />
+        <RentalHeatmap
+          filterDistrict={district}
+          filterType={listingType}
+          filterPriceMax={priceRange}
+        />
 
         {/* Floating Map Controls */}
         <div className="absolute top-6 left-6 z-[400] flex gap-2">
