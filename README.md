@@ -1,14 +1,14 @@
 # JFinder - Smart Rental Decision Support System 🏢✨
 
-Hệ thống hỗ trợ quyết định tìm kiếm mặt bằng cho thuê thông minh, tích hợp **n8n** làm Backend API và **Next.js** làm Frontend.
+Hệ thống hỗ trợ quyết định tìm kiếm mặt bằng cho thuê thông minh.
 
 ---
 
 ## 🎯 Mục tiêu
 
 Chuyển đổi từ **"Tìm kiếm thụ động"** sang **"Tư vấn chủ động"**:
-- Trả lời câu hỏi: *"Tại sao tôi nên thuê chỗ này?"* thay vì chỉ *"Chỗ này giá bao nhiêu?"*
-- Kết hợp **BI (Business Intelligence)**, **Geo-marketing** và **AI định giá**
+- Trả lời câu hỏi: *"Tại sao tôi nên thuê chỗ này?"*
+- Kết hợp **BI**, **Geo-marketing** và **AI định giá**
 
 ---
 
@@ -17,34 +17,33 @@ Chuyển đổi từ **"Tìm kiếm thụ động"** sang **"Tư vấn chủ đ�
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                    FRONTEND (Next.js)                   │
-│         localhost:3000 - Web Portal / Dashboard         │
+│              localhost:3000 - Web Portal                │
 └───────────────────────────┬─────────────────────────────┘
-                            │ HTTP API Calls
+                            │ API Calls
                             ▼
 ┌─────────────────────────────────────────────────────────┐
 │               BACKEND API (n8n Automation)              │
-│   localhost:5678/webhook/* - REST API Endpoints         │
-│   • /listings - Danh sách mặt bằng                      │
-│   • /stats - Thống kê thị trường                        │
-│   • /districts - Danh sách quận                         │
-│   • /valuation - AI Định giá                            │
-│   • /roi - Tính ROI/Break-even                          │
+│         localhost:5678/webhook/* - REST APIs            │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│              BI DASHBOARD (Apache Superset)             │
+│       localhost:8088 - Biểu đồ phân tích chuyên sâu     │
 └─────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## ✅ Tính năng đã triển khai (theo đề cương)
+## ✅ Tính năng
 
-| Chức năng | Mô tả | Trạng thái |
-|-----------|-------|------------|
-| **Heatmap (Bản đồ nhiệt)** | Hiển thị mật độ giá/tiềm năng trên bản đồ | ✅ |
-| **Lọc nâng cao** | Theo quận, loại, khoảng giá | ✅ |
-| **AI Định giá (Valuation)** | Gợi ý giá thuê hợp lý, nhãn "Rẻ/Đắt" | ✅ |
-| **ROI Calculator** | Tính break-even point | ✅ |
-| **Dashboard BI** | Thống kê theo quận, loại mặt bằng | ✅ |
-| **Landlord Portal** | Gợi ý giá cho chủ nhà | ✅ |
-| **n8n Backend** | API tự động hóa, không cần code | ✅ |
+| Chức năng | Mô tả | Component |
+|-----------|-------|-----------|
+| **Heatmap** | Bản đồ nhiệt giá/tiềm năng | Next.js + Leaflet |
+| **Lọc nâng cao** | Theo quận, loại, giá | n8n API |
+| **AI Định giá** | Gợi ý giá, nhãn "Rẻ/Đắt" | n8n API |
+| **ROI Calculator** | Tính break-even | n8n API |
+| **Dashboard BI** | Biểu đồ chuyên sâu | **Superset** |
+| **Landlord Portal** | Gợi ý giá cho chủ nhà | Next.js |
 
 ---
 
@@ -54,23 +53,36 @@ Chuyển đổi từ **"Tìm kiếm thụ động"** sang **"Tư vấn chủ đ�
 - Node.js 18+
 - Docker Desktop
 
-### 2. Khởi động Backend (n8n)
+### 2. Khởi động Backend (n8n + Superset)
 ```bash
 docker-compose up -d
 ```
-Truy cập: `http://localhost:5678` (admin/admin)
 
-### 3. Import Workflow
-1. Mở n8n → Menu → Import from File
-2. Chọn file `n8n_backend.json`
+### 3. Cấu hình Superset (chạy 1 lần, đợi 2-3 phút sau docker up)
+```powershell
+.\setup_superset.ps1
+```
+
+### 4. Import n8n Workflow
+1. Mở `http://localhost:5678` (admin/admin)
+2. Menu → Import from File → Chọn `n8n_backend.json`
 3. **Bật workflow** (Toggle ON)
 
-### 4. Chạy Frontend
+### 5. Chạy Frontend
 ```bash
 npm install
 npm run dev
 ```
-Truy cập: `http://localhost:3000`
+
+---
+
+## 🔗 Truy cập hệ thống
+
+| Service | URL | Đăng nhập |
+|---------|-----|-----------|
+| **JFinder Web** | http://localhost:3000 | - |
+| **n8n Backend** | http://localhost:5678 | admin / admin |
+| **Superset BI** | http://localhost:8088 | admin / admin |
 
 ---
 
@@ -79,40 +91,35 @@ Truy cập: `http://localhost:3000`
 ```
 grp3_mbtt/
 ├── app/                    # Next.js Pages
-│   ├── page.tsx           # Home
-│   ├── map/               # Bản đồ + Lọc
-│   ├── dashboard/         # Dashboard BI
-│   ├── analysis/          # Phân tích AI
-│   └── landlord/          # Portal chủ nhà
-├── components/            # React Components
-│   ├── Map/               # Heatmap
-│   └── Analysis/          # Valuation Card
-├── lib/
-│   └── api.ts             # API Helper (gọi n8n)
-├── n8n_backend.json       # Workflow n8n chính
-├── docker-compose.yml     # Cấu hình Docker (n8n)
+├── components/             # React Components
+├── lib/api.ts              # API Helper
+├── n8n_backend.json        # Workflow n8n
+├── docker-compose.yml      # n8n + Superset
+├── setup_superset.ps1      # Script cấu hình Superset
 └── README.md
 ```
 
 ---
 
-## 🔌 API Endpoints (n8n)
+## 🔌 n8n API Endpoints
 
 | Endpoint | Method | Mô tả |
 |----------|--------|-------|
-| `/webhook/listings` | GET | Lấy danh sách mặt bằng |
-| `/webhook/stats` | GET | Thống kê tổng hợp |
-| `/webhook/districts` | GET | Danh sách quận + giá TB |
+| `/webhook/listings` | GET | Danh sách mặt bằng |
+| `/webhook/stats` | GET | Thống kê |
+| `/webhook/districts` | GET | Danh sách quận |
 | `/webhook/valuation` | POST | AI định giá |
 | `/webhook/roi` | POST | Tính ROI |
 
 ---
 
-## 👥 Đối tượng sử dụng
+## 📊 Sử dụng Superset
 
-1. **Người thuê**: Tìm mặt bằng, xem phân tích tiềm năng
-2. **Chủ cho thuê**: Định giá tài sản
-3. **Quản trị viên**: Xem Dashboard, phân tích xu hướng
+Superset dùng để tạo **Dashboard BI chuyên sâu**:
+1. Đăng nhập Superset
+2. Tạo **Database Connection** (có thể kết nối CSV hoặc API)
+3. Tạo **Charts** (Bar, Pie, Heatmap...)
+4. Tạo **Dashboard** và nhúng vào Next.js
 
 ---
 
