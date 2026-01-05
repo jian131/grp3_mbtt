@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JFinder - Smart Rental Decision Support System (DSS) 🏢✨
 
-## Getting Started
+Hệ thống hỗ trợ ra quyết định thuê mặt bằng thông minh, tích hợp AI định giá và bản đồ nhiệt.
 
-First, run the development server:
+---
+
+## 🌟 Tính Năng Chính
+
+*   **Bản Đồ Thông Minh (Smart Map)**: Tìm kiếm theo bán kính, lớp phủ tiện ích (trường học, văn phòng).
+*   **Định Giá AI (AI Valuation)**: Gợi ý giá thuê hợp lý dựa trên dữ liệu so sánh.
+*   **Phân Tích Tiềm Năng**: Chấm điểm địa điểm (Potential Score).
+*   **Dashboard Phân Tích**: Biểu đồ trực quan về thị trường.
+*   **Hệ Thống Tự Động Hóa**: Crawler dữ liệu tự động với n8n.
+
+---
+
+## 🚀 Cài Đặt & Chạy Dự Án
+
+### 1. Yêu Cầu
+*   Node.js 18+
+*   Docker & Docker Compose
+*   Python 3.10+ (Optional, nếu chạy script thủ công)
+
+### 2. Khởi Động Hạ Tầng (Infrastructure)
+Chạy bộ 3 dịch vụ nền tảng (Database, Automation, Analytics):
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker-compose up -d
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+*   **n8n**: `http://localhost:5678`
+*   **Superset**: `http://localhost:8088` (Admin/Admin)
+*   **Postgres**: `localhost:5432`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Chạy Ứng Dụng Frontend (JFinder)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
+Truy cập: `http://localhost:3000`
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Hướng Dẫn Sử Dụng Nâng Cao
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### A. Tự Động Hóa Dữ Liệu (n8n)
+1.  Truy cập n8n.
+2.  Import file `n8n_workflow.json` để có sẵn quy trình mẫu.
+3.  Quy trình sẽ tự động chạy script `scripts/generate_mock_data.py` để lấy dữ liệu.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### B. Phân Tích Dữ Liệu (Superset)
+1.  Đăng nhập Superset (`admin`/`admin`).
+2.  Kết nối Database:
+    *   Host: `db`
+    *   Port: `5432`
+    *   DB: `jfinder_db`
+    *   User/Pass: `jfinder`/`jfinder_password`
+3.  Tạo biểu đồ và Dashboard từ bảng `listings`.
 
-## Deploy on Vercel
+### C. Sinh Dữ Liệu Mẫu Thủ Công
+Nếu không muốn đợi n8n, bạn có thể chạy script python trực tiếp:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pip install pandas sqlalchemy psycopg2-binary
+python scripts/generate_mock_data.py
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📂 Cấu Trúc Dự Án
+
+*   `app/`: Mã nguồn Next.js (Frontend).
+*   `scripts/`: Mã nguồn Python (Crawler & Data Gen).
+*   `crdt/`: Crawler Framework.
+*   `docker-compose.yml`: Cấu hình hạ tầng.
+*   `n8n_workflow.json`: Quy trình tự động hóa.
+
+---
+
+**Developed by Group 3 - MBTT**

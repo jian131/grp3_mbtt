@@ -1,9 +1,12 @@
-"""
-Script sinh 1000 bản ghi mặt bằng kinh doanh mẫu cho JFinder
-"""
 import json
 import random
+import os
 from datetime import datetime, timedelta
+try:
+    from sqlalchemy import create_engine, text
+    import pandas as pd
+except ImportError:
+    print("Thiếu thư viện: sqlalchemy, pandas, psycopg2-binary. Vui lòng cài đặt nếu muốn lưu vào DB.")
 
 # Dữ liệu gốc để sinh ngẫu nhiên
 DISTRICTS = [
@@ -152,28 +155,45 @@ def generate_listing(index):
         "floors": floors,
         "type": listing_type,
         "images": [random.choice(IMAGES)],
-        "amenities": {
-            "schools": schools,
-            "offices": offices,
-            "competitors": competitors,
-            "busStops": bus_stops,
-            "markets": markets
-        },
-        "ai": {
-            "suggestedPrice": suggested_price,
-            "priceLabel": price_label,
-            "potentialScore": potential_score,
-            "riskLevel": risk_level,
-            "growthForecast": growth_forecast
-        },
+        "amenities_schools": schools,
+        "amenities_offices": offices,
+        "amenities_competitors": competitors,
+        "ai_suggested_price": suggested_price,
+        "ai_potential_score": potential_score,
+        "ai_risk_level": risk_level,
         "views": views,
+        "posted_at": posted_at,
         "savedCount": saved_count,
-        "postedAt": posted_at,
         "owner": {
             "name": owner_name,
             "phone": phone
         }
     }
+
+def save_to_db(listings):
+    # Kết nối DB từ biến môi trường hoặc mặc định
+    db_user = os.getenv("POSTGRES_USER", "jfinder")
+    db_pass = os.getenv("POSTGRES_PASSWORD", "jfinder_password")
+    db_host = os.getenv("POSTGRES_HOST", "localhost")
+    db_port = os.getenv("POSTGRES_PORT", "5432")
+    db_name = os.getenv("POSTGRES_DB", "jfinder_db")
+
+    connection_str = f"postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
+
+    try:
+        print(f"Đang kết nối Database: {db_host}...")
+        engine = create_engine(connection_str)
+
+        # Chuyển list dict thành DataFrame
+        df = pd.DataFrame(listings)
+
+        # Lưu vào bảng 'listings' (tự tạo bảng nếu chưa có)
+        df.to_sql('listings', engine, if_exists='replace', index=False)
+        print("✅ Đã lưu thành công 1000 bản ghi vào PostgreSQL!")
+
+    except Exception as e:
+        print(f"❌ Lỗi kết nối DB: {e}")
+        print("💡 Gợi ý: Hãy chắc chắn Docker container 'db' đang chạy.")
 
 def main():
     print("Đang sinh 1000 bản ghi...")
@@ -184,6 +204,9 @@ def main():
         json.dump(listings, f, ensure_ascii=False, indent=2)
 
     print(f"Đã sinh {len(listings)} bản ghi vào file mockListings.json")
+
+    # Lưu vào Database (cho Superset/BI)
+    save_to_db(listings)
 
     # Thống kê
     districts = {}

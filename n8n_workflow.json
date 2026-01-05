@@ -1,0 +1,106 @@
+{
+  "name": "JFinder Auto Crawler",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "schedule-trigger",
+      "name": "Run Daily @ Midnight"
+    },
+    {
+      "parameters": {
+        "command": "python /scripts/generate_mock_data.py"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        250,
+        0
+      ],
+      "id": "run-python-script",
+      "name": "Run Python Crawler"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT COUNT(*) FROM listings;"
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        500,
+        0
+      ],
+      "id": "check-db",
+      "name": "Check DB Count",
+      "credentials": {
+        "postgres": {
+          "id": "postgres-cred",
+          "name": "Postgres Docker"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "✅ Crawl Job Completed!\nNew Total Records: {{$json.count}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        750,
+        0
+      ],
+      "id": "notify",
+      "name": "Notify (Discord/Slack)"
+    }
+  ],
+  "connections": {
+    "Run Daily @ Midnight": {
+      "main": [
+        [
+          {
+            "node": "Run Python Crawler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Python Crawler": {
+      "main": [
+        [
+          {
+            "node": "Check DB Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check DB Count": {
+      "main": [
+        [
+          {
+            "node": "Notify (Discord/Slack)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
