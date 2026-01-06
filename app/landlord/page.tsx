@@ -81,7 +81,7 @@ export default function LandlordPage() {
                   </p>
                 </div>
                 <button type="button" className="px-8 py-4 bg-white text-black rounded-xl font-bold hover:bg-cyan-50 transition-colors shadow-xl text-nowrap">
-                  Định Giá Ngay.
+                  Định Giá Ngay
                 </button>
               </div>
             </form>
