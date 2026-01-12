@@ -4,7 +4,7 @@ Hệ thống hỗ trợ quyết định tìm kiếm mặt bằng cho thuê thôn
 
 ---
 
-## 🎯 Mục tiêu hệ thống
+## 🎯 Mục tiêu 
 
 Chuyển đổi từ **"Tìm kiếm thụ động"** sang **"Tư vấn chủ động"**:
 - Trả lời câu hỏi: *"Tại sao tôi nên thuê chỗ này?"*
