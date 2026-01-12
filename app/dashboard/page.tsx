@@ -7,7 +7,10 @@ import { fetchStats, Stats } from '@/lib/api';
 export default function Dashboard() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
-
+/*
+  Gọi API n8n để lấy dữ liệu dashboard
+  Chỉ chạy 1 lần khi component mount
+*/
   useEffect(() => {
     fetchStats().then(data => {
       setStats(data);
@@ -33,11 +36,11 @@ export default function Dashboard() {
       </div>
     );
   }
-
+// Lấy top 10 quận có số lượng mặt bằng nhiều nhất
   const topDistricts = Object.entries(stats.byDistrict)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10);
-
+// Icon hiển thị theo từng loại mặt bằng
   const typeIcons: Record<string, React.ReactNode> = {
     shophouse: <Store className="w-5 h-5" />,
     office: <Briefcase className="w-5 h-5" />,
@@ -45,6 +48,7 @@ export default function Dashboard() {
     kiosk: <MapPin className="w-5 h-5" />
   };
 
+  // Nhãn hiển thị tiếng Việt cho từng loại mặt bằng
   const typeLabels: Record<string, string> = {
     shophouse: 'Shophouse',
     office: 'Văn phòng',
@@ -75,7 +79,7 @@ export default function Dashboard() {
           </div>
         </header>
 
-        {/* Stats Grid */}
+        {/* Stats Grid - Hiển thị các chỉ số tổng quan */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {[
             { label: 'Tổng Mặt Bằng', value: stats.total.toLocaleString(), change: 'listings', icon: Users, color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
