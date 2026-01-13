@@ -47,8 +47,8 @@ export default function MapPage() {
               className="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-cyan-500"
             />
             <div className="flex justify-between text-xs text-gray-500">
-              <span>10 triệu</span>
-              <span>300 triệu</span>
+              <span>10 triệu.</span>
+              <span>300 triệu.</span>
             </div>
           </div>
 

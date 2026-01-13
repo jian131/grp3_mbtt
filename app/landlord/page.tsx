@@ -77,7 +77,7 @@ export default function LandlordPage() {
                   </div>
                   <p className="text-sm text-gray-500 mt-2 max-w-md">
                     Dựa trên {stats.total.toLocaleString()} tài sản tương đồng trong hệ thống.
-                    <span className="text-green-400"> Khả năng cho thuê trong 21 ngày: Cao.</span>
+                    <span className="text-green-400"> Khả năng cho thuê trong 21 ngày: Cao</span>
                   </p>
                 </div>
                 <button type="button" className="px-8 py-4 bg-white text-black rounded-xl font-bold hover:bg-cyan-50 transition-colors shadow-xl text-nowrap">

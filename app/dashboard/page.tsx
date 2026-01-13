@@ -29,7 +29,7 @@ export default function Dashboard() {
   if (!stats) {
     return (
       <div className="min-h-screen pt-24 flex items-center justify-center">
-        <p className="text-red-400">Không thể kết nối API. Hãy chắc chắn n8n đang chạy.</p>
+        <p className="text-red-400">Không thể kết nối API. Hãy chắc chắn n8n đang chạy</p>
       </div>
     );
   }
