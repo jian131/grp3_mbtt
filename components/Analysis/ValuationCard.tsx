@@ -87,7 +87,7 @@ export default function ValuationCard({ listing }: ValuationCardProps) {
           <div className="p-1 rounded bg-amber-500/10 text-amber-500 group-hover/item:bg-amber-500/20 transition-colors">
             <AlertTriangle className="w-3.5 h-3.5" />
           </div>
-          <span className="text-gray-300">Biến động theo mùa.</span>
+          <span className="text-gray-300">Biến động theo mùa</span>
         </div>
       </div>
 

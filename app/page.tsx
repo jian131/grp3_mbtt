@@ -17,7 +17,7 @@ export default function HomePage() {
 
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-8 animate-fade-in-up">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-            <span className="text-xs font-bold tracking-widest text-cyan-300 uppercase">JFinder Intelligent System.</span>
+            <span className="text-xs font-bold tracking-widest text-cyan-300 uppercase">JFinder Intelligent System</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-8 leading-tight">

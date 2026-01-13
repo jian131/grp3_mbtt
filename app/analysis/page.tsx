@@ -10,7 +10,7 @@ export default function AnalysisPage() {
         <header className="mb-8 relative">
           <div className="absolute top-0 left-0 w-20 h-20 bg-cyan-500/20 rounded-full blur-3xl"></div>
           <h1 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-blue-200 mb-4">
-            Phân Tích & Hỗ Trợ Ra Quyết Định.
+            Phân Tích & Hỗ Trợ Ra Quyết Định
           </h1>
           <p className="text-gray-400 max-w-2xl text-lg font-light">
             Phân tích chuyên sâu bởi JFinder Intelligence. Xác thực vị trí kinh doanh của bạn bằng dữ liệu, không phải phỏng đoán.
