@@ -105,7 +105,7 @@ export default function Dashboard() {
         {/* Charts Row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-          {/* District Distribution Bar Chart */}
+          {/* District Distribution Bar Chart Biểu đồ phân bố mặt bằng theo quận */}
           <div className="glass-card p-6 rounded-2xl border border-white/10 col-span-2">
             <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
               <BarChart className="w-5 h-5 text-blue-400" />
@@ -129,7 +129,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Type Distribution Pie */}
+          {/* Type Distribution Pie Biểu đồ phân bố theo loại mặt bằng */}
           <div className="glass-card p-6 rounded-2xl border border-white/10">
             <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
               <PieChart className="w-5 h-5 text-purple-400" />
