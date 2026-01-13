@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Map, MessageCircle, LayoutDashboard, Shuffle, Menu, X, Home, MapPin } from 'lucide-react';
+import { Map, MessageCircle, LayoutDashboard, Shuffle, Menu, X, Home, MapPin, Search } from 'lucide-react';
 
 const navItems = [
   { name: 'Home', href: '/', icon: Home },
+  { name: 'Tìm Kiếm', href: '/search', icon: Search },
   { name: 'Heatmap', href: '/map', icon: Map },
   { name: 'AI Analysis', href: '/analysis', icon: Shuffle },
   { name: 'Landlord', href: '/landlord', icon: MapPin },

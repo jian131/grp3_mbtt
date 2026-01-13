@@ -1,7 +1,11 @@
 // API Configuration & Helper Functions
 // Kết nối Frontend với n8n Backend
 
-const API_BASE = 'http://localhost:5678/webhook';
+// Xác định API Base dựa trên môi trường chạy (Client hay Server)
+const IS_SERVER = typeof window === 'undefined';
+const API_BASE = IS_SERVER
+  ? 'http://localhost:5678/webhook'  // Server-side: Gọi trực tiếp Docker container/Localhost
+  : '/api/n8n';                      // Client-side: Gọi qua Next.js Proxy để tránh CORS
 
 export interface Listing {
   id: string;
