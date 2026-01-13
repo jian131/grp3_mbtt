@@ -1,15 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Map, MessageCircle, LayoutDashboard, Shuffle, Menu, X, Home, MapPin, Search } from 'lucide-react';
+import { MessageCircle, LayoutDashboard, Shuffle, Menu, X, Home, MapPin, Search, BarChart3 } from 'lucide-react';
 
 const navItems = [
   { name: 'Home', href: '/', icon: Home },
   { name: 'Tìm Kiếm', href: '/search', icon: Search },
-  { name: 'Heatmap', href: '/map', icon: Map },
   { name: 'AI Analysis', href: '/analysis', icon: Shuffle },
   { name: 'Landlord', href: '/landlord', icon: MapPin },
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'BI (Superset)', href: '/bi-dashboard', icon: BarChart3 },
 ];
 
 const JFinderLogo = () => (

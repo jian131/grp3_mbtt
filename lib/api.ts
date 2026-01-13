@@ -18,6 +18,20 @@ export interface Listing {
   floors: number;
   latitude: number;
   longitude: number;
+  images?: string[];
+  address?: string;
+  ward?: string;
+  amenities?: {
+    schools: number;
+    offices: number;
+    competitors: number;
+  };
+  owner?: {
+    name: string;
+    phone: string;
+  };
+  postedAt?: string;
+  savedCount?: number;
   ai: {
     potentialScore: number;
     suggestedPrice: number;
@@ -130,6 +144,21 @@ export async function calculateROI(data: {
     return json.analysis || null;
   } catch (error) {
     console.error('API Error (roi):', error);
+    return null;
+  }
+}
+
+// Fetch chi tiết mặt bằng theo ID
+export async function fetchListingById(id: string): Promise<Listing | null> {
+  try {
+    const res = await fetch(`${API_BASE}/listings?id=${id}&limit=1`);
+    const json = await res.json();
+    if (json.success && json.data && json.data.length > 0) {
+      return json.data[0];
+    }
+    return null;
+  } catch (error) {
+    console.error('API Error (fetchListingById):', error);
     return null;
   }
 }

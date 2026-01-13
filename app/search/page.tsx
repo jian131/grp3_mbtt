@@ -1,15 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import { Search, MapPin, DollarSign, Home, TrendingUp, Eye, Loader2, Filter } from 'lucide-react';
-import { fetchListings, fetchDistricts, Listing, District } from '@/lib/api';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { Search, MapPin, TrendingUp, Eye, Loader2, Filter, Grid3X3, Map as MapIcon } from 'lucide-react';
+import { fetchListings, fetchDistricts, Listing, District } from '@/lib/api';
+import dynamic from 'next/dynamic';
+
+const RentalHeatmap = dynamic(() => import('@/components/Map/RentalHeatmap'), { ssr: false });
 
 export default function SearchPage() {
   const [loading, setLoading] = useState(false);
   const [districts, setDistricts] = useState<District[]>([]);
   const [results, setResults] = useState<Listing[]>([]);
+  const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
 
   const [filters, setFilters] = useState({
     district: '',
@@ -29,10 +33,9 @@ export default function SearchPage() {
         district: filters.district || undefined,
         type: filters.type || undefined,
         maxPrice: filters.maxPrice,
-        limit: 50
+        limit: 100
       });
 
-      // Filter by area client-side if needed
       const filtered = filters.minArea > 0
         ? data.filter(item => item.area >= filters.minArea)
         : data;
@@ -63,16 +66,40 @@ export default function SearchPage() {
             Tìm Kiếm Mặt Bằng
           </h1>
           <p className="text-gray-400 text-lg">
-            Tìm kiếm và lọc theo nhu cầu. Dữ liệu real-time từ n8n Backend.
+            {results.length > 0 ? `Tìm thấy ${results.length} mặt bằng` : 'Tìm kiếm và lọc theo nhu cầu. Dữ liệu real-time từ n8n Backend.'}
           </p>
         </header>
 
         {/* Search Form */}
         <div className="glass-card rounded-2xl p-8 mb-10 border border-white/10">
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-white">
-            <Filter className="w-5 h-5 text-cyan-400" />
-            Bộ Lọc Tìm Kiếm
-          </h2>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-bold flex items-center gap-2 text-white">
+              <Filter className="w-5 h-5 text-cyan-400" />
+              Bộ Lọc Tìm Kiếm
+            </h2>
+
+            {/* View Toggle */}
+            {results.length > 0 && (
+              <div className="flex gap-2 bg-white/5 rounded-lg p-1">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`px-4 py-2 rounded-lg font-semibold transition-all flex items-center gap-2 ${viewMode === 'grid' ? 'bg-cyan-600 text-white' : 'text-gray-400 hover:text-white'
+                    }`}
+                >
+                  <Grid3X3 className="w-4 h-4" />
+                  Grid
+                </button>
+                <button
+                  onClick={() => setViewMode('map')}
+                  className={`px-4 py-2 rounded-lg font-semibold transition-all flex items-center gap-2 ${viewMode === 'map' ? 'bg-cyan-600 text-white' : 'text-gray-400 hover:text-white'
+                    }`}
+                >
+                  <MapIcon className="w-4 h-4" />
+                  Map
+                </button>
+              </div>
+            )}
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
             {/* District Filter */}
@@ -157,73 +184,88 @@ export default function SearchPage() {
 
         {/* Results */}
         {results.length > 0 ? (
-          <div>
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-white">
-                Tìm thấy <span className="text-cyan-400">{results.length}</span> mặt bằng
-              </h3>
-              <Link href="/map" className="text-sm text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
-                <MapPin className="w-4 h-4" />
-                Xem trên bản đồ
-              </Link>
-            </div>
-
+          viewMode === 'grid' ? (
+            // Grid View
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {results.map(listing => {
                 const priceLabel = getPriceLabel(listing);
                 return (
-                  <div key={listing.id} className="glass-card rounded-xl p-6 hover:bg-white/5 transition-all group border border-white/10">
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="flex-1">
-                        <h4 className="font-bold text-white mb-1 line-clamp-1">{listing.name}</h4>
-                        <p className="text-sm text-gray-400 flex items-center gap-1">
-                          <MapPin className="w-3 h-3" />
-                          {listing.district}
-                        </p>
-                      </div>
-                      <span className={`text-[10px] font-bold px-2 py-1 rounded-full border ${priceLabel.color}`}>
+                  <Link
+                    key={listing.id}
+                    href={`/listing/${listing.id}`}
+                    className="glass-card rounded-xl overflow-hidden hover:bg-white/10 transition-all group border border-white/10 hover:scale-[1.02] hover:shadow-xl hover:shadow-cyan-900/20"
+                  >
+                    {/* Image Thumbnail */}
+                    <div className="relative w-full h-48 bg-slate-800">
+                      {listing.images && listing.images.length > 0 ? (
+                        <Image
+                          src={listing.images[0]}
+                          alt={listing.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-600">
+                          <MapPin className="w-12 h-12" />
+                        </div>
+                      )}
+                      <span className={`absolute top-3 right-3 text-[10px] font-bold px-2 py-1 rounded-full border backdrop-blur-sm ${priceLabel.color}`}>
                         {priceLabel.text}
                       </span>
                     </div>
 
-                    <div className="space-y-2 mb-4">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">Giá thuê:</span>
-                        <span className="font-bold text-green-400">{listing.price} Tr/tháng</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">Diện tích:</span>
-                        <span className="text-white">{listing.area} m²</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">Mặt tiền:</span>
-                        <span className="text-white">{listing.frontage}m</span>
-                      </div>
-                    </div>
+                    {/* Card Content */}
+                    <div className="p-6">
+                      <h4 className="font-bold text-white mb-2 line-clamp-1 group-hover:text-cyan-400 transition-colors">{listing.name}</h4>
+                      <p className="text-sm text-gray-400 flex items-center gap-1 mb-4">
+                        <MapPin className="w-3 h-3" />
+                        {listing.district}
+                      </p>
 
-                    <div className="pt-4 border-t border-white/5 flex justify-between items-center">
-                      <div className="flex items-center gap-3 text-xs">
-                        <div className="flex items-center gap-1 text-purple-400">
-                          <TrendingUp className="w-3 h-3" />
-                          <span className="font-bold">{listing.ai?.potentialScore || 'N/A'}/100</span>
+                      <div className="space-y-2 mb-4">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-400">Giá thuê:</span>
+                          <span className="font-bold text-green-400">{listing.price} Tr/tháng</span>
                         </div>
-                        <div className="flex items-center gap-1 text-gray-500">
-                          <Eye className="w-3 h-3" />
-                          {listing.views}
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-400">Diện tích:</span>
+                          <span className="text-white">{listing.area} m²</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-400">Mặt tiền:</span>
+                          <span className="text-white">{listing.frontage}m</span>
                         </div>
                       </div>
-                      <button className="text-xs text-cyan-400 hover:text-cyan-300 font-bold">
-                        Chi tiết →
-                      </button>
+
+                      <div className="pt-4 border-t border-white/5 flex justify-between items-center">
+                        <div className="flex items-center gap-3 text-xs">
+                          <div className="flex items-center gap-1 text-purple-400">
+                            <TrendingUp className="w-3 h-3" />
+                            <span className="font-bold">{listing.ai?.potentialScore || 'N/A'}/100</span>
+                          </div>
+                          <div className="flex items-center gap-1 text-gray-500">
+                            <Eye className="w-3 h-3" />
+                            {listing.views}
+                          </div>
+                        </div>
+                        <span className="text-xs text-cyan-400 font-bold group-hover:underline">
+                          Chi tiết →
+                        </span>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
-          </div>
+          ) : (
+            // Map View
+            <div className="h-[700px] rounded-2xl overflow-hidden border border-white/10">
+              <RentalHeatmap listings={results} />
+            </div>
+          )
         ) : !loading && (
           <div className="text-center py-20">
-            <Home className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+            <Search className="w-16 h-16 text-gray-600 mx-auto mb-4" />
             <p className="text-gray-400 text-lg">
               Nhấn nút <span className="text-cyan-400 font-bold">"Tìm Kiếm Ngay"</span> để xem kết quả
             </p>
