@@ -4,32 +4,32 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search, MapPin, TrendingUp, Eye, Loader2, Filter, Grid3X3, Map as MapIcon } from 'lucide-react';
-import { fetchListings, fetchDistricts, Listing, District } from '@/lib/api';
+import { fetchListings, Listing } from '@/lib/api';
+import { PROVINCES, getDistrictsByProvince, getProvinceShortName } from '@/lib/districts';
 import dynamic from 'next/dynamic';
 
 const RentalHeatmap = dynamic(() => import('@/components/Map/RentalHeatmap'), { ssr: false });
 
 export default function SearchPage() {
   const [loading, setLoading] = useState(false);
-  const [districts, setDistricts] = useState<District[]>([]);
   const [results, setResults] = useState<Listing[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
 
   const [filters, setFilters] = useState({
+    province: '',
     district: '',
-    type: '' as '' | 'shophouse' | 'kiosk' | 'office' | 'retail',
-    maxPrice: 200,
+    type: '' as '' | 'shophouse' | 'kiosk' | 'office' | 'retail' | 'streetfront',
+    maxPrice: 2000,
     minArea: 0
   });
 
-  useEffect(() => {
-    fetchDistricts().then(data => setDistricts(data));
-  }, []);
+
 
   const handleSearch = async () => {
     setLoading(true);
     try {
       const data = await fetchListings({
+        province: filters.province || undefined,
         district: filters.district || undefined,
         type: filters.type || undefined,
         maxPrice: filters.maxPrice,
@@ -101,18 +101,36 @@ export default function SearchPage() {
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-6">
+            {/* Province Filter */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-400 mb-2">Thành Phố</label>
+              <select
+                value={filters.province}
+                onChange={e => setFilters({ ...filters, province: e.target.value, district: '' })}
+                className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white focus:border-cyan-500 outline-none transition-all cursor-pointer"
+              >
+                <option value="" className="bg-slate-900">Tất cả</option>
+                {PROVINCES.map(prov => (
+                  <option key={prov} value={prov} className="bg-slate-900">
+                    {getProvinceShortName(prov)}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             {/* District Filter */}
             <div>
               <label className="block text-sm font-semibold text-gray-400 mb-2">Quận / Huyện</label>
               <select
                 value={filters.district}
                 onChange={e => setFilters({ ...filters, district: e.target.value })}
-                className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white focus:border-cyan-500 outline-none transition-all cursor-pointer"
+                disabled={!filters.province}
+                className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white focus:border-cyan-500 outline-none transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <option value="" className="bg-slate-900">Tất cả khu vực</option>
-                {districts.map(d => (
-                  <option key={d.id} value={d.name} className="bg-slate-900">{d.name}</option>
+                <option value="" className="bg-slate-900">{filters.province ? 'Tất cả quận' : 'Chọn thành phố trước'}</option>
+                {filters.province && getDistrictsByProvince(filters.province).map(dist => (
+                  <option key={dist} value={dist} className="bg-slate-900">{dist}</option>
                 ))}
               </select>
             </div>
@@ -130,6 +148,7 @@ export default function SearchPage() {
                 <option value="kiosk" className="bg-slate-900">Kiosk</option>
                 <option value="office" className="bg-slate-900">Văn phòng</option>
                 <option value="retail" className="bg-slate-900">Cửa hàng</option>
+                <option value="streetfront" className="bg-slate-900">Mặt Tiền (Streetfront)</option>
               </select>
             </div>
 
@@ -141,8 +160,8 @@ export default function SearchPage() {
               <input
                 type="range"
                 min="10"
-                max="300"
-                step="10"
+                max="2000"
+                step="50"
                 value={filters.maxPrice}
                 onChange={e => setFilters({ ...filters, maxPrice: Number(e.target.value) })}
                 className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-cyan-500"
@@ -219,7 +238,7 @@ export default function SearchPage() {
                       <h4 className="font-bold text-white mb-2 line-clamp-1 group-hover:text-cyan-400 transition-colors">{listing.name}</h4>
                       <p className="text-sm text-gray-400 flex items-center gap-1 mb-4">
                         <MapPin className="w-3 h-3" />
-                        {listing.district}
+                        {listing.province ? `${getProvinceShortName(listing.province)} - ${listing.district}` : listing.district}
                       </p>
 
                       <div className="space-y-2 mb-4">

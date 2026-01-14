@@ -93,11 +93,17 @@ export default function ListingDetailPage() {
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6">
                 <div className="text-center p-4 bg-white/5 rounded-xl">
                   <div className="text-2xl font-black text-green-400">{listing.price} Tr</div>
                   <div className="text-xs text-gray-500 mt-1">Giá thuê / tháng</div>
                 </div>
+                {listing.rent_per_sqm_million && (
+                  <div className="text-center p-4 bg-white/5 rounded-xl">
+                    <div className="text-2xl font-black text-cyan-400">{listing.rent_per_sqm_million.toFixed(2)} Tr/m²</div>
+                    <div className="text-xs text-gray-500 mt-1">Giá thuê / m²</div>
+                  </div>
+                )}
                 <div className="text-center p-4 bg-white/5 rounded-xl">
                   <div className="text-2xl font-black text-white">{listing.area} m²</div>
                   <div className="text-xs text-gray-500 mt-1">Diện tích</div>
@@ -132,7 +138,7 @@ export default function ListingDetailPage() {
               <div className="mt-4 p-4 bg-white/5 rounded-lg">
                 <div className="text-sm text-gray-400">
                   Mức độ rủi ro: <span className={`font-bold ${listing.ai.riskLevel === 'low' ? 'text-green-400' :
-                      listing.ai.riskLevel === 'high' ? 'text-red-400' : 'text-yellow-400'
+                    listing.ai.riskLevel === 'high' ? 'text-red-400' : 'text-yellow-400'
                     }`}>{listing.ai.riskLevel === 'low' ? 'Thấp' : listing.ai.riskLevel === 'high' ? 'Cao' : 'Trung bình'}</span>
                 </div>
               </div>

@@ -10,17 +10,20 @@ const API_BASE = IS_SERVER
 export interface Listing {
   id: string;
   name: string;
+  province?: string; // Thành phố Hồ Chí Minh, Hà Nội, Đà Nẵng
   district: string;
-  type: 'shophouse' | 'kiosk' | 'office' | 'retail';
+  ward?: string;
+  address?: string;
+  type: 'shophouse' | 'kiosk' | 'office' | 'retail' | 'streetfront';
+  market_segment?: string;
   price: number;
+  rent_per_sqm_million?: number;
   area: number;
   frontage: number;
   floors: number;
   latitude: number;
   longitude: number;
   images?: string[];
-  address?: string;
-  ward?: string;
   amenities?: {
     schools: number;
     offices: number;
@@ -39,6 +42,7 @@ export interface Listing {
     priceLabel: 'cheap' | 'fair' | 'expensive';
   };
   views: number;
+  image_meta?: any;
 }
 
 export interface Stats {
@@ -59,6 +63,7 @@ export interface District {
 
 // Fetch danh sách mặt bằng
 export async function fetchListings(params?: {
+  province?: string;
   district?: string;
   type?: string;
   maxPrice?: number;
@@ -66,6 +71,7 @@ export async function fetchListings(params?: {
 }): Promise<Listing[]> {
   try {
     const query = new URLSearchParams();
+    if (params?.province) query.append('province', params.province);
     if (params?.district) query.append('district', params.district);
     if (params?.type) query.append('type', params.type);
     if (params?.maxPrice) query.append('maxPrice', String(params.maxPrice));
