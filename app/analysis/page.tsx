@@ -140,20 +140,38 @@ export default function AnalysisPage() {
               </form>
             </div>
 
-            <div className="glass-card rounded-2xl p-8 hover:bg-white/10 transition-colors group cursor-pointer">
+            <div className="glass-card rounded-2xl p-8 hover:bg-white/10 transition-colors group cursor-pointer relative overflow-hidden">
+              {/* Loading Overlay */}
+              {isScanning && (
+                <div className="absolute inset-0 bg-black/80 z-20 flex flex-col items-center justify-center text-center p-6">
+                  <Loader2 className="w-10 h-10 text-cyan-400 animate-spin mb-4" />
+                  <p className="text-white font-bold animate-pulse">Đang rà soát điều khoản pháp lý...</p>
+                </div>
+              )}
+
               <h2 className="text-xl font-bold mb-4 flex items-center gap-3 text-white">
                 <FileText className="w-6 h-6 text-blue-400" />
                 Trợ Lý Pháp Lý AI
               </h2>
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <p className="text-sm text-gray-400 mb-2">Tải lên bản thảo hợp đồng. AI sẽ phát hiện điều khoản rủi ro ngay lập tức.</p>
-                  <span className="text-xs text-cyan-500 font-bold group-hover:underline">Bắt đầu Rà soát →</span>
+
+              {!legalResult ? (
+                <div className="flex items-center gap-4">
+                  <div className="flex-1">
+                    <p className="text-sm text-gray-400 mb-2">Tải lên bản thảo hợp đồng (PDF, DOC, TXT). AI sẽ phát hiện điều khoản rủi ro ngay lập tức.</p>
+                    <label className="text-xs text-cyan-500 font-bold group-hover:underline cursor-pointer">
+                      Bắt đầu Rà soát →
+                      <input type="file" className="hidden" accept=".pdf,.doc,.docx,.txt" onChange={handleLegalScan} />
+                    </label>
+                  </div>
+                  <label className="w-16 h-16 rounded-lg border-2 border-dashed border-white/20 flex items-center justify-center hover:border-cyan-500/50 transition-colors cursor-pointer">
+                    <span className="text-2xl text-gray-600 group-hover:text-cyan-500">+</span>
+                    <input type="file" className="hidden" accept=".pdf,.doc,.docx,.txt" onChange={handleLegalScan} />
+                  </label>
                 </div>
                 <div className="w-16 h-16 rounded-lg border-2 border-dashed border-white/20 flex items-center justify-center hover:border-cyan-500/50 transition-colors">
                   <span className="text-2xl text-gray-600 group-hover:text-cyan-500">+</span>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
