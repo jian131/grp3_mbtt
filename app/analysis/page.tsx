@@ -4,12 +4,14 @@ import { useState } from 'react';
 import ValuationCard from '@/components/Analysis/ValuationCard';
 import { Calculator, FileText, ArrowRight, Loader2 } from 'lucide-react';
 import { calculateROI, getValuation } from '@/lib/api';
+import { PROVINCES, getDistrictsByProvince, getProvinceShortName } from '@/lib/districts';
 
 export default function AnalysisPage() {
   const [loading, setLoading] = useState(false);
 
   // State for Valuation Form
   const [valForm, setValForm] = useState({
+    province: '',
     district: '',
     area: '',
     price: '',
@@ -30,13 +32,9 @@ export default function AnalysisPage() {
     setLoading(true);
     try {
       // 1. Get Valuation
-      // Simple parsing district from address string or default to Hoan Kiem for demo
-      const districtStr = valForm.district || 'Hoàn Kiếm';
-      const areaNum = Number(valForm.area) || 50;
-
       const valData = await getValuation({
-        district: districtStr,
-        area: areaNum,
+        district: valForm.district || 'Quận 1',
+        area: Number(valForm.area) || 50,
         frontage: 5,
         floors: 1,
         type: 'shophouse'
@@ -70,7 +68,7 @@ export default function AnalysisPage() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-20 px-8">
+    <div className="min-h-screen pt-24 pb-20 px-4 md:px-8">
       <div className="max-w-7xl mx-auto space-y-12">
         <header className="mb-8 relative">
           <div className="absolute top-0 left-0 w-20 h-20 bg-cyan-500/20 rounded-full blur-3xl"></div>
@@ -93,19 +91,38 @@ export default function AnalysisPage() {
                 Thông Số Mặt Bằng
               </h2>
               <form className="space-y-5">
+
+                {/* Province Selection */}
+                <div className="group">
+                  <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wider group-focus-within:text-cyan-400 transition-colors">Thành Phố</label>
+                  <select
+                    value={valForm.province}
+                    onChange={e => setValForm({ ...valForm, province: e.target.value, district: '' })}
+                    className="w-full bg-slate-800 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all cursor-pointer"
+                  >
+                    <option value="">Chọn thành phố...</option>
+                    {PROVINCES.map(p => (
+                      <option key={p} value={p}>{getProvinceShortName(p)}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* District Selection */}
                 <div className="group">
                   <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wider group-focus-within:text-cyan-400 transition-colors">Khu vực (Quận)</label>
                   <select
                     value={valForm.district}
                     onChange={e => setValForm({ ...valForm, district: e.target.value })}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all cursor-pointer"
+                    disabled={!valForm.province}
+                    className="w-full bg-slate-800 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all cursor-pointer disabled:opacity-50"
                   >
-                    <option value="" className="bg-slate-900">Chọn Quận...</option>
-                    {['Hoàn Kiếm', 'Ba Đình', 'Đống Đa', 'Hai Bà Trưng', 'Cầu Giấy', 'Tây Hồ'].map(d => (
-                      <option key={d} value={d} className="bg-slate-900">{d}</option>
+                    <option value="">{valForm.province ? 'Chọn Quận...' : 'Chọn TP trước'}</option>
+                    {valForm.province && getDistrictsByProvince(valForm.province).map(d => (
+                      <option key={d} value={d}>{d}</option>
                     ))}
                   </select>
                 </div>
+
                 <div className="grid grid-cols-2 gap-5">
                   <div className="group">
                     <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wider group-focus-within:text-cyan-400 transition-colors">Diện tích (m²)</label>
@@ -133,7 +150,7 @@ export default function AnalysisPage() {
                   type="button"
                   onClick={handleAnalysis}
                   disabled={loading}
-                  className="w-full mt-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 py-4 rounded-xl font-bold text-white shadow-lg shadow-cyan-900/40 transition-all hover:scale-[1.01] flex items-center justify-center gap-2"
+                  className="w-full mt-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 py-4 rounded-xl font-bold text-white shadow-lg shadow-cyan-900/40 transition-all hover:scale-[1.01] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? <Loader2 className="animate-spin" /> : <>Tạo Báo Cáo Phân Tích <ArrowRight className="w-5 h-5" /></>}
                 </button>

@@ -1,20 +1,20 @@
 'use client';
 
 import { TrendingUp, AlertTriangle, CheckCircle } from 'lucide-react';
-import { Listing } from '@/app/data/mockListings';
+import { Listing } from '@/lib/api';
 
 interface ValuationCardProps {
-  listing?: Listing;
+  listing?: Partial<Listing> & { price?: number; ai?: any };
 }
 
 export default function ValuationCard({ listing }: ValuationCardProps) {
   // Mock data fallback if no listing provided
-  const data = listing ? {
-    price: listing.price,
-    suggestedPrice: listing.ai.suggestedPrice,
-    growth: listing.ai.growthForecast,
+  const data = listing?.ai ? {
+    price: listing.price || 0,
+    suggestedPrice: listing.ai.suggestedPrice || 0,
+    growth: listing.ai.growthForecast || 5.0,
     label: listing.ai.priceLabel === 'cheap' ? 'Giá Rẻ' : listing.ai.priceLabel === 'fair' ? 'Giá Hợp Lý' : 'Giá Cao',
-    score: listing.ai.potentialScore
+    score: listing.ai.potentialScore || 0
   } : {
     price: 35,
     suggestedPrice: 32,
@@ -42,8 +42,8 @@ export default function ValuationCard({ listing }: ValuationCardProps) {
           <p className="text-sm text-gray-400">JFinder Estimation</p>
         </div>
         <div className={`px-4 py-1.5 rounded-full text-xs font-bold border tracking-wide uppercase ${data.label === 'Giá Rẻ' ? 'bg-green-500/10 text-green-400 border-green-500/20' :
-            data.label === 'Giá Cao' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
-              'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
+          data.label === 'Giá Cao' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
+            'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
           }`}>
           {data.label}
         </div>

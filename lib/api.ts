@@ -68,12 +68,18 @@ export async function fetchListings(params?: {
   type?: string;
   maxPrice?: number;
   limit?: number;
+  area?: number;
+  frontage?: number;
+  floors?: number;
 }): Promise<Listing[]> {
   try {
     const query = new URLSearchParams();
-    if (params?.province) query.append('province', params.province);
-    if (params?.district) query.append('district', params.district);
-    if (params?.type) query.append('type', params.type);
+    if (params?.province && params.province !== '') query.append('province', params.province);
+    if (params?.district && params.district !== '') query.append('district', params.district);
+    if (params?.area) query.append('area', String(params.area));
+    if (params?.frontage) query.append('frontage', String(params.frontage));
+    if (params?.floors) query.append('floors', String(params.floors));
+    if (params?.type && params.type !== '') query.append('type', params.type);
     if (params?.maxPrice) query.append('maxPrice', String(params.maxPrice));
     if (params?.limit) query.append('limit', String(params.limit));
 

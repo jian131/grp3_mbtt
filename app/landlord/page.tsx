@@ -3,12 +3,14 @@
 import { useState, useEffect } from 'react';
 import { DollarSign, Users, Eye, ArrowUpRight, Loader2 } from 'lucide-react';
 import { getValuation, fetchStats } from '@/lib/api';
+import { PROVINCES, getDistrictsByProvince, getProvinceShortName } from '@/lib/districts';
 
 export default function LandlordPage() {
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState<any>({ totalViews: 12500, total: 1000, avgPrice: 67.5 });
   const [formData, setFormData] = useState({
-    address: 'Cầu Giấy',
+    province: '',
+    district: '',
     area: 80,
     frontage: 5,
     floors: 2,
@@ -25,18 +27,8 @@ export default function LandlordPage() {
   const handleValuation = async () => {
     setLoading(true);
     try {
-      // Giả lập lấy quận từ địa chỉ (trong thực tế sẽ dùng Google Maps API)
-      const districtMap: Record<string, string> = {
-        'Cầu Giấy': 'Cầu Giấy', 'Hoàn Kiếm': 'Hoàn Kiếm', 'Ba Đình': 'Ba Đình',
-        'Đống Đa': 'Đống Đa', 'Tây Hồ': 'Tây Hồ', 'Thanh Xuân': 'Thanh Xuân',
-        'Hai Bà Trưng': 'Hai Bà Trưng', 'Hoàng Mai': 'Hoàng Mai', 'Long Biên': 'Long Biên',
-        'Nam Từ Liêm': 'Nam Từ Liêm', 'Bắc Từ Liêm': 'Bắc Từ Liêm', 'Hà Đông': 'Hà Đông'
-      };
-
-      const district = Object.keys(districtMap).find(d => formData.address.includes(d)) || 'Cầu Giấy';
-
       const data = await getValuation({
-        district,
+        district: formData.district || 'Quận 1', // Fallback
         area: formData.area,
         frontage: formData.frontage,
         floors: formData.floors,
@@ -96,43 +88,68 @@ export default function LandlordPage() {
 
             <div className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                {/* Province Selection */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-400 mb-2">Khu vực (Quận)</label>
+                  <label className="block text-sm font-semibold text-gray-400 mb-2">Thành Phố</label>
                   <select
-                    value={formData.address}
-                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="w-full bg-white/5 border-b border-white/10 focus:border-cyan-500 p-3 text-white outline-none transition-all cursor-pointer"
+                    value={formData.province}
+                    onChange={e => setFormData({ ...formData, province: e.target.value, district: '' })}
+                    className="w-full bg-slate-800 border border-white/10 rounded-xl p-3 text-white focus:border-cyan-500 outline-none transition-all cursor-pointer"
                   >
-                    {['Cầu Giấy', 'Hoàn Kiếm', 'Ba Đình', 'Đống Đa', 'Tây Hồ', 'Thanh Xuân', 'Hai Bà Trưng', 'Hoàng Mai', 'Long Biên', 'Nam Từ Liêm', 'Hà Đông'].map(d => (
-                      <option key={d} value={d} className="bg-slate-900">{d}</option>
+                    <option value="">Chọn thành phố</option>
+                    {PROVINCES.map(p => (
+                      <option key={p} value={p}>{getProvinceShortName(p)}</option>
                     ))}
                   </select>
                 </div>
+
+                {/* District Selection */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-400 mb-2">Quận / Huyện</label>
+                  <select
+                    value={formData.district}
+                    onChange={e => setFormData({ ...formData, district: e.target.value })}
+                    disabled={!formData.province}
+                    className="w-full bg-slate-800 border border-white/10 rounded-xl p-3 text-white focus:border-cyan-500 outline-none disabled:opacity-50 transition-all cursor-pointer"
+                  >
+                    <option value="">{formData.province ? 'Chọn quận' : 'Vui lòng chọn TP trước'}</option>
+                    {formData.province && getDistrictsByProvince(formData.province).map(d => (
+                      <option key={d} value={d}>{d}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Area Input */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-400 mb-2">Diện Tích (m²)</label>
                   <input
                     type="number"
                     value={formData.area}
                     onChange={(e) => setFormData({ ...formData, area: Number(e.target.value) })}
-                    className="w-full bg-white/5 border-b border-white/10 focus:border-cyan-500 p-3 text-white outline-none transition-all"
+                    className="w-full bg-slate-800 border border-white/10 rounded-xl p-3 text-white focus:border-cyan-500 outline-none transition-all"
                   />
                 </div>
+
+                {/* Frontage Input */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-400 mb-2">Mặt Tiền (m)</label>
                   <input
                     type="number"
                     value={formData.frontage}
                     onChange={(e) => setFormData({ ...formData, frontage: Number(e.target.value) })}
-                    className="w-full bg-white/5 border-b border-white/10 focus:border-cyan-500 p-3 text-white outline-none transition-all"
+                    className="w-full bg-slate-800 border border-white/10 rounded-xl p-3 text-white focus:border-cyan-500 outline-none transition-all"
                   />
                 </div>
-                <div>
+
+                {/* Floors Input */}
+                <div className="md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-400 mb-2">Số Tầng</label>
                   <input
                     type="number"
                     value={formData.floors}
                     onChange={(e) => setFormData({ ...formData, floors: Number(e.target.value) })}
-                    className="w-full bg-white/5 border-b border-white/10 focus:border-cyan-500 p-3 text-white outline-none transition-all"
+                    className="w-full bg-slate-800 border border-white/10 rounded-xl p-3 text-white focus:border-cyan-500 outline-none transition-all"
                   />
                 </div>
               </div>
