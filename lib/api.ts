@@ -1,7 +1,11 @@
 // API Configuration & Helper Functions
 // Kết nối Frontend với n8n Backend
 
-const API_BASE = 'http://localhost:5678/webhook';
+// Xác định API Base dựa trên môi trường chạy (Client hay Server)
+const IS_SERVER = typeof window === 'undefined';
+const API_BASE = IS_SERVER
+  ? 'http://localhost:5678/webhook'  // Server-side: Gọi trực tiếp Docker container/Localhost
+  : '/api/n8n';                      // Client-side: Gọi qua Next.js Proxy để tránh CORS
 
 export interface Listing {
   id: string;
@@ -14,6 +18,20 @@ export interface Listing {
   floors: number;
   latitude: number;
   longitude: number;
+  images?: string[];
+  address?: string;
+  ward?: string;
+  amenities?: {
+    schools: number;
+    offices: number;
+    competitors: number;
+  };
+  owner?: {
+    name: string;
+    phone: string;
+  };
+  postedAt?: string;
+  savedCount?: number;
   ai: {
     potentialScore: number;
     suggestedPrice: number;
@@ -126,6 +144,21 @@ export async function calculateROI(data: {
     return json.analysis || null;
   } catch (error) {
     console.error('API Error (roi):', error);
+    return null;
+  }
+}
+
+// Fetch chi tiết mặt bằng theo ID
+export async function fetchListingById(id: string): Promise<Listing | null> {
+  try {
+    const res = await fetch(`${API_BASE}/listings?id=${id}&limit=1`);
+    const json = await res.json();
+    if (json.success && json.data && json.data.length > 0) {
+      return json.data[0];
+    }
+    return null;
+  } catch (error) {
+    console.error('API Error (fetchListingById):', error);
     return null;
   }
 }

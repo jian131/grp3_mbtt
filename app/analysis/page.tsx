@@ -137,13 +137,11 @@ export default function AnalysisPage() {
               </h2>
               <form className="space-y-5">
                 <div className="group">
-                  <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wider group-focus-within:text-cyan-400 transition-colors">Địa chỉ / Khu vực</label>
                   <select
                     value={valForm.district}
                     onChange={e => setValForm({ ...valForm, district: e.target.value })}
                     className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all cursor-pointer"
                   >
-                    <option value="" className="bg-slate-900">Chọn Khu vực...</option>
                     {['Hoàn Kiếm', 'Ba Đình', 'Đống Đa', 'Hai Bà Trưng', 'Cầu Giấy', 'Tây Hồ'].map(d => (
                       <option key={d} value={d} className="bg-slate-900">{d}</option>
                     ))}
@@ -277,6 +275,7 @@ export default function AnalysisPage() {
               ai: valuationResult
             } : undefined} />
 
+            {/* ROI Calculator */}
             <div className="glass-card rounded-2xl p-8 border border-white/10">
               <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-gradient-to-b from-cyan-400 to-blue-600 rounded-full"></span>
