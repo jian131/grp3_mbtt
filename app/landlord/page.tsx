@@ -61,7 +61,7 @@ export default function LandlordPage() {
           <h1 className="text-3xl md:text-5xl font-black text-white mb-2">
             Tối Đa Hóa Giá Trị Tài Sản
           </h1>
-          <p className="text-gray-400">Định giá & quản lý thông minh với Dữ liệu JFinder.</p>
+          <p className="text-gray-400">Định giá & quản lý thông minh với Dữ liệu JFinder</p>
         </header>
 
         {/* Dashboard KPIs */}
@@ -91,7 +91,6 @@ export default function LandlordPage() {
               <span className="p-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg text-white shadow-lg shadow-cyan-500/20">
                 <DollarSign className="w-5 h-5" />
               </span>
-              Công Cụ Định Giá Thông Minh (AI Valuation)
             </h2>
 
             <div className="space-y-8">

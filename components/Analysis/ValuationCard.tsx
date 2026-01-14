@@ -9,9 +9,6 @@ interface ValuationCardProps {
 }
 
 export default function ValuationCard({ listing }: ValuationCardProps) {
-  const [showDetail, setShowDetail] = useState(false);
-
-  // Mock data fallback if no listing provided
   const data = listing ? {
     price: listing.price,
     suggestedPrice: listing.ai.suggestedPrice,
@@ -94,11 +91,6 @@ export default function ValuationCard({ listing }: ValuationCardProps) {
         </div>
       </div>
 
-      <button
-        onClick={() => setShowDetail(true)}
-        className="w-full mt-6 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 py-3 rounded-xl text-white text-sm font-bold shadow-lg shadow-cyan-900/20 transition-all hover:scale-[1.02]"
-      >
-        Xem Báo Cáo Chi Tiết
       </button>
 
       {/* Detail Modal */}
