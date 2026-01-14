@@ -1,0 +1,129 @@
+{
+  "name": "Import Vietnam Listings",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start-1",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "filePath": "/data_input/listings.json",
+        "options": {}
+      },
+      "id": "read-1",
+      "name": "Read JSON File",
+      "type": "n8n-nodes-base.readBinaryFiles",
+      "typeVersion": 1,
+      "position": [
+        460,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "jsonToBinary",
+        "options": {}
+      },
+      "id": "convert-1",
+      "name": "Extract JSON",
+      "type": "n8n-nodes-base.moveBinaryData",
+      "typeVersion": 1.1,
+      "position": [
+        680,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse and transform data for PostgreSQL\nconst items = [];\nfor (const item of $input.all()) {\n  const data = item.json;\n  \n  // Handle array or object\n  const records = Array.isArray(data) ? data : [data];\n  \n  for (const record of records) {\n    items.push({\n      json: {\n        title: record.title || '',\n        city: record.city || '',\n        district: record.district || '',\n        ward: record.ward || '',\n        price_million: (record.rent_vnd_month || 0) / 1000000,\n        area_m2: record.area_m2 || 0,\n        rent_per_sqm_million: (record.rent_vnd_m2 || 0) / 1000000,\n        lat: record.lat || 0,\n        lon: record.lon || 0,\n        type: record.type || '',\n        image_url: record.image_url || '',\n        raw_data: JSON.stringify(record)\n      }\n    });\n  }\n}\n\nreturn items;"
+      },
+      "id": "transform-1",
+      "name": "Transform Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "schema": "public",
+        "table": "listings",
+        "columns": "title, city, district, ward, price_million, area_m2, rent_per_sqm_million, lat, lon, type, image_url, raw_data",
+        "options": {}
+      },
+      "id": "postgres-1",
+      "name": "Insert to PostgreSQL",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1120,
+        320
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read JSON File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read JSON File": {
+      "main": [
+        [
+          {
+            "node": "Extract JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract JSON": {
+      "main": [
+        [
+          {
+            "node": "Transform Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transform Data": {
+      "main": [
+        [
+          {
+            "node": "Insert to PostgreSQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

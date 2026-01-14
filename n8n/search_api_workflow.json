@@ -1,0 +1,85 @@
+{
+  "name": "API - Search Listings",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "search",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-1",
+      "name": "Search Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        320
+      ],
+      "webhookId": "search-listings"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id, title, city, district, ward, price_million, area_m2, rent_per_sqm_million, lat, lon, type, image_url FROM listings WHERE 1=1 {{ $json.query.city ? \"AND city ILIKE '%\" + $json.query.city + \"%'\" : '' }} {{ $json.query.district ? \"AND district ILIKE '%\" + $json.query.district + \"%'\" : '' }} {{ $json.query.maxPrice ? 'AND price_million <= ' + $json.query.maxPrice : '' }} {{ $json.query.minArea ? 'AND area_m2 >= ' + $json.query.minArea : '' }} ORDER BY price_million LIMIT {{ $json.query.limit || 50 }}",
+        "options": {}
+      },
+      "id": "postgres-1",
+      "name": "Query Listings",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        500,
+        320
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, data: $input.all().map(i => i.json), count: $input.all().length } }}",
+        "options": {}
+      },
+      "id": "respond-1",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        760,
+        320
+      ]
+    }
+  ],
+  "connections": {
+    "Search Webhook": {
+      "main": [
+        [
+          {
+            "node": "Query Listings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Listings": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

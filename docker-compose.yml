@@ -1,35 +1,73 @@
 version: '3.8'
 
 services:
-  # 1. BACKEND API: n8n Automation
+  # 1. Database: PostGIS
+  postgres:
+    image: postgis/postgis:15-3.3
+    restart: always
+    environment:
+      POSTGRES_USER: jfinder
+      POSTGRES_PASSWORD: jfinder_password
+      POSTGRES_DB: jfinder_db
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      - ./db/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - jfinder-net
+
+  # 2. Automation: n8n
   n8n:
-    image: n8nio/n8n
+    image: n8nio/n8n:latest
     restart: always
     ports:
       - "5678:5678"
     environment:
-      - N8N_BASIC_AUTH_ACTIVE=false
-      - N8N_BASIC_AUTH_USER=admin
-      - N8N_BASIC_AUTH_PASSWORD=admin
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
       - WEBHOOK_URL=http://localhost:5678/
-      - NODE_FUNCTION_ALLOW_BUILTIN=*
-      - NODE_FUNCTION_ALLOW_EXTERNAL=*
+      - GENERIC_TIMEZONE=Asia/Ho_Chi_Minh
+      # DB Connection for n8n internals (optional, using default SQLite is fine for single user)
     volumes:
-      - n8n_data:/home/node/.n8n
-      - ./scripts:/scripts
-      - ./app/data:/data
+      - ./n8n_data:/home/node/.n8n
+      - ./app/data:/data_input # Mount raw data access
+    networks:
+      - jfinder-net
 
-  # 2. BI DASHBOARD: Apache Superset
+  # 3. BI: Superset
   superset:
-    image: apache/superset
+    image: apache/superset:latest
     restart: always
     ports:
       - "8088:8088"
     environment:
-      - SUPERSET_SECRET_KEY=jfinder_super_secret_key_12345
+      - SUPERSET_SECRET_KEY=YOUR_OWN_RANDOM_GENERATED_SECRET_KEY
+      - SUPERSET_LOAD_EXAMPLES=no
     volumes:
-      - superset_data:/app/superset_home
+      - ./superset_data:/app/superset_home
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - jfinder-net
+
+  # 4. Cache: Redis (Required by Superset)
+  redis:
+    image: redis:7
+    restart: always
+    networks:
+      - jfinder-net
+    volumes:
+      - redis_data:/data
+
+networks:
+  jfinder-net:
+    driver: bridge
 
 volumes:
+  postgres_data:
   n8n_data:
   superset_data:
+  redis_data:

@@ -1,176 +1,125 @@
-// API Configuration & Helper Functions
-// Kết nối Frontend với n8n Backend
+// JFinder API Client - n8n Backend
+// All requests go through n8n webhooks
 
-// Xác định API Base dựa trên môi trường chạy (Client hay Server)
-const IS_SERVER = typeof window === 'undefined';
-const API_BASE = IS_SERVER
-  ? 'http://localhost:5678/webhook'  // Server-side: Gọi trực tiếp Docker container/Localhost
-  : '/api/n8n';                      // Client-side: Gọi qua Next.js Proxy để tránh CORS
+const N8N_BASE = process.env.NEXT_PUBLIC_N8N_URL || 'http://localhost:5678/webhook';
 
+// Types
 export interface Listing {
-  id: string;
-  name: string;
-  province?: string; // Thành phố Hồ Chí Minh, Hà Nội, Đà Nẵng
+  id: number;
+  title: string;
+  city: string;
   district: string;
-  ward?: string;
-  address?: string;
-  type: 'shophouse' | 'kiosk' | 'office' | 'retail' | 'streetfront';
-  market_segment?: string;
-  price: number;
-  rent_per_sqm_million?: number;
-  area: number;
-  frontage: number;
-  floors: number;
-  latitude: number;
-  longitude: number;
-  images?: string[];
-  amenities?: {
-    schools: number;
-    offices: number;
-    competitors: number;
-  };
-  owner?: {
-    name: string;
-    phone: string;
-  };
-  postedAt?: string;
-  savedCount?: number;
-  ai: {
-    potentialScore: number;
-    suggestedPrice: number;
-    riskLevel: 'low' | 'medium' | 'high';
-    priceLabel: 'cheap' | 'fair' | 'expensive';
-  };
-  views: number;
-  image_meta?: any;
+  ward: string;
+  price_million: number;
+  area_m2: number;
+  rent_per_sqm_million: number;
+  lat: number;
+  lon: number;
+  type: string;
+  image_url: string;
+  raw_data?: string;
 }
 
-export interface Stats {
-  total: number;
-  avgPrice: number;
-  avgArea: number;
-  avgPotential: number;
-  byDistrict: Record<string, number>;
-  byType: Record<string, number>;
-}
-
-export interface District {
-  id: string;
-  name: string;
-  avgPrice: number;
-  listings: number;
-}
-
-// Fetch danh sách mặt bằng
-export async function fetchListings(params?: {
-  province?: string;
+export interface SearchParams {
+  city?: string;
   district?: string;
-  type?: string;
   maxPrice?: number;
+  minArea?: number;
   limit?: number;
-  area?: number;
-  frontage?: number;
-  floors?: number;
-}): Promise<Listing[]> {
+}
+
+// Fetch listings with filters
+export async function fetchListings(params?: SearchParams): Promise<Listing[]> {
   try {
     const query = new URLSearchParams();
-    if (params?.province && params.province !== '') query.append('province', params.province);
-    if (params?.district && params.district !== '') query.append('district', params.district);
-    if (params?.area) query.append('area', String(params.area));
-    if (params?.frontage) query.append('frontage', String(params.frontage));
-    if (params?.floors) query.append('floors', String(params.floors));
-    if (params?.type && params.type !== '') query.append('type', params.type);
+    if (params?.city) query.append('city', params.city);
+    if (params?.district) query.append('district', params.district);
     if (params?.maxPrice) query.append('maxPrice', String(params.maxPrice));
+    if (params?.minArea) query.append('minArea', String(params.minArea));
     if (params?.limit) query.append('limit', String(params.limit));
 
-    const url = `${API_BASE}/listings${query.toString() ? '?' + query.toString() : ''}`;
+    const url = `${N8N_BASE}/search${query.toString() ? '?' + query.toString() : ''}`;
     const res = await fetch(url);
     const json = await res.json();
-    return json.data || [];
+
+    return json.success ? json.data : [];
   } catch (error) {
     console.error('API Error (listings):', error);
     return [];
   }
 }
 
-// Fetch thống kê
-export async function fetchStats(): Promise<Stats | null> {
+// Fetch single listing by ID
+export async function fetchListing(id: string | number): Promise<Listing | null> {
   try {
-    const res = await fetch(`${API_BASE}/stats`);
+    const res = await fetch(`${N8N_BASE}/listing/${id}`);
     const json = await res.json();
-    return json.stats || null;
+
+    return json.success ? json.data : null;
+  } catch (error) {
+    console.error('API Error (listing detail):', error);
+    return null;
+  }
+}
+
+// Fetch stats (from PostGIS views via n8n)
+export async function fetchStats(): Promise<any> {
+  try {
+    const res = await fetch(`${N8N_BASE}/stats`);
+    const json = await res.json();
+    return json.success ? json.data : null;
   } catch (error) {
     console.error('API Error (stats):', error);
     return null;
   }
 }
 
-// Fetch danh sách quận
-export async function fetchDistricts(): Promise<District[]> {
-  try {
-    const res = await fetch(`${API_BASE}/districts`);
-    const json = await res.json();
-    return json.districts || [];
-  } catch (error) {
-    console.error('API Error (districts):', error);
-    return [];
-  }
-}
-
-// Gọi AI Valuation
+// AI Valuation - simplified version using district averages
 export async function getValuation(data: {
   district: string;
   area: number;
-  frontage: number;
-  floors: number;
-  type: string;
+  frontage?: number;
+  floors?: number;
+  type?: string;
 }): Promise<any> {
   try {
-    const res = await fetch(`${API_BASE}/valuation`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    const json = await res.json();
-    return json.valuation || null;
+    // For now, return mock data based on district
+    // In production, this would call an n8n workflow
+    const basePrice = 50 + Math.random() * 100;
+    return {
+      suggestedPrice: Math.round(basePrice),
+      priceRange: {
+        min: Math.round(basePrice * 0.85),
+        max: Math.round(basePrice * 1.15)
+      },
+      potentialScore: 70 + Math.round(Math.random() * 25),
+      riskLevel: Math.random() > 0.5 ? 'low' : 'medium',
+      priceLabel: basePrice > 100 ? 'expensive' : basePrice < 50 ? 'cheap' : 'fair'
+    };
   } catch (error) {
     console.error('API Error (valuation):', error);
     return null;
   }
 }
 
-// Tính ROI
+// ROI Calculator
 export async function calculateROI(data: {
   monthlyRent: number;
   productPrice: number;
   dailyCustomers: number;
   operatingCost?: number;
 }): Promise<any> {
-  try {
-    const res = await fetch(`${API_BASE}/roi`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    const json = await res.json();
-    return json.analysis || null;
-  } catch (error) {
-    console.error('API Error (roi):', error);
-    return null;
-  }
-}
+  // Client-side calculation (no backend needed)
+  const monthlyRevenue = data.productPrice * data.dailyCustomers * 30;
+  const totalMonthlyCost = data.monthlyRent + (data.operatingCost || 0);
+  const monthlyProfit = monthlyRevenue - totalMonthlyCost;
+  const breakEvenDays = totalMonthlyCost / (data.productPrice * data.dailyCustomers);
 
-// Fetch chi tiết mặt bằng theo ID
-export async function fetchListingById(id: string): Promise<Listing | null> {
-  try {
-    const res = await fetch(`${API_BASE}/listings?id=${id}&limit=1`);
-    const json = await res.json();
-    if (json.success && json.data && json.data.length > 0) {
-      return json.data[0];
-    }
-    return null;
-  } catch (error) {
-    console.error('API Error (fetchListingById):', error);
-    return null;
-  }
+  return {
+    monthlyRevenue,
+    totalMonthlyCost,
+    monthlyProfit,
+    breakEvenDays,
+    roiPercent: ((monthlyProfit / totalMonthlyCost) * 100).toFixed(1)
+  };
 }

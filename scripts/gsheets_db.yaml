@@ -1,5 +1,0 @@
-databases:
-- database_name: "Google Sheets"
-  sqlalchemy_uri: "gsheets://"
-  extra: "{\"metadata_params\": {}, \"engine_params\": {}, \"schemas_allowed_for_file_upload\": []}"
-  allow_file_upload: true

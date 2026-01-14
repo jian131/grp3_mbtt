@@ -1,0 +1,85 @@
+{
+  "name": "API - Listing Detail",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "listing/:id",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-1",
+      "name": "Detail Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        320
+      ],
+      "webhookId": "listing-detail"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM listings WHERE id = {{ $json.params.id }}",
+        "options": {}
+      },
+      "id": "postgres-1",
+      "name": "Get Listing",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        500,
+        320
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $input.all().length > 0 ? { success: true, data: $input.all()[0].json } : { success: false, error: 'Not found' } }}",
+        "options": {}
+      },
+      "id": "respond-1",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        760,
+        320
+      ]
+    }
+  ],
+  "connections": {
+    "Detail Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get Listing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Listing": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
