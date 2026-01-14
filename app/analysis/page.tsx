@@ -4,6 +4,69 @@ import ValuationCard from '@/components/Analysis/ValuationCard';
 import { Calculator, FileText, ArrowRight } from 'lucide-react';
 
 export default function AnalysisPage() {
+  const [loading, setLoading] = useState(false);
+
+  // State for Valuation Form
+  const [valForm, setValForm] = useState({
+    district: '',
+    area: '',
+    price: '',
+    type: 'F&B / Cà phê'
+  });
+  const [valuationResult, setValuationResult] = useState<any>(null);
+
+  // State for ROI Calculator
+  const [roiForm, setRoiForm] = useState({
+    rent: 40000000,
+    productPrice: 35000,
+    customers: 120,
+    cost: 15000000
+  });
+  const [roiResult, setRoiResult] = useState<any>(null);
+
+  const handleAnalysis = async () => {
+    setLoading(true);
+    try {
+      // 1. Get Valuation
+      // Simple parsing district from address string or default to Hoan Kiem for demo
+      const districtStr = valForm.district || 'Hoàn Kiếm';
+      const areaNum = Number(valForm.area) || 50;
+
+      const valData = await getValuation({
+        district: districtStr,
+        area: areaNum,
+        frontage: 5,
+        floors: 1,
+        type: 'shophouse'
+      });
+      setValuationResult(valData);
+
+      // 2. Calculate ROI (Initial calculation based on form defaults)
+      const roiData = await calculateROI({
+        monthlyRent: Number(valForm.price) * 1000000 || roiForm.rent,
+        productPrice: roiForm.productPrice,
+        dailyCustomers: roiForm.customers,
+        operatingCost: roiForm.cost
+      });
+      setRoiResult(roiData);
+
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateROI = async () => {
+    const data = await calculateROI({
+      monthlyRent: Number(valForm.price) * 1000000 || roiForm.rent,
+      productPrice: roiForm.productPrice,
+      dailyCustomers: roiForm.customers,
+      operatingCost: roiForm.cost
+    });
+    setRoiResult(data);
+  };
+
   return (
     <div className="min-h-screen pt-24 pb-20 px-8">
       <div className="max-w-7xl mx-auto space-y-12">
@@ -39,42 +102,59 @@ export default function AnalysisPage() {
                   </div>
                   <div className="group">
                     <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wider group-focus-within:text-cyan-400 transition-colors">Giá thuê (Tr.VNĐ)</label>
-                    <input type="number" placeholder="25" className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all" />
+                    <input
+                      type="number"
+                      value={valForm.price}
+                      onChange={e => setValForm({ ...valForm, price: e.target.value })}
+                      placeholder="25"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all"
+                    />
                   </div>
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wider">Loại hình kinh doanh</label>
-                  <div className="grid grid-cols-2 gap-3">
-                    {['F&B / Cà phê', 'Bán lẻ / Thời trang', 'Văn phòng', 'Showroom'].map(type => (
-                      <label key={type} className="cursor-pointer">
-                        <input type="radio" name="bizType" className="peer sr-only" />
-                        <div className="text-center p-3 rounded-xl bg-white/5 border border-white/10 text-sm text-gray-400 peer-checked:bg-cyan-600/20 peer-checked:border-cyan-500 peer-checked:text-cyan-300 hover:bg-white/10 transition-all">
-                          {type}
-                        </div>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-                <button type="button" className="w-full mt-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 py-4 rounded-xl font-bold text-white shadow-lg shadow-cyan-900/40 transition-all hover:scale-[1.01] flex items-center justify-center gap-2">
-                  Tạo Báo Cáo Phân Tích <ArrowRight className="w-5 h-5" />
+
+                <button
+                  type="button"
+                  onClick={handleAnalysis}
+                  disabled={loading}
+                  className="w-full mt-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 py-4 rounded-xl font-bold text-white shadow-lg shadow-cyan-900/40 transition-all hover:scale-[1.01] flex items-center justify-center gap-2"
+                >
+                  {loading ? <Loader2 className="animate-spin" /> : <>Tạo Báo Cáo Phân Tích <ArrowRight className="w-5 h-5" /></>}
                 </button>
               </form>
             </div>
 
-            <div className="glass-card rounded-2xl p-8 hover:bg-white/10 transition-colors group cursor-pointer">
+            <div className="glass-card rounded-2xl p-8 hover:bg-white/10 transition-colors group cursor-pointer relative overflow-hidden">
+              {/* Loading Overlay */}
+              {isScanning && (
+                <div className="absolute inset-0 bg-black/80 z-20 flex flex-col items-center justify-center text-center p-6">
+                  <Loader2 className="w-10 h-10 text-cyan-400 animate-spin mb-4" />
+                  <p className="text-white font-bold animate-pulse">Đang rà soát điều khoản pháp lý...</p>
+                </div>
+              )}
+
               <h2 className="text-xl font-bold mb-4 flex items-center gap-3 text-white">
                 <FileText className="w-6 h-6 text-blue-400" />
                 Trợ Lý Pháp Lý AI
               </h2>
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <p className="text-sm text-gray-400 mb-2">Tải lên bản thảo hợp đồng. AI sẽ phát hiện điều khoản rủi ro ngay lập tức.</p>
-                  <span className="text-xs text-cyan-500 font-bold group-hover:underline">Bắt đầu Rà soát →</span>
+
+              {!legalResult ? (
+                <div className="flex items-center gap-4">
+                  <div className="flex-1">
+                    <p className="text-sm text-gray-400 mb-2">Tải lên bản thảo hợp đồng (PDF, DOC, TXT). AI sẽ phát hiện điều khoản rủi ro ngay lập tức.</p>
+                    <label className="text-xs text-cyan-500 font-bold group-hover:underline cursor-pointer">
+                      Bắt đầu Rà soát →
+                      <input type="file" className="hidden" accept=".pdf,.doc,.docx,.txt" onChange={handleLegalScan} />
+                    </label>
+                  </div>
+                  <label className="w-16 h-16 rounded-lg border-2 border-dashed border-white/20 flex items-center justify-center hover:border-cyan-500/50 transition-colors cursor-pointer">
+                    <span className="text-2xl text-gray-600 group-hover:text-cyan-500">+</span>
+                    <input type="file" className="hidden" accept=".pdf,.doc,.docx,.txt" onChange={handleLegalScan} />
+                  </label>
                 </div>
-                <div className="w-16 h-16 rounded-lg border-2 border-dashed border-white/20 flex items-center justify-center">
-                  <span className="text-2xl text-gray-600">+</span>
+                <div className="w-16 h-16 rounded-lg border-2 border-dashed border-white/20 flex items-center justify-center hover:border-cyan-500/50 transition-colors">
+                  <span className="text-2xl text-gray-600 group-hover:text-cyan-500">+</span>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
