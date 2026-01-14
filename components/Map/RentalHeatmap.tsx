@@ -17,6 +17,7 @@ interface Props {
   filterDistrict?: string;
   filterType?: Listing['type'];
   filterPriceMax?: number;
+  listings?: Listing[]; // Nhận listings từ parent nếu có
 }
 
 const getPriceColor = (price: number): string => {
@@ -33,7 +34,7 @@ const getPotentialColor = (score: number): string => {
   return '#a78bfa';
 };
 
-export default function RentalHeatmap({ filterDistrict, filterType, filterPriceMax }: Props) {
+export default function RentalHeatmap({ filterDistrict, filterType, filterPriceMax, listings: externalListings }: Props) {
   const [isClient, setIsClient] = useState(false);
   const [mode, setMode] = useState<HeatmapMode>('price');
   const [listings, setListings] = useState<Listing[]>([]);
@@ -41,17 +42,30 @@ export default function RentalHeatmap({ filterDistrict, filterType, filterPriceM
 
   useEffect(() => {
     setIsClient(true);
-    // Fetch data từ n8n API
-    fetchListings({
-      district: filterDistrict,
-      type: filterType,
-      maxPrice: filterPriceMax,
-      limit: 200
-    }).then(data => {
+  }, []);
+
+  useEffect(() => {
+    // Nếu có external listings (từ Search page), dùng luôn
+    if (externalListings) {
+      setListings(externalListings);
+      setLoading(false);
+      return;
+    }
+
+    // Nếu không, tự fetch
+    async function loadData() {
+      setLoading(true);
+      const data = await fetchListings({
+        district: filterDistrict,
+        type: filterType,
+        maxPrice: filterPriceMax,
+        limit: 500,
+      });
       setListings(data);
       setLoading(false);
-    });
-  }, [filterDistrict, filterType, filterPriceMax]);
+    }
+    loadData();
+  }, [filterDistrict, filterType, filterPriceMax, externalListings]);
 
   if (!isClient) {
     return (

@@ -9,6 +9,26 @@ const nextConfig: NextConfig = {
     // your project has type errors.
     ignoreBuildErrors: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+      },
+    ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/n8n/:path*',
+        destination: 'http://localhost:5678/webhook/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;
