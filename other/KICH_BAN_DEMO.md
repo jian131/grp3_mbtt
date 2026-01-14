@@ -15,18 +15,19 @@
 - "Giả sử tôi tìm được một căn Shophouse ở quận **Cầu Giấy**, diện tích **60m²**, chủ nhà hét giá **50 triệu/tháng**. Tôi muốn biết giá này đắt hay rẻ?"
 
 **Bước 2: Thao tác Nhập liệu**
-- Chọn Quận: **Cầu Giấy**.
-- Diện tích: **60**.
-- Giá thuê (để tính ROI): **50**.
-- **MỚI**: Nhập Mặt tiền **6m** (lớn hơn chuẩn) và Số tầng **2**.
-- Chọn Loại hình: **Shophouse**.
+- Nhập Khu vực: **Cầu Giấy**.
+- Nhập Diện tích: **60**.
+- Nhập Giá thuê: **50** (Để tính ROI).
+- **[MỚI]** Nhập Mặt tiền: **6m** (Cao hơn trung bình).
+- **[MỚI]** Nhập Số tầng: **2**.
+- **[MỚI]** Chọn Loại hình: **Nhà phố thương mại (Shophouse)**.
 - Bấm nút **"Tạo Báo Cáo Phân Tích"**.
 
 **Bước 3: Giải thích Kết quả (The 'Aha' Moment)**
 - Sau khi loading, hệ thống hiện ra giá gợi ý (Ví dụ: 45 triệu).
 - **Điểm nhấn BI**: Bấm vào nút **"Xem Báo Cáo Chi Tiết"**.
-- "Như mọi người thấy, AI không đoán mò. Nó quét dữ liệu của **[X] tin đăng tương tự** tại Cầu Giấy."
-- "Hệ thống phát hiện: Vì mặt tiền 6m lớn hơn trung bình khu vực (4.5m), nên giá trị được cộng thêm điểm." -> *Thể hiện tính Intelligence.*
+- "Như mọi người thấy, AI không đoán mò. Nó quét dữ liệu của **15 tin đăng tương tự** tại Cầu Giấy."
+- "Hệ thống phát hiện: Mặt tiền 6m lớn hơn trung bình (4.5m) -> Cộng điểm giá trị." (*Đây là tính năng Data-Driven thực tế*).
 
 ---
 
@@ -34,17 +35,18 @@
 *(Kéo xuống phần Trợ Lý Pháp Lý)*
 
 **Bước 1: Tình huống**
-- "Chủ nhà gửi cho tôi một bản hợp đồng dài 10 trang. Tôi không có kiến thức luật, sợ bị gài điều khoản bất lợi."
+- "Chủ nhà gửi bản thảo hợp đồng. Tôi sợ có bẫy về giá hoặc điều khoản hủy ngang."
 
 **Bước 2: Thao tác**
-- Bấm **"Upload File"** (Chọn file `hop_dong_thue_mau.txt` mà nhóm đã chuẩn bị).
-- Hệ thống hiển thị hiệu ứng "Đang rà soát...".
+- Bấm dấu **(+)** để Upload file.
+- Chọn file: `hop_dong_thue_mau.txt` (File demo có sẵn).
+- Hệ thống hiển thị: "Đang rà soát..." (Delay 2s giả lập AI đọc).
 
-**Bước 3: Kết quả**
-- Hệ thống cảnh báo đỏ: **Phát hiện 2 điều khoản rủi ro**.
-    1.  Tăng giá thuê 20%/năm.
-    2.  Lấy lại nhà không đền bù.
-- **Kết luận**: "Nhờ cảnh báo này, tôi sẽ không ký ngay mà yêu cầu đàm phán lại."
+**Bước 3: Kết quả (Real-time Scanning)**
+- Hệ thống trả về cảnh báo chính xác từ nội dung file:
+    > "⚠️ Rủi ro Giá thuê: Phát hiện điều khoản tăng giá/trượt giá."
+    > "⚠️ Rủi ro Chấm dứt: Có điều khoản lấy lại nhà/không bồi thường."
+- **Kết luận**: "Hệ thống đã bắt được ngay từ khóa 'Điều chỉnh giá' và 'Không bồi thường' trong hợp đồng."
 
 ---
 
@@ -52,19 +54,18 @@
 *(Kéo xuống phần Tính Điểm Hòa Vốn)*
 
 **Bước 1: Đặt vấn đề**
-- "Biết giá thuê là hợp lý rồi, nhưng liệu kinh doanh có LÃI không? Bài toán BI không chỉ dừng ở giá thuê mà còn là **Hiệu quả đầu tư**."
+- "Giá thuê hợp lý, pháp lý ổn. Câu hỏi cuối: **Làm bao lâu thì hòa vốn?**"
 
 **Bước 2: Thao tác**
-- Nhập Giá bán trung bình: **35.000 VNĐ** (Ví dụ bán cà phê).
-- Nhập Khách dự kiến/ngày: **120 khách**.
-- Hệ thống tự động lấy giá thuê (50 triệu) và chi phí vận hành mặc định để tính toán.
+- Nhập Giá bán SP: **35.000 VNĐ** (Cà phê).
+- Nhập Khách/ngày: **120**.
+- Hệ thống tự động lấy Giá thuê (50tr) + Chi phí vận hành (15tr) = 65tr/tháng.
 
 **Bước 3: Giải thích Kết quả**
-- Hệ thống chỉ ra:
-    - **Cần bán 12 sản phẩm/ngày** để hòa vốn tiền thuê.
-    - **Mục tiêu doanh thu ngày**: 4.2 Triệu.
-    - **Lãi dự kiến**: 61 Triệu/tháng.
-- **Kết luận BI**: "Với mặt bằng này và lượng khách này, mô hình kinh doanh là **KHẢ THI**. Đây là hỗ trợ ra quyết định cuối cùng."
+- **Cần bán**: ~62 sản phẩm/ngày để "nuôi" tiền nhà.
+- **Doanh thu mục tiêu**: 4.2 triệu/ngày.
+- **Lợi nhuận**: Hệ thống báo **LÃI dự kiến 61 triệu/tháng**.
+- -> Ra quyết định: **GO (Nên thuê)**.
 
 ---
 
