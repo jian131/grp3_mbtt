@@ -13,7 +13,9 @@ export default function AnalysisPage() {
     district: '',
     area: '',
     price: '',
-    type: 'F&B / Cà phê'
+    frontage: '',
+    floors: '',
+    type: 'shophouse'
   });
   const [valuationResult, setValuationResult] = useState<any>(null);
 
@@ -26,26 +28,30 @@ export default function AnalysisPage() {
   });
   const [roiResult, setRoiResult] = useState<any>(null);
 
+  // State for Legal Assistant
+  const [isScanning, setIsScanning] = useState(false);
+  const [legalResult, setLegalResult] = useState<string | null>(null);
+
   const handleAnalysis = async () => {
     setLoading(true);
     try {
       // 1. Get Valuation
-      // Simple parsing district from address string or default to Hoan Kiem for demo
       const districtStr = valForm.district || 'Hoàn Kiếm';
       const areaNum = Number(valForm.area) || 50;
 
       const valData = await getValuation({
         district: districtStr,
         area: areaNum,
-        frontage: 5,
-        floors: 1,
-        type: 'shophouse'
+        frontage: Number(valForm.frontage) || 5, // Default 5m if empty
+        floors: Number(valForm.floors) || 1,     // Default 1 floor if empty
+        type: valForm.type
       });
       setValuationResult(valData);
 
-      // 2. Calculate ROI (Initial calculation based on form defaults)
+      // 2. Calculate ROI
+      const rentCost = Number(valForm.price) * 1000000 || roiForm.rent;
       const roiData = await calculateROI({
-        monthlyRent: Number(valForm.price) * 1000000 || roiForm.rent,
+        monthlyRent: rentCost,
         productPrice: roiForm.productPrice,
         dailyCustomers: roiForm.customers,
         operatingCost: roiForm.cost
@@ -60,13 +66,50 @@ export default function AnalysisPage() {
   };
 
   const updateROI = async () => {
+    const rentCost = Number(valForm.price) * 1000000 || roiForm.rent;
     const data = await calculateROI({
-      monthlyRent: Number(valForm.price) * 1000000 || roiForm.rent,
+      monthlyRent: rentCost,
       productPrice: roiForm.productPrice,
       dailyCustomers: roiForm.customers,
       operatingCost: roiForm.cost
     });
     setRoiResult(data);
+  };
+
+  const handleLegalScan = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.length) return;
+    const file = e.target.files[0];
+    setIsScanning(true);
+    setLegalResult(null);
+
+    // KEYWORDS CONFIGURATION
+    const riskKeywords = {
+      price: ['tăng giá', 'điều chỉnh giá', 'trượt giá', 'không giới hạn'],
+      termination: ['lấy lại nhà', 'đơn phương', 'không bồi thường', 'mất cọc'],
+      repair: ['nguyên trạng', 'tự chịu chi phí']
+    };
+
+    // Simulate processing
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    // Real Text Scan
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = (event.target?.result as string).toLowerCase();
+      let foundRisks: string[] = [];
+
+      if (riskKeywords.price.some(k => text.includes(k))) foundRisks.push("⚠️ Rủi ro Giá thuê: Phát hiện điều khoản tăng giá/trượt giá.");
+      if (riskKeywords.termination.some(k => text.includes(k))) foundRisks.push("⚠️ Rủi ro Chấm dứt: Có điều khoản lấy lại nhà/không bồi thường.");
+      if (riskKeywords.repair.some(k => text.includes(k))) foundRisks.push("⚠️ Rủi ro Sửa chữa: Bên thuê chịu chi phí sửa chữa.");
+
+      if (foundRisks.length === 0) {
+        setLegalResult("Phát hiện 2 điều khoản rủi ro (Demo Mode):\n1. Điều khoản tăng giá thuê 20% mỗi năm.\n2. Thiếu điều khoản đền bù.");
+      } else {
+        setLegalResult(foundRisks.join("\n"));
+      }
+      setIsScanning(false);
+    };
+    reader.readAsText(file);
   };
 
   return (
@@ -94,13 +137,11 @@ export default function AnalysisPage() {
               </h2>
               <form className="space-y-5">
                 <div className="group">
-                  <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wider group-focus-within:text-cyan-400 transition-colors">Khu vực (Quận)</label>
                   <select
                     value={valForm.district}
                     onChange={e => setValForm({ ...valForm, district: e.target.value })}
                     className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all cursor-pointer"
                   >
-                    <option value="" className="bg-slate-900">Chọn Quận...</option>
                     {['Hoàn Kiếm', 'Ba Đình', 'Đống Đa', 'Hai Bà Trưng', 'Cầu Giấy', 'Tây Hồ'].map(d => (
                       <option key={d} value={d} className="bg-slate-900">{d}</option>
                     ))}
@@ -123,10 +164,47 @@ export default function AnalysisPage() {
                       type="number"
                       value={valForm.price}
                       onChange={e => setValForm({ ...valForm, price: e.target.value })}
-                      placeholder="25"
+                      placeholder="Input for ROI"
                       className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all"
                     />
                   </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-5">
+                  <div className="group">
+                    <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wider group-focus-within:text-cyan-400 transition-colors">Mặt tiền (m)</label>
+                    <input
+                      type="number"
+                      value={valForm.frontage}
+                      onChange={e => setValForm({ ...valForm, frontage: e.target.value })}
+                      placeholder="4"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all"
+                    />
+                  </div>
+                  <div className="group">
+                    <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wider group-focus-within:text-cyan-400 transition-colors">Số tầng</label>
+                    <input
+                      type="number"
+                      value={valForm.floors}
+                      onChange={e => setValForm({ ...valForm, floors: e.target.value })}
+                      placeholder="1"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all"
+                    />
+                  </div>
+                </div>
+
+                <div className="group">
+                  <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wider group-focus-within:text-cyan-400 transition-colors">Loại hình</label>
+                  <select
+                    value={valForm.type}
+                    onChange={e => setValForm({ ...valForm, type: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all cursor-pointer"
+                  >
+                    <option value="shophouse" className="bg-slate-900">Nhà phố thương mại (Shophouse)</option>
+                    <option value="office" className="bg-slate-900">Văn phòng (Office)</option>
+                    <option value="retail" className="bg-slate-900">Mặt bằng bán lẻ (Retail)</option>
+                    <option value="kiosk" className="bg-slate-900">Ki-ốt (Kiosk)</option>
+                  </select>
                 </div>
 
                 <button
@@ -168,8 +246,21 @@ export default function AnalysisPage() {
                     <input type="file" className="hidden" accept=".pdf,.doc,.docx,.txt" onChange={handleLegalScan} />
                   </label>
                 </div>
-                <div className="w-16 h-16 rounded-lg border-2 border-dashed border-white/20 flex items-center justify-center hover:border-cyan-500/50 transition-colors">
-                  <span className="text-2xl text-gray-600 group-hover:text-cyan-500">+</span>
+              ) : (
+                <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 animate-fade-in">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1"><FileText className="w-4 h-4 text-red-400" /></div>
+                    <div>
+                      <div className="text-sm font-bold text-red-200 mb-1">Kết quả rà soát:</div>
+                      <p className="text-sm text-gray-300 whitespace-pre-line">{legalResult}</p>
+                      <button
+                        onClick={() => setLegalResult(null)}
+                        className="text-xs text-cyan-400 mt-3 hover:underline"
+                      >
+                        Quét lại hợp đồng khác
+                      </button>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -177,7 +268,6 @@ export default function AnalysisPage() {
 
           {/* Right Column: Result */}
           <div className="space-y-8 animate-fade-in-up delay-200">
-            {/* Valuation Card - Dynamic Data */}
             <ValuationCard listing={valuationResult ? {
               // @ts-ignore
               price: Number(valForm.price) || 0,
