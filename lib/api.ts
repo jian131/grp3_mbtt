@@ -305,8 +305,23 @@ export async function calculateROI(input: ROIInput): Promise<ROIResult | null> {
       return null;
     }
 
-    const json = await res.json();
-    return json.success ? json : null;
+    // Try to parse JSON - n8n sometimes returns empty body
+    try {
+      const json = await res.json();
+      return json.success ? json : null;
+    } catch (parseError) {
+      console.warn('n8n ROI returned invalid JSON, using fallback');
+      const fallbackRes = await fetch('/api/roi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(input)
+      });
+      if (fallbackRes.ok) {
+        const json = await fallbackRes.json();
+        return json.success ? json : null;
+      }
+      return null;
+    }
   } catch (error) {
     console.error('API Error (roi):', error);
     try {
@@ -351,8 +366,23 @@ export async function getValuation(input: ValuationInput): Promise<ValuationResu
       return null;
     }
 
-    const json = await res.json();
-    return json.success ? json : null;
+    // Try to parse JSON - n8n sometimes returns empty body
+    try {
+      const json = await res.json();
+      return json.success ? json : null;
+    } catch (parseError) {
+      console.warn('n8n Valuation returned invalid JSON, using fallback');
+      const fallbackRes = await fetch('/api/valuation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(input)
+      });
+      if (fallbackRes.ok) {
+        const json = await fallbackRes.json();
+        return json.success ? json : null;
+      }
+      return null;
+    }
   } catch (error) {
     console.error('API Error (valuation):', error);
     try {
