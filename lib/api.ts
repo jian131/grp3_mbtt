@@ -215,11 +215,19 @@ export async function fetchListings(params?: SearchParams): Promise<Listing[]> {
  */
 export async function fetchListing(id: string): Promise<Listing | null> {
   try {
+    // Try n8n first
     const url = `${N8N_BASE}/listing/${id}`;
     const res = await fetch(url);
 
     if (!res.ok) {
-      console.error(`API Error listing/${id} ${res.status}`);
+      console.warn(`n8n listing API failed, using Next.js fallback`);
+      // Fallback to Next.js API route
+      const fallbackRes = await fetch(`/api/listing/${id}`);
+      if (fallbackRes.ok) {
+        const json = await fallbackRes.json();
+        const rawData = json.success && json.data ? json.data : null;
+        return rawData ? transformListing(rawData) : null;
+      }
       return null;
     }
 
@@ -233,6 +241,17 @@ export async function fetchListing(id: string): Promise<Listing | null> {
     return rawData ? transformListing(rawData) : null;
   } catch (error) {
     console.error('API Error (listing detail):', error);
+    // Last resort fallback
+    try {
+      const fallbackRes = await fetch(`/api/listing/${id}`);
+      if (fallbackRes.ok) {
+        const json = await fallbackRes.json();
+        const rawData = json.success && json.data ? json.data : null;
+        return rawData ? transformListing(rawData) : null;
+      }
+    } catch (fallbackError) {
+      console.error('Fallback also failed:', fallbackError);
+    }
     return null;
   }
 }

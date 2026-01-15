@@ -1,0 +1,566 @@
+{
+  "name": "JFinder API - All Endpoints",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "search",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "search-webhook",
+      "name": "Search Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        240
+      ],
+      "webhookId": "search"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "listing/:id",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "listing-webhook",
+      "name": "Listing Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        440
+      ],
+      "webhookId": "listing"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "stats",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "stats-webhook",
+      "name": "Stats Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        640
+      ],
+      "webhookId": "stats"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "roi",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "roi-webhook",
+      "name": "ROI Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        840
+      ],
+      "webhookId": "roi"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "valuation",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "valuation-webhook",
+      "name": "Valuation Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        1040
+      ],
+      "webhookId": "valuation"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build search query\nconst query = $input.first().json.query || {};\nlet whereClauses = ['1=1'];\n\nif (query.city || query.province) {\n  const city = (query.city || query.province).replace(/'/g, \"''\");\n  whereClauses.push(`province ILIKE '%${city}%'`);\n}\nif (query.district) {\n  const district = query.district.replace(/'/g, \"''\");\n  whereClauses.push(`district ILIKE '%${district}%'`);\n}\nif (query.ward) {\n  const ward = query.ward.replace(/'/g, \"''\");\n  whereClauses.push(`ward ILIKE '%${ward}%'`);\n}\nif (query.type) {\n  const type = query.type.replace(/'/g, \"''\");\n  whereClauses.push(`type = '${type}'`);\n}\nif (query.min_price || query.minPrice) {\n  whereClauses.push(`price_million >= ${parseFloat(query.min_price || query.minPrice)}`);\n}\nif (query.max_price || query.maxPrice) {\n  whereClauses.push(`price_million <= ${parseFloat(query.max_price || query.maxPrice)}`);\n}\n\nconst limit = parseInt(query.limit) || 50;\nconst offset = parseInt(query.offset) || 0;\n\nconst sql = `SELECT id, name, address, province, district, ward, latitude, longitude, type, market_segment, area_m2, frontage_m, floors, price_million, rent_per_sqm_million, views, saved_count, primary_image_url, ai_suggested_price, ai_potential_score, ai_risk_level, posted_at, created_at FROM listings WHERE ${whereClauses.join(' AND ')} ORDER BY created_at DESC NULLS LAST LIMIT ${limit} OFFSET ${offset}`;\n\nreturn { json: { sql } };"
+      },
+      "id": "search-query",
+      "name": "Build Search Query",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{ $json.sql }}",
+        "options": {}
+      },
+      "id": "search-db",
+      "name": "Query Search",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        680,
+        240
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const listings = $input.all();\nconst output = [];\nfor (const item of listings) {\n  const data = item.json;\n  let priceLabel = 'fair';\n  if (data.ai_suggested_price && data.price_million) {\n    const ratio = data.price_million / data.ai_suggested_price;\n    if (ratio < 0.9) priceLabel = 'cheap';\n    else if (ratio > 1.1) priceLabel = 'expensive';\n  }\n  output.push({ json: { ...data, price_label: priceLabel } });\n}\nreturn output;"
+      },
+      "id": "search-labels",
+      "name": "Add Price Labels",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, data: $input.all().map(i => i.json), count: $input.all().length } }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "search-respond",
+      "name": "Search Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT l.*, (SELECT json_agg(row_to_json(s)) FROM (SELECT province, district, ward, type, listing_count, median_price, p25_price, p75_price FROM view_ward_stats WHERE district = l.district AND type = l.type LIMIT 1) s) as area_stats FROM listings l WHERE l.id = '{{ $json.params.id }}';",
+        "options": {}
+      },
+      "id": "listing-db",
+      "name": "Get Listing",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        460,
+        440
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nif (!data || !data.id) return { json: { found: false } };\n\nlet priceLabel = 'fair';\nif (data.ai_suggested_price && data.price_million) {\n  const ratio = data.price_million / data.ai_suggested_price;\n  if (ratio < 0.9) priceLabel = 'cheap';\n  else if (ratio > 1.1) priceLabel = 'expensive';\n}\n\nlet owner = data.owner;\nif (typeof owner === 'string') try { owner = JSON.parse(owner); } catch(e) {}\n\nreturn { json: { found: true, ...data, owner, price_label: priceLabel } };"
+      },
+      "id": "listing-format",
+      "name": "Format Listing",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: $json.found, data: $json.found ? $json : null } }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "listing-respond",
+      "name": "Listing Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const query = $input.first().json.query || {};\nconst level = query.level || 'district';\nconst city = query.city || query.province;\nlet cityFilter = city ? `WHERE province ILIKE '%${city}%'` : '';\nconst sql = level === 'ward' ? `SELECT * FROM view_ward_stats ${cityFilter} ORDER BY province, district, ward;` : `SELECT * FROM view_district_stats ${cityFilter} ORDER BY province, district;`;\nreturn { json: { sql, level } };"
+      },
+      "id": "stats-query",
+      "name": "Build Stats Query",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{ $json.sql }}",
+        "options": {}
+      },
+      "id": "stats-db",
+      "name": "Query Stats",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        680,
+        640
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, level: $('Build Stats Query').item.json.level, data: $input.all().map(i => i.json), count: $input.all().length } }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "stats-respond",
+      "name": "Stats Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || {};\nconst monthlyRent = parseFloat(body.monthly_rent || body.monthlyRent) || 50;\nconst productPrice = parseFloat(body.product_price || body.productPrice) || 50000;\nconst profitMargin = parseFloat(body.profit_margin || body.profitMargin) || 0.3;\nconst dailyCustomers = parseInt(body.target_daily_customers || body.dailyCustomers) || 100;\nconst operatingCost = parseFloat(body.operating_cost || body.operatingCost) || 10;\n\nconst monthlyRentVND = monthlyRent * 1000000;\nconst operatingCostVND = operatingCost * 1000000;\nconst profitPerItem = productPrice * profitMargin;\nconst dailyProfit = profitPerItem * dailyCustomers;\nconst monthlyRevenue = dailyProfit * 30;\nconst totalMonthlyCost = monthlyRentVND + operatingCostVND;\nconst monthlyNetProfit = monthlyRevenue - totalMonthlyCost;\nconst breakEvenDays = totalMonthlyCost > 0 ? Math.ceil(totalMonthlyCost / dailyProfit) : 0;\nconst roiPercent = totalMonthlyCost > 0 ? ((monthlyNetProfit / totalMonthlyCost) * 100).toFixed(1) : 0;\n\nlet viability = 'excellent';\nif (breakEvenDays > 25) viability = 'risky';\nelse if (breakEvenDays > 20) viability = 'moderate';\nelse if (breakEvenDays > 15) viability = 'good';\n\nreturn { json: { inputs: { monthly_rent_million: monthlyRent, product_price_vnd: productPrice, profit_margin: profitMargin, daily_customers: dailyCustomers, operating_cost_million: operatingCost }, results: { daily_profit_vnd: Math.round(dailyProfit), monthly_revenue_vnd: Math.round(monthlyRevenue), total_monthly_cost_vnd: Math.round(totalMonthlyCost), monthly_net_profit_vnd: Math.round(monthlyNetProfit), break_even_days: breakEvenDays, roi_percent: parseFloat(roiPercent), viability } } };"
+      },
+      "id": "roi-calc",
+      "name": "Calculate ROI",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        840
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, ...$json } }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "roi-respond",
+      "name": "ROI Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        680,
+        840
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || {};\nconst district = body.district || '';\nconst ward = body.ward || '';\nconst type = body.type || 'streetfront';\nconst area = parseFloat(body.area_m2 || body.area) || 50;\nconst frontage = parseFloat(body.frontage_m || body.frontage) || 5;\nconst floors = parseInt(body.floors) || 1;\n\nlet whereClause = 'WHERE 1=1';\nif (district) whereClause += ` AND district ILIKE '%${district}%'`;\nif (ward) whereClause += ` AND ward ILIKE '%${ward}%'`;\nif (type) whereClause += ` AND type = '${type}'`;\n\nconst sql = `SELECT PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY rent_per_sqm_million) as p25_sqm, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY rent_per_sqm_million) as median_sqm, PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY rent_per_sqm_million) as p75_sqm, AVG(rent_per_sqm_million) as avg_sqm, COUNT(*) as sample_size FROM listings ${whereClause}`;\n\nreturn { json: { sql, input: { district, ward, type, area, frontage, floors } } };"
+      },
+      "id": "valuation-query",
+      "name": "Build Valuation Query",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{ $json.sql }}",
+        "options": {}
+      },
+      "id": "valuation-db",
+      "name": "Get Market Stats",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        680,
+        1040
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const stats = $input.first().json;\nconst input = $('Build Valuation Query').first().json.input;\n\nconst p25 = parseFloat(stats.p25_sqm) || 0.5;\nconst median = parseFloat(stats.median_sqm) || 1.0;\nconst p75 = parseFloat(stats.p75_sqm) || 2.0;\nconst sampleSize = parseInt(stats.sample_size) || 0;\n\nlet adjustmentFactor = 1.0;\nif (input.frontage > 8) adjustmentFactor += 0.1;\nelse if (input.frontage > 5) adjustmentFactor += 0.05;\nelse if (input.frontage < 3) adjustmentFactor -= 0.1;\n\nif ((input.type === 'shophouse' || input.type === 'office') && input.floors > 2) {\n  adjustmentFactor += (input.floors - 2) * 0.03;\n}\n\nconst suggestedPricePerSqm = median * adjustmentFactor;\nconst minPricePerSqm = p25 * adjustmentFactor * 0.95;\nconst maxPricePerSqm = p75 * adjustmentFactor * 1.05;\n\nconst suggestedPrice = suggestedPricePerSqm * input.area;\nconst minPrice = minPricePerSqm * input.area;\nconst maxPrice = maxPricePerSqm * input.area;\n\nlet confidence = 'low';\nif (sampleSize >= 30) confidence = 'high';\nelse if (sampleSize >= 10) confidence = 'medium';\n\nreturn { json: { input, market_stats: { p25_per_sqm: p25.toFixed(3), median_per_sqm: median.toFixed(3), p75_per_sqm: p75.toFixed(3), sample_size: sampleSize }, valuation: { suggested_price_million: Math.round(suggestedPrice * 10) / 10, price_range: { min: Math.round(minPrice * 10) / 10, max: Math.round(maxPrice * 10) / 10 }, price_per_sqm: Math.round(suggestedPricePerSqm * 1000) / 1000, adjustment_applied: Math.round(adjustmentFactor * 100 - 100) + '%', confidence } } };"
+      },
+      "id": "valuation-calc",
+      "name": "Calculate Valuation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, ...$json } }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "valuation-respond",
+      "name": "Valuation Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        1040
+      ]
+    }
+  ],
+  "connections": {
+    "Search Webhook": {
+      "main": [
+        [
+          {
+            "node": "Build Search Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Search Query": {
+      "main": [
+        [
+          {
+            "node": "Query Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Search": {
+      "main": [
+        [
+          {
+            "node": "Add Price Labels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Price Labels": {
+      "main": [
+        [
+          {
+            "node": "Search Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Listing Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get Listing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Listing": {
+      "main": [
+        [
+          {
+            "node": "Format Listing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Listing": {
+      "main": [
+        [
+          {
+            "node": "Listing Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stats Webhook": {
+      "main": [
+        [
+          {
+            "node": "Build Stats Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Stats Query": {
+      "main": [
+        [
+          {
+            "node": "Query Stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Stats": {
+      "main": [
+        [
+          {
+            "node": "Stats Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ROI Webhook": {
+      "main": [
+        [
+          {
+            "node": "Calculate ROI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate ROI": {
+      "main": [
+        [
+          {
+            "node": "ROI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valuation Webhook": {
+      "main": [
+        [
+          {
+            "node": "Build Valuation Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Valuation Query": {
+      "main": [
+        [
+          {
+            "node": "Get Market Stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Market Stats": {
+      "main": [
+        [
+          {
+            "node": "Calculate Valuation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Valuation": {
+      "main": [
+        [
+          {
+            "node": "Valuation Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
