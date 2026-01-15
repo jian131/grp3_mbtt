@@ -1,5 +1,4 @@
-// JFinder API Client - n8n Backend (3 Cities Dataset)
-// All requests go through n8n webhooks
+// JFinder API Client - 3 Cities Dataset (FIXED FIELD MAPPING)
 
 const N8N_BASE = process.env.NEXT_PUBLIC_N8N_URL || 'http://localhost:5678/webhook';
 
@@ -29,7 +28,21 @@ export interface Listing {
   ai_risk_level?: 'Low' | 'Medium' | 'High';
   price_label?: 'cheap' | 'fair' | 'expensive';
   posted_at?: string;
+  created_at?: string;
   owner?: { name: string; phone: string };
+
+  // COMPATIBILITY ALIASES for old components
+  lat?: number;   // alias for latitude
+  lon?: number;   // alias for longitude
+  area?: number;  // alias for area_m2
+  price?: number; // alias for price_million
+  frontage?: number; // alias for frontage_m
+  title?: string; // alias for name
+  images?: string[]; // compat for primary_image_url
+  ai?: {
+    potentialScore?: number;
+    priceLabel?: 'cheap' | 'fair' | 'expensive';
+  };
 }
 
 export interface SearchParams {
@@ -41,8 +54,12 @@ export interface SearchParams {
   segment?: string;
   min_price?: number;
   max_price?: number;
+  minPrice?: number; // compat
+  maxPrice?: number; // compat
   min_area?: number;
   max_area?: number;
+  minArea?: number; // compat
+  maxArea?: number; // compat
   lat?: number;
   lon?: number;
   radius_m?: number;
@@ -115,6 +132,29 @@ export interface ValuationResult {
   };
 }
 
+// ==================== DATA MAPPING ====================
+
+/**
+ * Transform raw API response to add compatibility aliases
+ */
+function transformListing(listing: any): Listing {
+  return {
+    ...listing,
+    // Add aliases for backward compatibility
+    lat: listing.latitude,
+    lon: listing.longitude,
+    area: listing.area_m2,
+    price: listing.price_million,
+    frontage: listing.frontage_m,
+    title: listing.name,
+    images: listing.primary_image_url ? [listing.primary_image_url] : [],
+    ai: {
+      potentialScore: listing.ai_potential_score,
+      priceLabel: listing.price_label
+    }
+  };
+}
+
 // ==================== API FUNCTIONS ====================
 
 /**
@@ -130,10 +170,16 @@ export async function fetchListings(params?: SearchParams): Promise<Listing[]> {
     if (params?.ward) query.append('ward', params.ward);
     if (params?.type) query.append('type', params.type);
     if (params?.segment) query.append('segment', params.segment);
-    if (params?.min_price) query.append('min_price', String(params.min_price));
-    if (params?.max_price) query.append('max_price', String(params.max_price));
-    if (params?.min_area) query.append('min_area', String(params.min_area));
-    if (params?.max_area) query.append('max_area', String(params.max_area));
+
+    const minPrice = params?.min_price || params?.minPrice;
+    const maxPrice = params?.max_price || params?.maxPrice;
+    const minArea = params?.min_area || params?.minArea;
+    const maxArea = params?.max_area || params?.maxArea;
+
+    if (minPrice) query.append('min_price', String(minPrice));
+    if (maxPrice) query.append('max_price', String(maxPrice));
+    if (minArea) query.append('min_area', String(minArea));
+    if (maxArea) query.append('max_area', String(maxArea));
     if (params?.lat) query.append('lat', String(params.lat));
     if (params?.lon) query.append('lon', String(params.lon));
     if (params?.radius_m) query.append('radius_m', String(params.radius_m));
@@ -151,11 +197,13 @@ export async function fetchListings(params?: SearchParams): Promise<Listing[]> {
     const json = await res.json();
 
     // Support both direct array and wrapped response
-    if (Array.isArray(json)) return json;
-    if (json.data && Array.isArray(json.data)) return json.data;
-    if (json.success && Array.isArray(json.data)) return json.data;
+    let rawData: any[] = [];
+    if (Array.isArray(json)) rawData = json;
+    else if (json.data && Array.isArray(json.data)) rawData = json.data;
+    else if (json.success && Array.isArray(json.data)) rawData = json.data;
 
-    return [];
+    // Transform all listings to add compatibility aliases
+    return rawData.map(transformListing);
   } catch (error) {
     console.error('API Error (listings):', error);
     return [];
@@ -177,11 +225,12 @@ export async function fetchListing(id: string): Promise<Listing | null> {
 
     const json = await res.json();
 
-    if (json.success && json.data) return json.data;
-    if (Array.isArray(json) && json.length > 0) return json[0];
-    if (typeof json === 'object' && json.id) return json;
+    let rawData: any = null;
+    if (json.success && json.data) rawData = Array.isArray(json.data) ? json.data[0] : json.data;
+    else if (Array.isArray(json) && json.length > 0) rawData = json[0];
+    else if (typeof json === 'object' && json.id) rawData = json;
 
-    return null;
+    return rawData ? transformListing(rawData) : null;
   } catch (error) {
     console.error('API Error (listing detail):', error);
     return null;
@@ -256,7 +305,6 @@ export async function getValuation(input: ValuationInput): Promise<ValuationResu
 
 // ==================== LEGACY COMPATIBILITY ====================
 
-// For backward compatibility with existing components
 export interface Stats {
   total: number;
   avgPrice: number;
@@ -293,7 +341,6 @@ export async function fetchStatsLegacy(): Promise<Stats | null> {
 
     const avgPrice = totalListings > 0 ? totalPriceSum / totalListings : 0;
 
-    // Type breakdown (estimate from total)
     const byType: Record<string, number> = {
       streetfront: Math.floor(totalListings * 0.35),
       shophouse: Math.floor(totalListings * 0.25),

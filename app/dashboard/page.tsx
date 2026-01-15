@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { LayoutDashboard, Users, TrendingUp, DollarSign, Activity, PieChart, BarChart, MapPin, Building2, Store, Briefcase, Loader2 } from 'lucide-react';
-import { fetchStats } from '@/lib/api';
+import { fetchStatsLegacy } from '@/lib/api';
 
 // Define Interface locally to avoid import errors
 interface Stats {
@@ -20,7 +20,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchStats().then(data => {
+    fetchStatsLegacy().then((data: Stats | null) => {
       // Data might specific structure depending on n8n response
       if (data) {
         setStats(data);
