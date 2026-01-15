@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { fetchListingById, Listing } from '@/lib/api';
+import { fetchListing, Listing } from '@/lib/api';
 import ImageGallery from '@/components/Listing/ImageGallery';
 import { MapPin, Home, Ruler, TrendingUp, Eye, Calendar, Heart, Phone, User, Building2, School, Briefcase, Store } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -18,7 +18,7 @@ export default function ListingDetailPage() {
   useEffect(() => {
     const id = params.id as string;
     if (id) {
-      fetchListingById(id).then(data => {
+      fetchListing(id).then(data => {
         setListing(data);
         setLoading(false);
       });

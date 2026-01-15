@@ -21,7 +21,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT id, title, city, district, ward, price_million, area_m2, rent_per_sqm_million, lat, lon, type, image_url FROM listings WHERE 1=1 {{ $json.query.city ? \"AND city ILIKE '%\" + $json.query.city + \"%'\" : '' }} {{ $json.query.district ? \"AND district ILIKE '%\" + $json.query.district + \"%'\" : '' }} {{ $json.query.maxPrice ? 'AND price_million <= ' + $json.query.maxPrice : '' }} {{ $json.query.minArea ? 'AND area_m2 >= ' + $json.query.minArea : '' }} ORDER BY price_million LIMIT {{ $json.query.limit || 50 }}",
+        "query": "SELECT id, title, city, district, ward, price_million, area_m2, rent_per_sqm_million, lat, lon, type, segment, frontage, floors, views, saved_count, image_url FROM listings WHERE 1=1 {{ $json.query.city ? \"AND city ILIKE '%\" + $json.query.city + \"%'\" : '' }} {{ $json.query.district ? \"AND district ILIKE '%\" + $json.query.district + \"%'\" : '' }} {{ $json.query.maxPrice ? 'AND price_million <= ' + $json.query.maxPrice : '' }} {{ $json.query.minArea ? 'AND area_m2 >= ' + $json.query.minArea : '' }} ORDER BY created_at DESC LIMIT {{ $json.query.limit || 50 }}",
         "options": {}
       },
       "id": "postgres-1",
@@ -29,7 +29,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        500,
+        460,
         320
       ],
       "credentials": {
@@ -50,7 +50,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        760,
+        680,
         320
       ]
     }

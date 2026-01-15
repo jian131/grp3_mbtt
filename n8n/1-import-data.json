@@ -1,0 +1,138 @@
+{
+  "name": "1 - Import Listings Data",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "trigger-1",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:8000/listings.json",
+        "method": "GET",
+        "responseFormat": "json",
+        "options": {}
+      },
+      "id": "http-1",
+      "name": "Fetch JSON via HTTP",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        460,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ensure data array\nlet data = items[0].json;\nif (!Array.isArray(data)) {\n  // If n8n wrapped it or returned object\n  if (data.data && Array.isArray(data.data)) data = data.data;\n  else data = [data];\n}\n\n// Transform\nreturn data.map(item => ({\n  json: {\n    title: item.title || '',\n    city: item.city || '',\n    district: item.district || '',\n    ward: item.ward || '',\n    price_million: (item.rent_vnd_month || 0) / 1000000,\n    area_m2: item.area_m2 || 0,\n    rent_per_sqm_million: (item.rent_vnd_m2 || 0) / 1000000,\n    lat: item.lat || 0,\n    lon: item.lon || 0,\n    type: item.type || '',\n    segment: item.segment || '',\n    frontage: item.frontage || null,\n    floors: item.floors || null,\n    views: item.views || 0,\n    saved_count: item.savedCount || 0,\n    image_url: item.image_url || item.primary_image_url || '',\n    raw_data: JSON.stringify(item)\n  }\n}));"
+      },
+      "id": "transform-1",
+      "name": "Transform Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "schema": "public",
+        "table": "listings",
+        "columns": "title, city, district, ward, price_million, area_m2, rent_per_sqm_million, lat, lon, type, segment, frontage, floors, views, saved_count, image_url, raw_data",
+        "options": {}
+      },
+      "id": "postgres-1",
+      "name": "Insert to Postgres",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        900,
+        320
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE listings SET geom = ST_SetSRID(ST_MakePoint(lon, lat), 4326) WHERE geom IS NULL AND lat IS NOT NULL AND lon IS NOT NULL;",
+        "options": {}
+      },
+      "id": "geom-1",
+      "name": "Create Geometry",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1120,
+        320
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch JSON via HTTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch JSON via HTTP": {
+      "main": [
+        [
+          {
+            "node": "Transform Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transform Data": {
+      "main": [
+        [
+          {
+            "node": "Insert to Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert to Postgres": {
+      "main": [
+        [
+          {
+            "node": "Create Geometry",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

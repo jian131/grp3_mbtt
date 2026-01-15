@@ -6,35 +6,50 @@ services:
     image: postgis/postgis:15-3.3
     restart: always
     environment:
-      POSTGRES_USER: jfinder
-      POSTGRES_PASSWORD: jfinder_password
-      POSTGRES_DB: jfinder_db
+      POSTGRES_USER: ${POSTGRES_USER:-jfinder}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-jfinder_password}
+      POSTGRES_DB: ${POSTGRES_DB:-jfinder_db}
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
-      - ./db/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
     networks:
       - jfinder-net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-jfinder}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # 2. Automation: n8n
+  # 2. Automation: n8n (ETL + API Backend)
   n8n:
     image: n8nio/n8n:latest
     restart: always
     ports:
       - "5678:5678"
     environment:
-      - N8N_HOST=localhost
+      - N8N_HOST=0.0.0.0
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
       - WEBHOOK_URL=http://localhost:5678/
-      - GENERIC_TIMEZONE=Asia/Ho_Chi_Minh
-      # DB Connection for n8n internals (optional, using default SQLite is fine for single user)
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-Asia/Ho_Chi_Minh}
+      - N8N_CORS_ALLOW_ORIGIN=*
+      - NODE_FUNCTION_ALLOW_BUILTIN=*
+      - NODE_FUNCTION_ALLOW_EXTERNAL=*
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB:-jfinder_db}
+      - DB_POSTGRESDB_USER=${POSTGRES_USER:-jfinder}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD:-jfinder_password}
     volumes:
-      - ./n8n_data:/home/node/.n8n
-      - ./app/data:/data_input # Mount raw data access
+      - n8n_data:/home/node/.n8n
+      - ./app/data:/data_input:ro
     networks:
       - jfinder-net
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   # 3. BI: Superset
   superset:
@@ -43,19 +58,29 @@ services:
     ports:
       - "8088:8088"
     environment:
-      - SUPERSET_SECRET_KEY=YOUR_OWN_RANDOM_GENERATED_SECRET_KEY
+      - SUPERSET_SECRET_KEY=${SUPERSET_SECRET_KEY:-supersecretkey123}
       - SUPERSET_LOAD_EXAMPLES=no
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-jfinder}:${POSTGRES_PASSWORD:-jfinder_password}@postgres:5432/${POSTGRES_DB:-jfinder_db}
     volumes:
-      - ./superset_data:/app/superset_home
+      - superset_data:/app/superset_home
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
     networks:
       - jfinder-net
+    command: >
+      bash -c "
+        superset db upgrade &&
+        superset fab create-admin --username ${SUPERSET_ADMIN_USER:-admin} --password ${SUPERSET_ADMIN_PASSWORD:-admin123} --firstname Admin --lastname User --email admin@local 2>/dev/null || true &&
+        superset init &&
+        superset run -h 0.0.0.0 -p 8088 --with-threads
+      "
 
   # 4. Cache: Redis (Required by Superset)
   redis:
-    image: redis:7
+    image: redis:7-alpine
     restart: always
     networks:
       - jfinder-net

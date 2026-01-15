@@ -21,7 +21,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT * FROM listings WHERE id = {{ $json.params.id }}",
+        "query": "SELECT id, title, city, district, ward, price_million, area_m2, rent_per_sqm_million, lat, lon, type, segment, frontage, floors, views, saved_count, image_url, raw_data, created_at FROM listings WHERE id = {{ $json.params.id }} LIMIT 1",
         "options": {}
       },
       "id": "postgres-1",
@@ -29,7 +29,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        500,
+        460,
         320
       ],
       "credentials": {
@@ -42,7 +42,7 @@
     {
       "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ $input.all().length > 0 ? { success: true, data: $input.all()[0].json } : { success: false, error: 'Not found' } }}",
+        "responseBody": "={{ $input.all().length > 0 ? { success: true, data: $input.first().json } : { success: false, error: 'Not found' } }}",
         "options": {}
       },
       "id": "respond-1",
@@ -50,7 +50,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        760,
+        680,
         320
       ]
     }

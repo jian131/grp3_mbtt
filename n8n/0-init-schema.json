@@ -1,0 +1,181 @@
+{
+  "name": "0 - Initialize Database Schema",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "trigger-1",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE EXTENSION IF NOT EXISTS postgis;",
+        "options": {}
+      },
+      "id": "ext-1",
+      "name": "Enable PostGIS",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        460,
+        320
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS listings (id SERIAL PRIMARY KEY, title TEXT, city TEXT, district TEXT, ward TEXT, price_million NUMERIC, area_m2 NUMERIC, rent_per_sqm_million NUMERIC, lat DOUBLE PRECISION, lon DOUBLE PRECISION, geom GEOMETRY(POINT, 4326), type TEXT, segment TEXT, frontage NUMERIC, floors INTEGER, views INTEGER DEFAULT 0, saved_count INTEGER DEFAULT 0, image_url TEXT, raw_data JSONB, created_at TIMESTAMP DEFAULT NOW());",
+        "options": {}
+      },
+      "id": "table-1",
+      "name": "Create Listings Table",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        680,
+        320
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE INDEX IF NOT EXISTS idx_listings_geom ON listings USING GIST (geom); CREATE INDEX IF NOT EXISTS idx_listings_price ON listings (price_million); CREATE INDEX IF NOT EXISTS idx_listings_city ON listings (city); CREATE INDEX IF NOT EXISTS idx_listings_district ON listings (district);",
+        "options": {}
+      },
+      "id": "idx-1",
+      "name": "Create Indexes",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        900,
+        320
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE OR REPLACE VIEW view_district_stats AS SELECT city, district, COUNT(*) as listing_count, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY price_million) as median_price, PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY price_million) as p25_price, PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY price_million) as p75_price, AVG(views) as avg_views, SUM(saved_count) as total_saved FROM listings GROUP BY city, district;",
+        "options": {}
+      },
+      "id": "view-1",
+      "name": "Create Stats View",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1120,
+        320
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "status",
+              "value": "Schema initialized successfully!"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "done-1",
+      "name": "Done",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1340,
+        320
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Enable PostGIS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enable PostGIS": {
+      "main": [
+        [
+          {
+            "node": "Create Listings Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Listings Table": {
+      "main": [
+        [
+          {
+            "node": "Create Indexes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Indexes": {
+      "main": [
+        [
+          {
+            "node": "Create Stats View",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Stats View": {
+      "main": [
+        [
+          {
+            "node": "Done",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

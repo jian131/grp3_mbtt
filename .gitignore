@@ -3,7 +3,11 @@
 # dependencies
 /node_modules
 /.pnp
-.pnp.*
+.pnp.js
+
+# env files
+.env
+.env.local*
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -39,3 +43,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# docker data (large, generated)
+postgres_data/
+n8n_data/
+superset_data/

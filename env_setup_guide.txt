@@ -1,8 +1,0 @@
-PLEASE RENAME THIS FILE TO ".env.local" AND PASTE YOUR KEYS
-
-# Google Maps API Key (Required for Frontend Map)
-# Enable: Maps JavaScript API, Places API, Geocoding API
-NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzr...PasteYourKeyHere
-
-# Service Account (Backend Only - Already have user json)
-GOOGLE_APPLICATION_CREDENTIALS=./bold-crossbar-482908-g4-94cc906fd313.json
