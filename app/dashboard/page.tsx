@@ -85,7 +85,7 @@ export default function Dashboard() {
               <LayoutDashboard className="w-8 h-8 text-cyan-400" />
               JFinder Dashboard
             </h1>
-            <p className="text-gray-400">Real-time analytics from {stats.total?.toLocaleString()} listings across Hanoi.</p>
+            <p className="text-gray-400">Real-time analytics from {stats.total?.toLocaleString()} listings across 3 cities (HCM, Hà Nội, Đà Nẵng).</p>
           </div>
           <div className="flex gap-4">
             <div className="text-right">

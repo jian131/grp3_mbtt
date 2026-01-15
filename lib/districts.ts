@@ -1,6 +1,6 @@
 /**
- * District data extracted from real Vietnam rental listings
- * 7 provinces with their respective districts
+ * District data for 3 Cities Dataset
+ * Extracted from vn_rental_3cities.json
  */
 
 export const DISTRICTS_BY_PROVINCE: Record<string, string[]> = {
@@ -39,31 +39,6 @@ export const DISTRICTS_BY_PROVINCE: Record<string, string[]> = {
     "Quận Ngũ Hành Sơn",
     "Quận Sơn Trà",
     "Quận Thanh Khê"
-  ],
-  "Thành phố Cần Thơ": [
-    "Quận Bình Thuỷ",
-    "Quận Cái Răng",
-    "Quận Ninh Kiều",
-    "Quận Ô Môn"
-  ],
-  "Thành phố Hải Phòng": [
-    "Quận Dương Kinh",
-    "Quận Hải An",
-    "Quận Hồng Bàng",
-    "Quận Kiến An",
-    "Quận Lê Chân",
-    "Quận Ngô Quyền",
-    "Thành phố Thuỷ Nguyên"
-  ],
-  "Tỉnh Bình Dương": [
-    "Thành phố Bến Cát",
-    "Thành phố Dĩ An",
-    "Thành phố Thuận An",
-    "Thành phố Thủ Dầu Một"
-  ],
-  "Tỉnh Đồng Nai": [
-    "Thành phố Biên Hòa",
-    "Thành phố Long Khánh"
   ]
 };
 
@@ -73,11 +48,7 @@ export const PROVINCES = Object.keys(DISTRICTS_BY_PROVINCE);
 export const PROVINCE_SHORT_NAMES: Record<string, string> = {
   "Thành phố Hồ Chí Minh": "TP.HCM",
   "Thành phố Hà Nội": "Hà Nội",
-  "Thành phố Đà Nẵng": "Đà Nẵng",
-  "Thành phố Cần Thơ": "Cần Thơ",
-  "Thành phố Hải Phòng": "Hải Phòng",
-  "Tỉnh Bình Dương": "Bình Dương",
-  "Tỉnh Đồng Nai": "Đồng Nai"
+  "Thành phố Đà Nẵng": "Đà Nẵng"
 };
 
 export function getDistrictsByProvince(province: string): string[] {
