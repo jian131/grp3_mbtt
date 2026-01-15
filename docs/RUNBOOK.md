@@ -1,243 +1,555 @@
-# 📘 JFinder Runbook
+# 📘 JFinder Operations Runbook
 
-## Hướng dẫn vận hành từ A-Z
+**Version:** 4.0 (File-based)
+**Updated:** 2026-01-16
 
-**Ngày cập nhật:** 2026-01-15
-**Version:** 3.0 (3 Cities Pivot)
+## Overview
+
+This runbook covers day-to-day operations, troubleshooting, and maintenance procedures for JFinder.
 
 ---
 
-## 🚀 Lần đầu Setup
+## 🚀 Initial Setup
 
-### Bước 1: Clone và chuẩn bị
+### Prerequisites
+
+- Docker Desktop (or Docker + Docker Compose)
+- Node.js 18+ and npm
+- Python 3.8+ (for data scripts)
+- Git
+
+### First Time Setup
+
+#### 1. Clone Repository
 
 ```bash
-# Copy .env
-cp .env.example .env
+git clone <repository-url>
+cd grp3_mbtt
 ```
 
-### Bước 2: Khởi động Docker Stack
+#### 2. Environment Configuration
 
 ```bash
+# Copy environment template
+cp .env.example .env.local
+
+# Edit .env.local
+# NEXT_PUBLIC_N8N_URL=http://localhost:5678/webhook
+# NEXT_PUBLIC_MAPBOX_TOKEN=pk.your_token_here (optional)
+```
+
+#### 3. Start Docker Services
+
+```bash
+# Start all services
 docker compose up -d
-```
 
-Đợi ~30 giây, kiểm tra:
+# Wait 30 seconds for initialization
+sleep 30
 
-```bash
+# Verify all services are running
 docker compose ps
-# Expected: postgres (healthy), n8n, superset, redis all "Up"
 ```
 
-### Bước 3: Khởi động Data Server
+Expected output:
 
-**Giữ terminal này mở:**
-```bash
-python -m http.server 8000 --directory app/data
+```
+NAME                        STATUS
+grp3_mbtt-postgres-1        Up (healthy)
+grp3_mbtt-n8n-1             Up
+grp3_mbtt-superset-1        Up
+grp3_mbtt-redis-1           Up
 ```
 
-### Bước 4: Cấu hình n8n
+#### 4. Configure n8n
 
-1. Mở http://localhost:5678
-2. Nếu lần đầu, bỏ qua setup wizard hoặc tạo account local
+1. **Access n8n**: Open http://localhost:5678
+2. **First Visit**: Set up owner account (email/password)
+3. **Import Workflow**:
+   - Go to **Workflows** → **Add workflow** → **Import from file**
+   - Select `n8n/JFinder_API_NoPostgres.json`
+   - Click **Save**
+4. **Activate Workflow**:
+   - Toggle **Active** switch to ON
+   - Verify webhook URLs are available
 
-3. **Tạo Postgres Credential:**
-   - Vào **Settings** → **Credentials** → **Add Credential**
-   - Chọn **Postgres**
-   - Điền:
-     - Name: `JFinder DB`
-     - Host: `postgres`
-     - Port: `5432`
-     - Database: `jfinder_db`
-     - User: `jfinder`
-     - Password: `jfinder_password`
-   - Save
-
-4. **Import và chạy Init Schema:**
-   - **Workflows** → **Add Workflow** → **Import from File**
-   - Chọn `n8n/0-init-schema.json`
-   - Link credential "JFinder DB" vào tất cả Postgres nodes
-   - Click **Execute Workflow**
-   - Expected: "Schema initialized for 3 cities dataset!"
-
-5. **Import và chạy Data Import:**
-   - Import `n8n/1-import-data.json`
-   - Link credential
-   - Execute
-   - Expected: "Imported 1170 listings from 3 cities!"
-
-6. **Import và BẬT các API workflows:**
-   - Import từng file:
-     - `search_api_workflow.json`
-     - `listing_api_workflow.json`
-     - `stats_api_workflow.json`
-     - `roi_api_workflow.json`
-     - `valuation_api_workflow.json`
-   - Link credential cho mỗi workflow
-   - Toggle **Active** (ON) cho mỗi workflow
-
-### Bước 5: Test API
+#### 5. Import Data to Superset
 
 ```bash
-# Search
-curl "http://localhost:5678/webhook/search?limit=1"
-
-# Stats
-curl "http://localhost:5678/webhook/stats"
-
-# ROI
-curl -X POST "http://localhost:5678/webhook/roi" \
-  -H "Content-Type: application/json" \
-  -d '{"monthly_rent":50,"product_price":50000,"profit_margin":0.3,"target_daily_customers":100}'
+# Run import script
+python scripts/import_to_postgres.py
 ```
 
-### Bước 6: Khởi động Frontend
+Expected output:
+
+```
+Connected to PostgreSQL
+Created table: jfinder_listings
+Imported 1170 records
+Done!
+```
+
+#### 6. Configure Superset
+
+1. **Access Superset**: Open http://localhost:8088
+2. **Login**: Username `admin`, Password `admin`
+3. **Add Database**:
+   - Settings → Database Connections → + Database
+   - Select **PostgreSQL**
+   - SQLAlchemy URI: `postgresql://jfinder:jfinder_password@postgres:5432/jfinder_db`
+   - Test connection → Save
+4. **Create Dataset**:
+   - Datasets → + Dataset
+   - Database: PostgreSQL
+   - Schema: public
+   - Table: jfinder_listings
+   - Create
+5. **Create Charts** (optional):
+   - Charts → + Chart
+   - Select dataset → Choose chart type → Configure
+
+#### 7. Start Frontend
 
 ```bash
+# Install dependencies
 npm install
+
+# Start development server
 npm run dev
-# Mở http://localhost:3000
 ```
 
----
-
-## 📊 Cấu hình Superset
-
-### Kết nối Database
-
-1. Mở http://localhost:8088
-2. Login: `admin` / `admin123`
-3. Vào **Settings** → **Database Connections** → **+ Database**
-4. Chọn **PostgreSQL**
-5. Điền connection string:
-   ```
-   postgresql://jfinder:jfinder_password@postgres:5432/jfinder_db
-   ```
-6. Test Connection → Connect
-
-### Tạo Dataset
-
-1. Vào **SQL Lab** → **SQL Editor**
-2. Chọn database vừa tạo
-3. Chạy thử:
-   ```sql
-   SELECT * FROM listings LIMIT 10;
-   ```
-4. Click **Save** → **Save as Dataset**
-5. Đặt tên: `listings`
-
-### Tạo Charts (gợi ý)
-
-| Chart Type | Dataset | Metrics | Dimensions |
-|------------|---------|---------|------------|
-| Pie | listings | COUNT(*) | type |
-| Bar | listings | AVG(price_million) | district |
-| Table | view_district_stats | * | - |
-| Scatter (Map) | listings | price_million | lat, lon |
+Frontend will be available at http://localhost:3000
 
 ---
 
-## 🔧 Vận hành hàng ngày
+## 🔄 Daily Operations
 
-### Kiểm tra services
+### Starting Services
 
 ```bash
+# Start all services
+docker compose up -d
+
+# Start frontend
+npm run dev
+```
+
+### Stopping Services
+
+```bash
+# Stop frontend (Ctrl+C in terminal)
+
+# Stop docker services
+docker compose down
+
+# Stop and remove volumes (caution: deletes data)
+docker compose down -v
+```
+
+### Checking Service Status
+
+```bash
+# All services
 docker compose ps
-docker compose logs -n 20 n8n
-```
 
-### Restart services
+# View logs
+docker compose logs -f
 
-```bash
-docker compose restart
-```
-
-### Xem logs realtime
-
-```bash
+# Specific service logs
 docker compose logs -f n8n
 docker compose logs -f postgres
+docker compose logs -f superset
 ```
 
-### Query database trực tiếp
+### Restarting Services
 
 ```bash
-docker exec -it grp3_mbtt-postgres-1 psql -U jfinder -d jfinder_db
+# Restart specific service
+docker compose restart n8n
 
-# Ví dụ queries:
-SELECT COUNT(*) FROM listings;
-SELECT * FROM view_district_stats LIMIT 5;
-\q
+# Restart all services
+docker compose restart
+
+# Full restart (recreate containers)
+docker compose down
+docker compose up -d
 ```
 
 ---
 
-## 🔄 Reset hoàn toàn
+## 🧪 Testing
+
+### Smoke Tests
 
 ```bash
-# Dừng và xóa volumes
-docker compose down -v
-
-# Xóa data folders (nếu cần)
-rm -rf postgres_data n8n_data superset_data
-
-# Khởi động lại
-docker compose up -d
-
-# Cấu hình lại n8n từ bước 4
+# Run all smoke tests
+python scripts/smoke_test.py
 ```
+
+Expected: 9/9 tests pass
+
+### Manual API Testing
+
+#### Test n8n Search
+
+```bash
+curl "http://localhost:5678/webhook/search?province=Hà Nội&limit=5"
+```
+
+Expected: JSON response with 5 listings from Hà Nội
+
+#### Test ROI Calculation
+
+```bash
+curl -X POST "http://localhost:5678/webhook/roi" \
+  -H "Content-Type: application/json" \
+  -d '{"monthlyRent": 20, "productPrice": 50000, "profitMargin": 0.3, "dailyCustomers": 100}'
+```
+
+Expected: JSON with ROI calculation results
+
+#### Test Valuation
+
+```bash
+curl -X POST "http://localhost:5678/webhook/valuation" \
+  -H "Content-Type: application/json" \
+  -d '{"district": "Quận 1", "city": "Thành phố Hồ Chí Minh", "area": 50}'
+```
+
+Expected: JSON with valuation estimate
+
+### Frontend Testing
+
+```bash
+# Build test
+npm run build
+
+# Start production server
+npm start
+```
+
+Visit http://localhost:3000 and verify:
+
+- ✅ Home page loads
+- ✅ Search page displays results
+- ✅ Listing detail page works
+- ✅ Analysis page calculates ROI
+- ✅ Dashboard shows charts
 
 ---
 
 ## 🐛 Troubleshooting
 
-### n8n không kết nối được Postgres
+### n8n Workflow Not Responding
 
-- Kiểm tra postgres đã healthy: `docker compose ps`
-- Host phải là `postgres` (không phải `localhost`)
-- Port là `5432` (internal port)
+**Symptoms:**
 
-### Import workflow báo lỗi HTTP Request
+- API calls to `/webhook/*` return 404
+- "Workflow not found" errors
 
-- Đảm bảo `python -m http.server 8000` đang chạy
-- URL trong workflow là `http://host.docker.internal:8000/vn_rental_3cities.json`
+**Solutions:**
 
-### Superset không thấy data
+1. **Check workflow is active**:
 
-1. Vào SQL Lab test query trước
-2. Nếu không có data → chạy lại import workflow trong n8n
-3. Refresh dataset trong Superset
+   - Go to http://localhost:5678
+   - Workflows → JFinder_API_NoPostgres
+   - Ensure **Active** toggle is ON
 
-### Frontend báo lỗi API
+2. **Check webhook URLs**:
 
-- Kiểm tra n8n workflows đã Active
-- Kiểm tra URL: `http://localhost:5678/webhook/search`
-- CORS đã được enable trong n8n
+   - Click on Webhook nodes
+   - Verify URLs match expected format: `/webhook/search`
+
+3. **Restart n8n**:
+   ```bash
+   docker compose restart n8n
+   ```
+
+### Frontend Shows "Failed to fetch"
+
+**Symptoms:**
+
+- Search returns no results
+- Console shows CORS errors or connection refused
+
+**Solutions:**
+
+1. **Check n8n is running**:
+
+   ```bash
+   curl http://localhost:5678/healthz
+   ```
+
+2. **Check environment variables**:
+
+   - Verify `.env.local` has correct `NEXT_PUBLIC_N8N_URL`
+   - Should be: `http://localhost:5678/webhook`
+
+3. **Restart frontend**:
+   ```bash
+   # Stop (Ctrl+C)
+   # Clear Next.js cache
+   rm -rf .next
+   # Restart
+   npm run dev
+   ```
+
+### Superset Can't Connect to Database
+
+**Symptoms:**
+
+- "Database connection failed" in Superset
+- Charts show no data
+
+**Solutions:**
+
+1. **Check PostgreSQL is running**:
+
+   ```bash
+   docker compose ps postgres
+   docker exec -it grp3_mbtt-postgres-1 psql -U jfinder -d jfinder_db -c "SELECT COUNT(*) FROM jfinder_listings;"
+   ```
+
+2. **Verify connection string**:
+
+   - In Superset: Settings → Database Connections
+   - Edit PostgreSQL connection
+   - URI: `postgresql://jfinder:jfinder_password@postgres:5432/jfinder_db`
+   - Note: Use `postgres` (not `localhost`) as hostname
+
+3. **Re-import data**:
+   ```bash
+   python scripts/import_to_postgres.py
+   ```
+
+### Docker Container Won't Start
+
+**Symptoms:**
+
+- `docker compose up` fails
+- Port already in use errors
+
+**Solutions:**
+
+1. **Check port conflicts**:
+
+   ```bash
+   # Windows
+   netstat -ano | findstr :5678
+   netstat -ano | findstr :3000
+   netstat -ano | findstr :8088
+
+   # Kill conflicting processes if needed
+   ```
+
+2. **Clear Docker volumes**:
+
+   ```bash
+   docker compose down -v
+   docker compose up -d
+   ```
+
+3. **Check Docker resources**:
+   - Docker Desktop → Settings → Resources
+   - Ensure at least 4GB RAM allocated
+
+### Data Not Showing in Charts
+
+**Symptoms:**
+
+- Superset charts are empty
+- Dataset shows 0 rows
+
+**Solutions:**
+
+1. **Verify data import**:
+
+   ```bash
+   docker exec -it grp3_mbtt-postgres-1 psql -U jfinder -d jfinder_db
+   \dt
+   SELECT COUNT(*) FROM jfinder_listings;
+   \q
+   ```
+
+2. **Re-import data**:
+
+   ```bash
+   python scripts/import_to_postgres.py
+   ```
+
+3. **Refresh Superset metadata**:
+   - Datasets → jfinder_listings → Edit
+   - Columns tab → Sync columns from source
 
 ---
 
-## 📋 Checklist Demo
+## 🔧 Maintenance
 
-Trước khi demo cho giảng viên:
+### Update Dataset
 
-1. ⬜ Docker all services up
-2. ⬜ Data import 1170 records
-3. ⬜ API /search trả về data
-4. ⬜ API /stats trả về statistics
-5. ⬜ API /roi tính toán đúng
-6. ⬜ API /valuation trả về price range
-7. ⬜ Frontend hiển thị listings
-8. ⬜ Heatmap hiển thị markers
-9. ⬜ Superset dashboard có charts
+If dataset file changes:
+
+1. **Replace JSON file**:
+
+   ```bash
+   cp new_data.json app/data/vn_rental_3cities_verified.json
+   ```
+
+2. **Restart n8n** (to reload file):
+
+   ```bash
+   docker compose restart n8n
+   ```
+
+3. **Re-import to Superset**:
+
+   ```bash
+   python scripts/import_to_postgres.py
+   ```
+
+4. **Verify**:
+   ```bash
+   python scripts/smoke_test.py
+   ```
+
+### Update n8n Workflow
+
+1. **Export current workflow**:
+
+   - n8n → Workflows → JFinder_API_NoPostgres
+   - ⋯ Menu → Download
+   - Save to `n8n/` folder
+
+2. **Make changes in n8n UI**
+
+3. **Test thoroughly**
+
+4. **Export again** to save changes
+
+### Database Backup
+
+```bash
+# Backup
+docker exec grp3_mbtt-postgres-1 pg_dump -U jfinder jfinder_db > backup_$(date +%Y%m%d).sql
+
+# Restore
+docker exec -i grp3_mbtt-postgres-1 psql -U jfinder jfinder_db < backup_20260116.sql
+```
+
+### Log Rotation
+
+Docker handles log rotation automatically. To manually clear logs:
+
+```bash
+# View log size
+docker compose logs --tail=0 | wc -l
+
+# Clear logs (restart containers)
+docker compose restart
+```
 
 ---
 
-## 📞 Liên hệ hỗ trợ
+## 📊 Monitoring
 
-**Technical Issues:** Check `docs/TESTING.md` trước
+### Health Check Script
 
-**Architecture Questions:** Check `docs/ARCHITECTURE.md`
+Create `scripts/health_check.sh`:
+
+```bash
+#!/bin/bash
+echo "Checking JFinder services..."
+
+# n8n
+curl -sf http://localhost:5678/healthz > /dev/null && echo "✅ n8n OK" || echo "❌ n8n DOWN"
+
+# Frontend
+curl -sf http://localhost:3000 > /dev/null && echo "✅ Frontend OK" || echo "❌ Frontend DOWN"
+
+# Superset
+curl -sf http://localhost:8088/health > /dev/null && echo "✅ Superset OK" || echo "❌ Superset DOWN"
+
+# PostgreSQL
+docker exec grp3_mbtt-postgres-1 pg_isready -U jfinder && echo "✅ PostgreSQL OK" || echo "❌ PostgreSQL DOWN"
+```
+
+Run: `bash scripts/health_check.sh`
+
+### Performance Monitoring
+
+```bash
+# Docker resource usage
+docker stats
+
+# PostgreSQL slow queries
+docker exec -it grp3_mbtt-postgres-1 psql -U jfinder -d jfinder_db -c "SELECT * FROM pg_stat_activity WHERE state = 'active';"
+```
 
 ---
 
-**Happy Coding! 🚀**
+## 🚢 Deployment
+
+### Production Checklist
+
+- [ ] Update `.env.production` with production URLs
+- [ ] Set strong passwords for Superset admin
+- [ ] Configure n8n authentication
+- [ ] Set up SSL/TLS certificates
+- [ ] Configure reverse proxy (nginx)
+- [ ] Set up monitoring (Prometheus/Grafana)
+- [ ] Configure automated backups
+- [ ] Test disaster recovery
+
+### Production Environment Variables
+
+```bash
+# .env.production
+NEXT_PUBLIC_N8N_URL=https://api.jfinder.com/webhook
+NODE_ENV=production
+```
+
+### Reverse Proxy Example (nginx)
+
+```nginx
+server {
+    listen 80;
+    server_name jfinder.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+    }
+
+    location /api/n8n/ {
+        proxy_pass http://localhost:5678/webhook/;
+    }
+
+    location /superset/ {
+        proxy_pass http://localhost:8088/;
+    }
+}
+```
+
+---
+
+## 📞 Support
+
+### Getting Help
+
+1. Check this runbook first
+2. Review [ARCHITECTURE.md](ARCHITECTURE.md) for system design
+3. Check [reports/logic_audit.md](../reports/logic_audit.md) for known issues
+4. Search GitHub issues
+
+### Reporting Issues
+
+Include:
+
+- System info (OS, Docker version, Node version)
+- Steps to reproduce
+- Expected vs actual behavior
+- Relevant logs
+- Output of `python scripts/smoke_test.py`
+
+---
+
+For architecture details, see [ARCHITECTURE.md](ARCHITECTURE.md)

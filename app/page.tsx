@@ -34,7 +34,7 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <a href="/map" className="relative group px-8 py-4 bg-cyan-500 rounded-full font-bold text-white shadow-[0_0_40px_-10px_rgba(6,182,212,0.5)] transition-all hover:scale-105 hover:bg-cyan-400 overflow-hidden">
+            <a href="/search" className="relative group px-8 py-4 bg-cyan-500 rounded-full font-bold text-white shadow-[0_0_40px_-10px_rgba(6,182,212,0.5)] transition-all hover:scale-105 hover:bg-cyan-400 overflow-hidden">
               <span className="relative z-10 flex items-center gap-2">
                 Tìm Mặt Bằng <span className="text-lg">→</span>
               </span>

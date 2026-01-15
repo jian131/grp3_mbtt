@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Search, MapPin, TrendingUp, Eye, Loader2, Filter, Grid3X3, Map as MapIcon } from 'lucide-react';
 import { fetchListings, Listing } from '@/lib/api';
 import { PROVINCES, getDistrictsByProvince, getProvinceShortName } from '@/lib/districts';
 import dynamic from 'next/dynamic';
+import FallbackImage from '@/components/FallbackImage';
 
 const RentalHeatmap = dynamic(() => import('@/components/Map/RentalHeatmap'), { ssr: false });
 
@@ -216,18 +216,11 @@ export default function SearchPage() {
                   >
                     {/* Image Thumbnail */}
                     <div className="relative w-full h-48 bg-slate-800">
-                      {listing.images && listing.images.length > 0 ? (
-                        <Image
-                          src={listing.images[0]}
-                          alt={listing.name}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-600">
-                          <MapPin className="w-12 h-12" />
-                        </div>
-                      )}
+                      <FallbackImage
+                        src={listing.images && listing.images.length > 0 ? listing.images[0] : undefined}
+                        alt={listing.name}
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                       <span className={`absolute top-3 right-3 text-[10px] font-bold px-2 py-1 rounded-full border backdrop-blur-sm ${priceLabel.color}`}>
                         {priceLabel.text}
                       </span>

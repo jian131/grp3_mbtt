@@ -1,31 +1,33 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { BarChart3, PieChart, TrendingUp, Loader2, ExternalLink } from 'lucide-react';
+import { BarChart3, PieChart, TrendingUp, Loader2, ExternalLink, RefreshCw } from 'lucide-react';
 
 export default function BIDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
 
-  // Superset Dashboard URL (sau khi tạo dashboard trong Superset)
-  // Để lấy URL này:
-  // 1. Truy cập http://localhost:8088
-  // 2. Tạo Dashboard
-  // 3. Click "Share" -> Copy Permalink
+  // Superset Dashboard URL
   const SUPERSET_URL = 'http://localhost:8088';
 
   useEffect(() => {
-    // Check if Superset is accessible
-    fetch(SUPERSET_URL)
-      .then(() => {
-        setLoading(false);
-        setError(false);
-      })
-      .catch(() => {
-        setLoading(false);
-        setError(true);
-      });
+    // Since CORS blocks fetch, just set loading done after timeout
+    // The iframe will handle the actual connection
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
   }, []);
+
+  const handleIframeLoad = () => {
+    setIframeLoaded(true);
+    setError(false);
+  };
+
+  const handleIframeError = () => {
+    setError(true);
+  };
 
   return (
     <div className="min-h-screen pt-24 pb-20 px-4 md:px-8">
@@ -84,71 +86,107 @@ export default function BIDashboardPage() {
 
           {error && (
             <div className="bg-slate-900 rounded-xl p-16 text-center">
-              <div className="text-red-400 text-6xl mb-4">⚠️</div>
-              <h3 className="text-xl font-bold text-white mb-2">Không thể kết nối Superset</h3>
+              <div className="text-amber-400 text-6xl mb-4">⚠️</div>
+              <h3 className="text-xl font-bold text-white mb-2">Đang Khởi Động Superset...</h3>
               <p className="text-gray-400 mb-6">
-                Hãy đảm bảo Docker container Superset đang chạy.
+                Container Superset đang khởi động hoặc chưa sẵn sàng. Thường mất 1-2 phút.
               </p>
-              <div className="bg-slate-800 rounded-lg p-4 text-left max-w-md mx-auto">
-                <p className="text-sm text-gray-300 font-mono mb-2">Chạy lệnh sau trong terminal:</p>
-                <code className="text-xs text-cyan-400">docker-compose up -d</code>
+              <div className="bg-slate-800 rounded-lg p-4 text-left max-w-md mx-auto mb-6">
+                <p className="text-sm text-gray-300 font-mono mb-2">Nếu container chưa chạy:</p>
+                <code className="text-xs text-cyan-400">docker-compose up -d superset</code>
               </div>
-              <a
-                href={SUPERSET_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block mt-6 px-6 py-3 bg-cyan-600 hover:bg-cyan-500 rounded-lg text-white font-bold transition-colors"
-              >
-                Thử Mở Trực Tiếp
-              </a>
+              <div className="flex gap-4 justify-center">
+                <button
+                  onClick={() => { setLoading(true); setError(false); window.location.reload(); }}
+                  className="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 rounded-lg text-white font-bold transition-colors"
+                >
+                  🔄 Thử Lại
+                </button>
+                <a
+                  href={SUPERSET_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg text-white font-bold transition-colors"
+                >
+                  Mở Trực Tiếp →
+                </a>
+              </div>
             </div>
           )}
 
-          {!loading && !error && (
+          {!loading && (
             <div className="relative">
               <iframe
-                src={`${SUPERSET_URL}/superset/welcome/`}
+                src={`${SUPERSET_URL}/superset/dashboard/1/`}
                 className="w-full h-[800px] rounded-xl bg-white"
                 title="Apache Superset Dashboard"
-                onLoad={() => setLoading(false)}
+                onLoad={handleIframeLoad}
+                onError={handleIframeError}
+                allow="fullscreen"
               />
-              <div className="absolute bottom-4 right-4 glass-panel px-3 py-2 rounded-lg">
-                <span className="text-xs text-cyan-400 font-bold flex items-center gap-2">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                  Superset Live
-                </span>
-              </div>
+              {iframeLoaded && (
+                <div className="absolute bottom-4 right-4 glass-panel px-3 py-2 rounded-lg">
+                  <span className="text-xs text-cyan-400 font-bold flex items-center gap-2">
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    Superset Live
+                  </span>
+                </div>
+              )}
             </div>
           )}
         </div>
 
+        {/* Quick Data Export */}
+        <div className="mt-8 glass-card rounded-2xl p-8 border border-green-500/20 bg-green-500/5">
+          <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            📊 Export Data cho Superset
+          </h3>
+          <p className="text-gray-400 mb-4">Download CSV để import vào Superset:</p>
+          <div className="flex gap-4">
+            <a
+              href="/api/export?format=csv"
+              download="jfinder_listings.csv"
+              className="px-6 py-3 bg-green-600 hover:bg-green-500 rounded-lg text-white font-bold transition-colors flex items-center gap-2"
+            >
+              📥 Download CSV (1170 listings)
+            </a>
+            <a
+              href="/api/export?format=json"
+              target="_blank"
+              className="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg text-white font-bold transition-colors"
+            >
+              View JSON
+            </a>
+          </div>
+        </div>
+
         {/* Setup Guide */}
         <div className="mt-8 glass-card rounded-2xl p-8 border border-white/10">
-          <h3 className="text-xl font-bold text-white mb-4">🚀 Hướng Dẫn Tạo Dashboard</h3>
+          <h3 className="text-xl font-bold text-white mb-4">🚀 Hướng Dẫn Import Data</h3>
           <ol className="space-y-3 text-gray-300">
             <li className="flex gap-3">
               <span className="font-bold text-cyan-400">1.</span>
-              <span>Truy cập <a href={SUPERSET_URL} target="_blank" className="text-cyan-400 hover:underline">{SUPERSET_URL}</a> (Đăng nhập: admin / admin)</span>
+              <span>Download CSV từ nút trên</span>
             </li>
             <li className="flex gap-3">
               <span className="font-bold text-cyan-400">2.</span>
-              <span>Click <strong>Settings → Database Connections</strong> → Kết nối <strong>Google Sheets</strong> (driver đã cài sẵn)</span>
+              <span>Truy cập <a href={SUPERSET_URL} target="_blank" className="text-cyan-400 hover:underline">{SUPERSET_URL}</a> (Đăng nhập: <strong>admin</strong> / <strong>admin123</strong>)</span>
             </li>
             <li className="flex gap-3">
               <span className="font-bold text-cyan-400">3.</span>
-              <span>Tạo <strong>Dataset</strong> từ Google Sheets URL hoặc CSV đã upload</span>
+              <span>Vào <strong>Settings → Database Connections → + Database</strong> → Chọn <strong>SQLite</strong> hoặc <strong>Upload CSV</strong></span>
             </li>
             <li className="flex gap-3">
               <span className="font-bold text-cyan-400">4.</span>
-              <span>Tạo <strong>Charts</strong> (Bar, Pie, Line, Heatmap...)</span>
+              <span>Hoặc: <strong>Data → Upload a CSV</strong> → Chọn file vừa download</span>
             </li>
             <li className="flex gap-3">
               <span className="font-bold text-cyan-400">5.</span>
-              <span>Tạo <strong>Dashboard</strong> → Kéo thả charts vào</span>
+              <span>Tạo <strong>Charts</strong> (Bar, Pie, Line, Map...)</span>
             </li>
             <li className="flex gap-3">
               <span className="font-bold text-cyan-400">6.</span>
-              <span>Copy <strong>Dashboard URL</strong> và cập nhật vào code (<code className="text-xs bg-slate-800 px-2 py-1 rounded">app/bi-dashboard/page.tsx</code>)</span>
+              <span>Tạo <strong>Dashboard</strong> → Kéo thả charts vào</span>
             </li>
           </ol>
         </div>

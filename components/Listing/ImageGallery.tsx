@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, MapPin } from 'lucide-react';
+import FallbackImage from '@/components/FallbackImage';
 
 interface ImageGalleryProps {
   images: string[];
@@ -33,12 +33,10 @@ export default function ImageGallery({ images, title }: ImageGalleryProps) {
     <div className="relative">
       {/* Main Image */}
       <div className="relative w-full h-96 md:h-[500px] bg-slate-900 rounded-2xl overflow-hidden group">
-        <Image
+        <FallbackImage
           src={images[currentIndex]}
           alt={`${title} - Ảnh ${currentIndex + 1}`}
-          fill
           className="object-cover"
-          priority={currentIndex === 0}
         />
 
         {/* Navigation Arrows */}
@@ -83,11 +81,11 @@ export default function ImageGallery({ images, title }: ImageGalleryProps) {
               className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${idx === currentIndex ? 'border-cyan-500 scale-105' : 'border-transparent opacity-60 hover:opacity-100'
                 }`}
             >
-              <Image
+              <FallbackImage
                 src={img}
                 alt={`Thumbnail ${idx + 1}`}
-                fill
                 className="object-cover"
+                fallbackIndex={idx}
               />
             </button>
           ))}
@@ -99,14 +97,13 @@ export default function ImageGallery({ images, title }: ImageGalleryProps) {
         <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
           <button
             onClick={() => setFullscreen(false)}
-            className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white p-2 rounded-full"
+            className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white p-2 rounded-full z-10"
           >
             <X className="w-6 h-6" />
           </button>
-          <Image
+          <FallbackImage
             src={images[currentIndex]}
             alt={`${title} - Fullscreen`}
-            fill
             className="object-contain p-8"
           />
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-full">

@@ -6,6 +6,15 @@ import { Calculator, FileText, ArrowRight, Loader2 } from 'lucide-react';
 import { calculateROI, getValuation } from '@/lib/api';
 import { PROVINCES, getDistrictsByProvince, getProvinceShortName } from '@/lib/districts';
 
+// Helper: Determine price label based on comparison with suggested price
+function determinePriceLabel(actualPrice: number, suggestedPrice: number): 'cheap' | 'fair' | 'expensive' {
+  if (!actualPrice || !suggestedPrice) return 'fair';
+  const ratio = actualPrice / suggestedPrice;
+  if (ratio < 0.9) return 'cheap';
+  if (ratio > 1.15) return 'expensive';
+  return 'fair';
+}
+
 export default function AnalysisPage() {
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +33,8 @@ export default function AnalysisPage() {
     rent: 40000000,
     productPrice: 35000,
     customers: 120,
-    cost: 15000000
+    cost: 15000000,
+    profitMargin: 30  // Percentage
   });
   const [roiResult, setRoiResult] = useState<any>(null);
 
@@ -39,16 +49,43 @@ export default function AnalysisPage() {
         floors: 1,
         type: 'shophouse'
       });
-      setValuationResult(valData);
+      // Transform valuation response for ValuationCard
+      if (valData?.valuation) {
+        setValuationResult({
+          success: true,
+          suggestedPrice: valData.valuation.suggested_price_million,
+          priceRange: valData.valuation.priceRange,
+          potentialScore: valData.valuation.potentialScore || 75,
+          priceLabel: determinePriceLabel(Number(valForm.price), valData.valuation.suggested_price_million),
+          growthForecast: 5.2,  // Could be enhanced with real market trend data
+          confidence: valData.valuation.confidence
+        });
+      } else {
+        setValuationResult(valData);
+      }
 
       // 2. Calculate ROI (Initial calculation based on form defaults)
+      // Note: monthlyRent should be in MILLIONS (e.g., 40 = 40 triệu VNĐ)
       const roiData = await calculateROI({
-        monthlyRent: Number(valForm.price) * 1000000 || roiForm.rent,
+        monthlyRent: Number(valForm.price) || (roiForm.rent / 1000000),
         productPrice: roiForm.productPrice,
+        profitMargin: roiForm.profitMargin / 100,  // Convert percentage to decimal
         dailyCustomers: roiForm.customers,
-        operatingCost: roiForm.cost
+        operatingCost: roiForm.cost / 1000000  // Convert to millions
       });
-      setRoiResult(roiData);
+      // Transform API response to match frontend expectations
+      if (roiData?.results) {
+        setRoiResult({
+          totalMonthlyCost: roiData.results.total_monthly_cost_vnd,
+          breakEvenDays: roiData.results.break_even_days,
+          monthlyRevenue: roiData.results.monthly_revenue_vnd,
+          monthlyProfit: roiData.results.monthly_net_profit_vnd,
+          dailyProfit: roiData.results.daily_profit_vnd,
+          viability: roiData.results.viability
+        });
+      } else {
+        setRoiResult(roiData);
+      }
 
     } catch (e) {
       console.error(e);
@@ -59,12 +96,25 @@ export default function AnalysisPage() {
 
   const updateROI = async () => {
     const data = await calculateROI({
-      monthlyRent: Number(valForm.price) * 1000000 || roiForm.rent,
+      monthlyRent: Number(valForm.price) || (roiForm.rent / 1000000),
       productPrice: roiForm.productPrice,
+      profitMargin: roiForm.profitMargin / 100,  // Convert percentage to decimal
       dailyCustomers: roiForm.customers,
-      operatingCost: roiForm.cost
+      operatingCost: roiForm.cost / 1000000
     });
-    setRoiResult(data);
+    // Transform API response to match frontend expectations
+    if (data?.results) {
+      setRoiResult({
+        totalMonthlyCost: data.results.total_monthly_cost_vnd,
+        breakEvenDays: data.results.break_even_days,
+        monthlyRevenue: data.results.monthly_revenue_vnd,
+        monthlyProfit: data.results.monthly_net_profit_vnd,
+        dailyProfit: data.results.daily_profit_vnd,
+        viability: data.results.viability
+      });
+    } else {
+      setRoiResult(data);
+    }
   };
 
   return (
@@ -191,7 +241,7 @@ export default function AnalysisPage() {
                 Tính Điểm Hòa Vốn (Break-even)
               </h3>
 
-              <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="grid grid-cols-3 gap-4 mb-6">
                 <div>
                   <label className="text-xs text-gray-500 mb-1 block">Giá bán SP (VNĐ)</label>
                   <input
@@ -199,6 +249,18 @@ export default function AnalysisPage() {
                     value={roiForm.productPrice}
                     onChange={e => { setRoiForm({ ...roiForm, productPrice: Number(e.target.value) }); }}
                     onBlur={updateROI}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-sm text-white focus:border-cyan-500 outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-500 mb-1 block">Biên lợi nhuận (%)</label>
+                  <input
+                    type="number"
+                    value={roiForm.profitMargin}
+                    onChange={e => { setRoiForm({ ...roiForm, profitMargin: Number(e.target.value) }); }}
+                    onBlur={updateROI}
+                    min={5}
+                    max={90}
                     className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-sm text-white focus:border-cyan-500 outline-none"
                   />
                 </div>

@@ -52,9 +52,9 @@ export default function ListingDetailPage() {
     );
   }
 
-  const priceLabel = listing.ai.priceLabel === 'cheap'
+  const priceLabel = listing.ai?.priceLabel === 'cheap'
     ? { text: 'Giá Tốt', color: 'bg-green-500/10 text-green-400 border-green-500/20' }
-    : listing.ai.priceLabel === 'expensive'
+    : listing.ai?.priceLabel === 'expensive'
       ? { text: 'Giá Cao', color: 'bg-red-500/10 text-red-400 border-red-500/20' }
       : { text: 'Hợp Lý', color: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' };
 
@@ -120,6 +120,7 @@ export default function ListingDetailPage() {
             </div>
 
             {/* AI Insights */}
+            {listing.ai && (
             <div className="glass-card rounded-2xl p-8">
               <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-cyan-400" />
@@ -128,11 +129,11 @@ export default function ListingDetailPage() {
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-gradient-to-br from-purple-500/10 to-transparent p-6 rounded-xl border border-purple-500/20">
                   <div className="text-sm text-purple-300 mb-2">Điểm Tiềm Năng</div>
-                  <div className="text-4xl font-black text-white">{listing.ai.potentialScore}/100</div>
+                  <div className="text-4xl font-black text-white">{listing.ai.potentialScore !== undefined ? listing.ai.potentialScore : 'N/A'}/100</div>
                 </div>
                 <div className="bg-gradient-to-br from-cyan-500/10 to-transparent p-6 rounded-xl border border-cyan-500/20">
                   <div className="text-sm text-cyan-300 mb-2">Giá Gợi Ý</div>
-                  <div className="text-4xl font-black text-white">{listing.ai.suggestedPrice} Tr</div>
+                  <div className="text-4xl font-black text-white">{listing.ai.suggestedPrice ?? listing.price} Tr</div>
                 </div>
               </div>
               <div className="mt-4 p-4 bg-white/5 rounded-lg">
@@ -143,6 +144,7 @@ export default function ListingDetailPage() {
                 </div>
               </div>
             </div>
+            )}
 
             {/* Amenities */}
             {listing.amenities && (

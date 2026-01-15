@@ -22,6 +22,7 @@ services:
       retries: 5
 
   # 2. Automation: n8n (ETL + API Backend)
+  # NOTE: n8n workflows now use JSON file data, not Postgres queries
   n8n:
     image: n8nio/n8n:latest
     restart: always
@@ -36,20 +37,13 @@ services:
       - N8N_CORS_ALLOW_ORIGIN=*
       - NODE_FUNCTION_ALLOW_BUILTIN=*
       - NODE_FUNCTION_ALLOW_EXTERNAL=*
-      - DB_TYPE=postgresdb
-      - DB_POSTGRESDB_HOST=postgres
-      - DB_POSTGRESDB_PORT=5432
-      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB:-jfinder_db}
-      - DB_POSTGRESDB_USER=${POSTGRES_USER:-jfinder}
-      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD:-jfinder_password}
+      # n8n internal DB (for workflow storage, not data)
+      - DB_TYPE=sqlite
     volumes:
       - n8n_data:/home/node/.n8n
-      - ./app/data:/data_input:ro
+      - ./app/data:/data/files:ro  # IMPORTANT: Mount verified data for API
     networks:
       - jfinder-net
-    depends_on:
-      postgres:
-        condition: service_healthy
 
   # 3. BI: Superset
   superset:
@@ -61,8 +55,13 @@ services:
       - SUPERSET_SECRET_KEY=${SUPERSET_SECRET_KEY:-supersecretkey123}
       - SUPERSET_LOAD_EXAMPLES=no
       - DATABASE_URL=postgresql://${POSTGRES_USER:-jfinder}:${POSTGRES_PASSWORD:-jfinder_password}@postgres:5432/${POSTGRES_DB:-jfinder_db}
+      - PREVENT_UNSAFE_DB_CONNECTIONS=false
+      - ENABLE_CORS=true
+      - WTF_CSRF_ENABLED=False
     volumes:
       - superset_data:/app/superset_home
+      - ./jfinder_data.db:/app/jfinder_data.db:ro
+      - ./superset_config.py:/app/pythonpath/superset_config.py:ro
     depends_on:
       postgres:
         condition: service_healthy

@@ -86,11 +86,17 @@ export interface WardStat extends DistrictStat {
 }
 
 export interface ROIInput {
-  monthly_rent: number;
-  product_price: number;
-  profit_margin: number;
-  target_daily_customers: number;
+  // Support both snake_case and camelCase
+  monthly_rent?: number;
+  monthlyRent?: number;
+  product_price?: number;
+  productPrice?: number;
+  profit_margin?: number;
+  profitMargin?: number;
+  target_daily_customers?: number;
+  dailyCustomers?: number;
   operating_cost?: number;
+  operatingCost?: number;
 }
 
 export interface ROIResult {
@@ -109,9 +115,11 @@ export interface ROIResult {
 export interface ValuationInput {
   district: string;
   ward?: string;
-  type: string;
-  area_m2: number;
+  type?: string;
+  area_m2?: number;
+  area?: number;
   frontage_m?: number;
+  frontage?: number;
   floors?: number;
 }
 
@@ -138,19 +146,46 @@ export interface ValuationResult {
  * Transform raw API response to add compatibility aliases
  */
 function transformListing(listing: any): Listing {
+  // Parse images if string
+  let images = listing.images || [];
+  if (typeof images === 'string') {
+    try {
+      images = JSON.parse(images.replace(/'/g, '"'));
+    } catch (e) {
+      images = listing.primary_image_url ? [listing.primary_image_url] : [];
+    }
+  }
+  if (!Array.isArray(images) || images.length === 0) {
+    images = listing.primary_image_url ? [listing.primary_image_url] : [];
+  }
+
+  // Determine price label
+  const price = listing.price_million || listing.price || 0;
+  const suggestedPrice = listing.ai_suggested_price || listing.ai?.suggestedPrice || price;
+  let priceLabel = listing.price_label || listing.ai?.priceLabel || 'fair';
+  if (!listing.price_label && suggestedPrice && price) {
+    const ratio = price / suggestedPrice;
+    if (ratio < 0.9) priceLabel = 'cheap';
+    else if (ratio > 1.1) priceLabel = 'expensive';
+  }
+
   return {
     ...listing,
     // Add aliases for backward compatibility
-    lat: listing.latitude,
-    lon: listing.longitude,
-    area: listing.area_m2,
-    price: listing.price_million,
-    frontage: listing.frontage_m,
-    title: listing.name,
-    images: listing.primary_image_url ? [listing.primary_image_url] : [],
-    ai: {
-      potentialScore: listing.ai_potential_score,
-      priceLabel: listing.price_label
+    lat: listing.latitude || listing.lat,
+    lon: listing.longitude || listing.lon,
+    area: listing.area_m2 || listing.area,
+    price: listing.price_million || listing.price,
+    frontage: listing.frontage_m || listing.frontage,
+    title: listing.name || listing.title,
+    images: images,
+    ai: listing.ai || {
+      potentialScore: listing.ai_potential_score !== undefined && listing.ai_potential_score !== null
+        ? listing.ai_potential_score
+        : 50,
+      suggestedPrice: suggestedPrice,
+      riskLevel: (listing.ai_risk_level || 'medium').toLowerCase(),
+      priceLabel: priceLabel
     }
   };
 }
@@ -215,43 +250,31 @@ export async function fetchListings(params?: SearchParams): Promise<Listing[]> {
  */
 export async function fetchListing(id: string): Promise<Listing | null> {
   try {
-    // Try n8n first
-    const url = `${N8N_BASE}/listing/${id}`;
-    const res = await fetch(url);
-
-    if (!res.ok) {
-      console.warn(`n8n listing API failed, using Next.js fallback`);
-      // Fallback to Next.js API route
-      const fallbackRes = await fetch(`/api/listing/${id}`);
-      if (fallbackRes.ok) {
-        const json = await fallbackRes.json();
-        const rawData = json.success && json.data ? json.data : null;
-        return rawData ? transformListing(rawData) : null;
-      }
-      return null;
+    // First try Next.js API (direct file access, most reliable)
+    const fallbackRes = await fetch(`/api/listing/${id}`);
+    if (fallbackRes.ok) {
+      const json = await fallbackRes.json();
+      const rawData = json.success && json.data ? json.data : null;
+      if (rawData) return transformListing(rawData);
     }
 
-    const json = await res.json();
+    // If that fails, use n8n search and filter client-side
+    console.warn(`Next.js API failed, trying n8n search`);
+    const searchUrl = `${N8N_BASE}/search?limit=5000`;
+    const searchRes = await fetch(searchUrl);
 
-    let rawData: any = null;
-    if (json.success && json.data) rawData = Array.isArray(json.data) ? json.data[0] : json.data;
-    else if (Array.isArray(json) && json.length > 0) rawData = json[0];
-    else if (typeof json === 'object' && json.id) rawData = json;
+    if (searchRes.ok) {
+      const json = await searchRes.json();
+      const listings = json.data || json;
+      if (Array.isArray(listings) && listings.length > 0) {
+        const found = listings.find((l: any) => l.id === id);
+        if (found) return transformListing(found);
+      }
+    }
 
-    return rawData ? transformListing(rawData) : null;
+    return null;
   } catch (error) {
     console.error('API Error (listing detail):', error);
-    // Last resort fallback
-    try {
-      const fallbackRes = await fetch(`/api/listing/${id}`);
-      if (fallbackRes.ok) {
-        const json = await fallbackRes.json();
-        const rawData = json.success && json.data ? json.data : null;
-        return rawData ? transformListing(rawData) : null;
-      }
-    } catch (fallbackError) {
-      console.error('Fallback also failed:', fallbackError);
-    }
     return null;
   }
 }

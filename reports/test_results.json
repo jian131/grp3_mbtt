@@ -1,0 +1,56 @@
+{
+  "timestamp": "2026-01-16T03:19:54.418661",
+  "summary": {
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "success_rate": "100.0%"
+  },
+  "tests": [
+    {
+      "test": "Data File Integrity",
+      "status": "pass",
+      "details": "Records: 1170"
+    },
+    {
+      "test": "No Broken Imports",
+      "status": "pass",
+      "details": "No deleted file imports found"
+    },
+    {
+      "test": "n8n Health Check",
+      "status": "pass",
+      "details": "Status: 200"
+    },
+    {
+      "test": "Search API",
+      "status": "pass",
+      "details": "Returned 5 listings"
+    },
+    {
+      "test": "Search Filter (City)",
+      "status": "pass",
+      "details": "5 results, all from HCM: True"
+    },
+    {
+      "test": "Frontend Home",
+      "status": "pass",
+      "details": "Status: 200"
+    },
+    {
+      "test": "Listing Detail API",
+      "status": "pass",
+      "details": "Found: Mặt bằng 1 - streetfront"
+    },
+    {
+      "test": "ROI Calculation",
+      "status": "pass",
+      "details": "ROI: 50%"
+    },
+    {
+      "test": "Valuation API",
+      "status": "pass",
+      "details": "Suggested: 98.7M, Samples: 17"
+    }
+  ]
+}

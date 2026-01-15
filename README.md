@@ -1,279 +1,384 @@
-# 🏢 JFinder - Smart Rental Decision Support System
+# JFinder - Rental Property Intelligence Platform
 
-**Hệ thống hỗ trợ ra quyết định thuê mặt bằng dựa trên phân tích địa lý và trí tuệ nhân tạo**
+**3-City Verified Dataset | n8n Backend | Apache Superset BI**
 
-> Dự án phục vụ học phần "Hệ thống Kinh doanh Thông Minh" - Sử dụng chỉ **n8n** + **Apache Superset**
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
+[![Coverage](https://img.shields.io/badge/tests-9%2F9-brightgreen)]()
+[![Stack](https://img.shields.io/badge/stack-Next.js%20%7C%20n8n%20%7C%20Superset-blue)]()
 
----
+## 📊 Quick Stats
 
-## 📊 Kiến trúc hệ thống
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     FRONTEND (Next.js)                          │
-│                    http://localhost:3000                        │
-│                                                                 │
-│  Pages: /, /search, /map, /analysis, /landlord,                │
-│         /dashboard, /bi-dashboard                               │
-└────────────────────────┬────────────────────────────────────────┘
-                         │ HTTP API
-                         ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                 n8n (Backend API + ETL)                         │
-│                 http://localhost:5678                           │
-│                                                                 │
-│  Endpoints:                                                     │
-│  • GET  /webhook/search     - Tìm kiếm với filters             │
-│  • GET  /webhook/listing/:id - Chi tiết mặt bằng               │
-│  • GET  /webhook/stats      - Thống kê khu vực                 │
-│  • POST /webhook/roi        - Tính ROI/break-even              │
-│  • POST /webhook/valuation  - Định giá AI                      │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    PostgreSQL + PostGIS                         │
-│                    localhost:5433                               │
-│                                                                 │
-│  • 1170 listings (3 thành phố)                                 │
-│  • Views thống kê: view_district_stats, view_ward_stats        │
-└────────────────────────┬────────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                  Apache Superset (BI)                           │
-│                  http://localhost:8088                          │
-│                                                                 │
-│  • Heatmap giá thuê                                            │
-│  • Histogram phân bố giá                                       │
-│  • Thống kê theo quận/phường                                   │
-└─────────────────────────────────────────────────────────────────┘
-```
+- **1,170** verified rental listings across 3 cities (Hà Nội, Hồ Chí Minh, Đà Nẵng)
+- **100%** geo-verified coordinates
+- **9/9** smoke tests passed
+- **Zero** database queries in n8n workflows (file-based)
 
 ---
 
 ## 🚀 Quick Start
 
-### 1. Chuẩn bị môi trường
+### Prerequisites
+
+- Docker & Docker Compose
+- Node.js 18+
+- Python 3.8+ (for data scripts)
+
+### 1. Start Services
 
 ```bash
-cp .env.example .env
-```
-
-### 2. Khởi động Docker
-
-```bash
+# Start all services (postgres, n8n, superset, redis)
 docker compose up -d
-```
 
-Đợi ~30s để các service khởi động, kiểm tra:
-
-```bash
+# Wait for services to be ready (~30s)
 docker compose ps
 ```
 
-### 3. Khởi động HTTP Server cho data
-
-```bash
-python -m http.server 8000 --directory app/data
-```
-
-### 4. Cấu hình n8n
-
-1. Mở http://localhost:5678
-2. Import các workflow trong `/n8n/`:
-   - `0-init-schema.json` (chạy 1 lần)
-   - `1-import-data.json` (chạy 1 lần)
-   - `search_api_workflow.json` (bật Active)
-   - `listing_api_workflow.json` (bật Active)
-   - `stats_api_workflow.json` (bật Active)
-   - `roi_api_workflow.json` (bật Active)
-   - `valuation_api_workflow.json` (bật Active)
-
-3. Tạo Postgres Credential:
-   - Host: `postgres`
-   - Port: `5432`
-   - Database: `jfinder_db`
-   - User: `jfinder`
-   - Password: `jfinder_password`
-
-### 5. Khởi động Frontend
+### 2. Start Frontend
 
 ```bash
 npm install
 npm run dev
-# Mở http://localhost:3000
 ```
 
-### 6. Truy cập Superset
+### 3. Access Applications
 
-- URL: http://localhost:8088
-- Login: `admin` / `admin123`
+| Service  | URL                   | Credentials        |
+| -------- | --------------------- | ------------------ |
+| Frontend | http://localhost:3000 | -                  |
+| n8n      | http://localhost:5678 | Set on first visit |
+| Superset | http://localhost:8088 | admin / admin      |
+
+---
+
+## 🏗️ Architecture
+
+```
+┌────────────────────────────────────────────────────────────┐
+│                    Frontend (Next.js)                       │
+│                      Port 3000                              │
+├────────────────────────────────────────────────────────────┤
+│  Routes:                                                    │
+│  /              → Home                                      │
+│  /search        → Search + Filter                           │
+│  /listing/[id]  → Detail page                               │
+│  /analysis      → ROI + Valuation                           │
+│  /landlord      → Landlord tools                            │
+│  /dashboard     → Stats dashboard                           │
+│  /bi-dashboard  → Superset embed                            │
+└───────────────────┬────────────────────────────────────────┘
+                    │
+          ┌─────────┴─────────┐
+          ▼                   ▼
+┌──────────────────┐   ┌──────────────────┐
+│   n8n Backend    │   │  Next.js API     │
+│    Port 5678     │   │  (Fallback)      │
+├──────────────────┤   └──────────────────┘
+│  /webhook/search │
+│  /webhook/stats  │   Data Source:
+│  /webhook/roi    │   vn_rental_3cities_verified.json
+│  /webhook/val    │   (1170 records)
+└──────────────────┘
+
+┌──────────────────────────────────────────────────────────┐
+│                 Apache Superset BI                        │
+│                    Port 8088                              │
+├──────────────────────────────────────────────────────────┤
+│  Data: PostgreSQL (jfinder_listings table)               │
+│  Charts: Bar, Pie, Big Number                             │
+└──────────────────────────────────────────────────────────┘
+```
+
+### Key Design Decisions
+
+✅ **File-based n8n workflows** - No SQL queries, reads JSON directly
+✅ **Geo-verified dataset** - 100% coordinate accuracy via GADM
+✅ **Superset for BI** - PostgreSQL backend for complex analytics
+✅ **Zero dead code** - 15 unused files removed, all imports verified
+
+---
+
+## 📂 Project Structure
+
+```
+grp3_mbtt/
+├── app/                      # Next.js App Router
+│   ├── api/                  # API Routes (fallback)
+│   │   ├── listing/[id]/     # Listing detail
+│   │   ├── roi/              # ROI calculation
+│   │   └── valuation/        # Property valuation
+│   ├── data/                 # Verified dataset (1170 records)
+│   │   └── vn_rental_3cities_verified.json
+│   ├── search/               # Search page
+│   ├── listing/[id]/         # Detail page
+│   ├── analysis/             # ROI + Valuation page
+│   ├── landlord/             # Landlord tools
+│   ├── dashboard/            # Stats dashboard
+│   └── bi-dashboard/         # Superset iframe
+├── components/               # Shared components
+│   ├── Analysis/             # ValuationCard
+│   ├── Listing/              # ImageGallery
+│   ├── Map/                  # RentalHeatmap (Leaflet)
+│   └── FallbackImage.tsx     # Image error handling
+├── lib/
+│   ├── api.ts                # API client functions
+│   └── districts.ts          # Province/district data
+├── n8n/
+│   └── JFinder_API_NoPostgres.json  # Active workflow
+├── scripts/
+│   ├── geo_normalize.py      # Geo verification
+│   ├── import_to_postgres.py # Superset data import
+│   └── smoke_test.py         # System tests
+├── reports/                  # Audit & test reports
+│   ├── repo_inventory.md
+│   ├── system_flow.md
+│   ├── api_contract.md
+│   ├── logic_audit.md
+│   ├── cleanup_plan.md
+│   └── test_results.md
+└── docker-compose.yml        # Service orchestration
+```
+
+---
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Create `.env.local`:
+
+```bash
+# n8n API
+NEXT_PUBLIC_N8N_URL=http://localhost:5678/webhook
+
+# Optional: Mapbox for enhanced maps
+NEXT_PUBLIC_MAPBOX_TOKEN=pk.your_token_here
+```
+
+### Docker Services
+
+| Service  | Image                  | Port | Purpose                          |
+| -------- | ---------------------- | ---- | -------------------------------- |
+| postgres | postgis/postgis:15-3.3 | 5433 | Superset metadata + JFinder data |
+| n8n      | n8nio/n8n:latest       | 5678 | API backend (file-based)         |
+| superset | apache/superset:latest | 8088 | BI dashboards                    |
+| redis    | redis:7-alpine         | -    | Superset cache                   |
 
 ---
 
 ## 📡 API Reference
 
-### Search Listings
+### n8n Webhooks (Port 5678)
 
-```bash
-curl "http://localhost:5678/webhook/search?city=Hồ Chí Minh&limit=10"
+#### Search Listings
+
+```http
+GET /webhook/search?province=Hà Nội&limit=10
 ```
 
-**Query params:**
-- `city`, `district`, `ward` - Lọc theo địa điểm
-- `type` - streetfront/shophouse/kiosk/office
-- `segment` - street_retail/shopping_mall/office
-- `min_price`, `max_price` - Khoảng giá (triệu VND)
-- `min_area`, `max_area` - Khoảng diện tích (m²)
-- `lat`, `lon`, `radius_m` - Tìm theo bán kính
-- `limit`, `offset` - Phân trang
+**Response:**
 
-### Get Listing Detail
-
-```bash
-curl "http://localhost:5678/webhook/listing/VN26000001"
+```json
+{
+  "success": true,
+  "data": [...],
+  "count": 10,
+  "total": 1170
+}
 ```
 
-### Get Statistics
+#### Calculate ROI
 
-```bash
-curl "http://localhost:5678/webhook/stats?level=district&city=Hà Nội"
+```http
+POST /webhook/roi
+Content-Type: application/json
+
+{
+  "monthlyRent": 20,
+  "productPrice": 50000,
+  "profitMargin": 0.3,
+  "dailyCustomers": 100
+}
 ```
 
-### Calculate ROI
+#### Property Valuation
 
-```bash
-curl -X POST "http://localhost:5678/webhook/roi" \
-  -H "Content-Type: application/json" \
-  -d '{"monthly_rent":50,"product_price":50000,"profit_margin":0.3,"target_daily_customers":100}'
+```http
+POST /webhook/valuation
+Content-Type: application/json
+
+{
+  "district": "Quận 1",
+  "city": "Thành phố Hồ Chí Minh",
+  "area": 50
+}
 ```
 
-### Get Valuation
+### Next.js API Routes (Port 3000)
+
+- `GET /api/listing/[id]` - Single listing detail
+- `POST /api/roi` - ROI calculation (fallback)
+- `POST /api/valuation` - Valuation (fallback)
+- `GET /api/export` - CSV/JSON export
+
+📖 **Full API documentation:** [reports/api_contract.md](reports/api_contract.md)
+
+---
+
+## 🧪 Testing
+
+### Run Smoke Tests
 
 ```bash
-curl -X POST "http://localhost:5678/webhook/valuation" \
-  -H "Content-Type: application/json" \
-  -d '{"district":"Quận 1","type":"streetfront","area_m2":100,"frontage_m":6}'
+python scripts/smoke_test.py
+```
+
+**Test Coverage:**
+
+- ✅ Data file integrity (1170 records)
+- ✅ No broken imports
+- ✅ n8n health check
+- ✅ Search API
+- ✅ Search filters
+- ✅ Frontend home
+- ✅ Listing detail API
+- ✅ ROI calculation
+- ✅ Valuation API
+
+**Latest Results:** [reports/test_results.md](reports/test_results.md)
+
+### Build Verification
+
+```bash
+npm run build
+```
+
+All routes compile successfully after cleanup.
+
+---
+
+## 📊 Data
+
+### Dataset: vn_rental_3cities_verified.json
+
+- **Total Records:** 1,170
+- **Cities:** Hà Nội (490), Hồ Chí Minh (580), Đà Nẵng (100)
+- **Geo Verification:** 100% (GADM point-in-polygon)
+- **Fields:** 35+ attributes including:
+  - Location: lat/lng, province, district, ward
+  - Property: type, area, frontage, floors
+  - Pricing: price, rent_per_sqm
+  - AI: suggested_price, potential_score, risk_level
+  - Amenities: schools, offices, competitors
+
+### Data Processing
+
+```bash
+# Geo-normalize dataset (already done)
+python scripts/geo_normalize.py
+
+# Import to PostgreSQL for Superset
+python scripts/import_to_postgres.py
 ```
 
 ---
 
-## 📁 Cấu trúc dự án
+## 🚢 Deployment
 
-```
-├── app/                      # Next.js frontend
-│   ├── data/                 # Dataset files
-│   │   ├── vn_rental_3cities.json   # Dataset chính (1170 listings)
-│   │   └── vn_rental_3cities.csv
-│   ├── search/               # Trang tìm kiếm
-│   ├── analysis/             # Trang phân tích AI
-│   └── ...
-├── components/               # React components
-│   ├── Map/                  # Heatmap components
-│   └── Analysis/             # Valuation cards
-├── lib/
-│   └── api.ts                # API client
-├── n8n/                      # n8n workflow definitions
-│   ├── 0-init-schema.json    # Khởi tạo DB
-│   ├── 1-import-data.json    # Import data
-│   ├── search_api_workflow.json
-│   ├── listing_api_workflow.json
-│   ├── stats_api_workflow.json
-│   ├── roi_api_workflow.json
-│   └── valuation_api_workflow.json
-├── docs/                     # Documentation
-│   ├── AUDIT.md              # Báo cáo audit
-│   ├── ARCHITECTURE.md       # Kiến trúc
-│   └── TESTING.md            # Test plan
-├── docker-compose.yml        # Docker services
-└── .env.example              # Environment template
-```
-
----
-
-## 📊 Dataset
-
-**Source:** Vietnam Rental Listings (3 Cities)
-**Records:** 1170 mặt bằng
-**Cities:** Hà Nội, Đà Nẵng, TP. Hồ Chí Minh
-
-**Key Fields:**
-| Field | Description |
-|-------|-------------|
-| `id` | Mã listing (VN26xxxxxx) |
-| `province` | Thành phố |
-| `district`, `ward` | Quận, Phường |
-| `type` | streetfront/shophouse/kiosk/office |
-| `price_million` | Giá thuê (triệu VND/tháng) |
-| `area_m2`, `frontage_m`, `floors` | Thông số BĐS |
-| `views`, `saved_count` | Tương tác |
-| `ai_suggested_price` | Giá gợi ý (pre-calculated) |
-| `primary_image_url` | Ảnh thật (Wikimedia) |
-
----
-
-## 🎯 Tính năng DSS
-
-### 1. Smart Search
-- Filter đa tiêu chí (city/district/type/price/area)
-- **Radius Search**: Tìm theo bán kính với công thức Haversine
-- **Price Label**: Gắn nhãn rẻ/hợp lý/đắt so với khu vực
-
-### 2. AI Valuation
-- Định giá dựa trên percentile (p25/median/p75) theo khu vực
-- Điều chỉnh theo frontage, floors
-- Confidence score dựa trên sample size
-
-### 3. ROI Calculator
-- Tính break-even days
-- Tính monthly profit và ROI %
-- Đánh giá viability (excellent/good/moderate/risky)
-
-### 4. BI Dashboard (Superset)
-- Heatmap giá thuê
-- Phân tích theo type/segment
-- Thống kê percentile theo quận/phường
-
----
-
-## 🔧 Development
-
-### Reset Database
+### Development
 
 ```bash
-docker compose down -v
 docker compose up -d
-# Re-import via n8n
+npm run dev
 ```
 
-### View Logs
+### Production Build
 
 ```bash
-docker compose logs -f n8n
-docker compose logs -f postgres
+npm run build
+npm start
 ```
 
----
+### Environment
 
-## 📝 Credentials
-
-| Service | URL | Username | Password |
-|---------|-----|----------|----------|
-| n8n | http://localhost:5678 | - | - |
-| Superset | http://localhost:8088 | admin | admin123 |
-| PostgreSQL | localhost:5433 | jfinder | jfinder_password |
+- Development: http://localhost:3000
+- Production: Configure domain in `.env.production`
 
 ---
 
-## ⚠️ Lưu ý quan trọng
+## 📚 Documentation
 
-- **Không có AI/ML nặng**: "AI" ở đây là rule-based scoring + percentile stats
-- **Không có Visual Search/OCR/LLM**
-- **Schema tạo qua n8n workflow**, không có file .sql thủ công
-- **Radius search dùng Haversine** trong n8n Code node (không cần PostGIS functions)
+| Document                                               | Description                     |
+| ------------------------------------------------------ | ------------------------------- |
+| [reports/repo_inventory.md](reports/repo_inventory.md) | Directory tree, services, files |
+| [reports/system_flow.md](reports/system_flow.md)       | Architecture & data flow        |
+| [reports/api_contract.md](reports/api_contract.md)     | API endpoints & schemas         |
+| [reports/logic_audit.md](reports/logic_audit.md)       | Code audit & bug fixes          |
+| [reports/cleanup_plan.md](reports/cleanup_plan.md)     | Removed files & rationale       |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)           | Technical architecture          |
+| [docs/RUNBOOK.md](docs/RUNBOOK.md)                     | Operations guide                |
 
 ---
 
-**Last updated:** 2026-01-15
-**Version:** 3.0 (3 Cities Pivot)
+## 🐛 Known Issues & Fixes
+
+### Fixed in Latest Version
+
+✅ **Valuation district filter** - Case-sensitive comparison fixed
+✅ **Image fallbacks** - FallbackImage component handles broken URLs
+✅ **Geo-location mismatches** - Dataset re-verified with GADM
+✅ **AI data display** - Handles `ai_potential_score = 0` correctly
+
+### Superset Iframe Embedding
+
+⚠️ **Status:** X-Frame-Options blocking iframe in some browsers
+
+**Workaround:** Access Superset directly at http://localhost:8088
+
+**Fix Applied:** Added `superset_config.py` with CORS headers
+
+---
+
+## 🤝 Contributing
+
+### Code Quality
+
+- All TypeScript with strict mode
+- ESLint + Prettier configured
+- Build must pass before commit
+
+### Adding Features
+
+1. Update types in `lib/api.ts`
+2. Add API route or n8n workflow
+3. Create UI component
+4. Add smoke test
+5. Update documentation
+
+---
+
+## 📄 License
+
+MIT License - See LICENSE file
+
+---
+
+## 🎯 Roadmap
+
+- [ ] Real-time data updates via WebSocket
+- [ ] User authentication
+- [ ] Favorite listings
+- [ ] Email alerts for price changes
+- [ ] Mobile app (React Native)
+- [ ] Expand to more cities
+
+---
+
+## 📞 Support
+
+- **Issues:** GitHub Issues
+- **Documentation:** `/reports/` and `/docs/`
+- **API Contract:** [reports/api_contract.md](reports/api_contract.md)
+
+---
+
+**Built with ❤️ using Next.js 16, n8n, Apache Superset**

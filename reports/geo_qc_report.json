@@ -1,0 +1,26 @@
+{
+  "method": "offline point-in-polygon using GADM v4.1 ADM3 polygons (Vietnam) filtered to Hà Nội/Đà Nẵng/Hồ Chí Minh",
+  "rows": 2500,
+  "overall_match_rate": 1.0,
+  "mismatches": 0,
+  "by_province": [
+    {
+      "province": "Thành phố Hà Nội",
+      "total": 1000,
+      "match": 1000,
+      "match_rate": 1.0
+    },
+    {
+      "province": "Thành phố Đà Nẵng",
+      "total": 375,
+      "match": 375,
+      "match_rate": 1.0
+    },
+    {
+      "province": "Thành phố Hồ Chí Minh",
+      "total": 1125,
+      "match": 1125,
+      "match_rate": 1.0
+    }
+  ]
+}

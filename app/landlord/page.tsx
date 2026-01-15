@@ -157,14 +157,14 @@ export default function LandlordPage() {
               <div className="p-8 rounded-2xl bg-gradient-to-r from-blue-900/20 to-cyan-900/20 border border-cyan-500/30 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div className="flex-1">
                   <div className="text-xs text-cyan-400 font-bold uppercase tracking-widest mb-1">Mức Giá AI Gợi Ý</div>
-                  {result ? (
+                  {result?.valuation ? (
                     <div className="animate-fade-in-up">
                       <div className="text-3xl md:text-5xl font-black text-white tracking-tight flex items-baseline gap-2">
-                        {result.priceRange.min} - {result.priceRange.max} <span className="text-lg font-medium text-gray-400">Triệu / Tháng</span>
+                        {result.valuation.priceRange?.min || Math.round(result.valuation.suggested_price_million * 0.9)} - {result.valuation.priceRange?.max || Math.round(result.valuation.suggested_price_million * 1.1)} <span className="text-lg font-medium text-gray-400">Triệu / Tháng</span>
                       </div>
                       <p className="text-sm text-gray-400 mt-2">
-                        Độ tin cậy: <span className="text-green-400 font-bold">{result.riskLevel === 'low' ? 'Cao' : 'Trung bình'}</span> •
-                        Điểm tiềm năng: <span className="text-cyan-400 font-bold">{result.potentialScore}/100</span>
+                        Độ tin cậy: <span className="text-green-400 font-bold">{result.valuation.confidence === 'high' ? 'Cao' : 'Trung bình'}</span> •
+                        Điểm tiềm năng: <span className="text-cyan-400 font-bold">{result.valuation.potentialScore || 75}/100</span>
                       </p>
                     </div>
                   ) : (
