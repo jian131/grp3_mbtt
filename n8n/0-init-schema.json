@@ -1,5 +1,5 @@
 {
-  "name": "0 - Initialize Database Schema",
+  "name": "0 - Initialize Database Schema (3 Cities)",
   "nodes": [
     {
       "parameters": {},
@@ -36,11 +36,11 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "CREATE TABLE IF NOT EXISTS listings (id SERIAL PRIMARY KEY, title TEXT, city TEXT, district TEXT, ward TEXT, price_million NUMERIC, area_m2 NUMERIC, rent_per_sqm_million NUMERIC, lat DOUBLE PRECISION, lon DOUBLE PRECISION, geom GEOMETRY(POINT, 4326), type TEXT, segment TEXT, frontage NUMERIC, floors INTEGER, views INTEGER DEFAULT 0, saved_count INTEGER DEFAULT 0, image_url TEXT, raw_data JSONB, created_at TIMESTAMP DEFAULT NOW());",
+        "query": "DROP TABLE IF EXISTS listings CASCADE;",
         "options": {}
       },
-      "id": "table-1",
-      "name": "Create Listings Table",
+      "id": "drop-1",
+      "name": "Drop Old Table",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
@@ -57,11 +57,11 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "CREATE INDEX IF NOT EXISTS idx_listings_geom ON listings USING GIST (geom); CREATE INDEX IF NOT EXISTS idx_listings_price ON listings (price_million); CREATE INDEX IF NOT EXISTS idx_listings_city ON listings (city); CREATE INDEX IF NOT EXISTS idx_listings_district ON listings (district);",
+        "query": "CREATE TABLE listings (id TEXT PRIMARY KEY, name TEXT, address TEXT, province TEXT, district TEXT, ward TEXT, admin_codes JSONB, latitude DOUBLE PRECISION, longitude DOUBLE PRECISION, geom GEOMETRY(POINT, 4326), type TEXT, market_segment TEXT, area_m2 NUMERIC, frontage_m NUMERIC, floors INTEGER, price_million NUMERIC, rent_per_sqm_million NUMERIC, views INTEGER DEFAULT 0, saved_count INTEGER DEFAULT 0, owner JSONB, primary_image_url TEXT, ai_suggested_price NUMERIC, ai_potential_score NUMERIC, ai_risk_level TEXT, posted_at TIMESTAMP, created_at TIMESTAMP DEFAULT NOW(), raw_data JSONB);",
         "options": {}
       },
-      "id": "idx-1",
-      "name": "Create Indexes",
+      "id": "table-1",
+      "name": "Create Listings Table",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
@@ -78,11 +78,11 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "CREATE OR REPLACE VIEW view_district_stats AS SELECT city, district, COUNT(*) as listing_count, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY price_million) as median_price, PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY price_million) as p25_price, PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY price_million) as p75_price, AVG(views) as avg_views, SUM(saved_count) as total_saved FROM listings GROUP BY city, district;",
+        "query": "CREATE INDEX idx_listings_geom ON listings USING GIST (geom); CREATE INDEX idx_listings_province ON listings (province); CREATE INDEX idx_listings_district ON listings (district); CREATE INDEX idx_listings_ward ON listings (ward); CREATE INDEX idx_listings_type ON listings (type); CREATE INDEX idx_listings_price ON listings (price_million); CREATE INDEX idx_listings_segment ON listings (market_segment);",
         "options": {}
       },
-      "id": "view-1",
-      "name": "Create Stats View",
+      "id": "idx-1",
+      "name": "Create Indexes",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
@@ -98,11 +98,53 @@
     },
     {
       "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE OR REPLACE VIEW view_ward_stats AS SELECT province, district, ward, type, COUNT(*) as listing_count, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY price_million) as median_price, PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY price_million) as p25_price, PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY price_million) as p75_price, AVG(views) as avg_views, SUM(saved_count) as total_saved FROM listings GROUP BY province, district, ward, type;",
+        "options": {}
+      },
+      "id": "view-ward",
+      "name": "Create Ward Stats View",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1340,
+        220
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE OR REPLACE VIEW view_district_stats AS SELECT province, district, COUNT(*) as listing_count, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY price_million) as median_price, PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY price_million) as p25_price, PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY price_million) as p75_price, MIN(price_million) as min_price, MAX(price_million) as max_price, AVG(views) as avg_views, SUM(saved_count) as total_saved FROM listings GROUP BY province, district;",
+        "options": {}
+      },
+      "id": "view-district",
+      "name": "Create District Stats View",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1340,
+        420
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "JFinder DB"
+        }
+      }
+    },
+    {
+      "parameters": {
         "values": {
           "string": [
             {
               "name": "status",
-              "value": "Schema initialized successfully!"
+              "value": "Schema initialized for 3 cities dataset!"
             }
           ]
         },
@@ -113,7 +155,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1340,
+        1560,
         320
       ]
     }
@@ -131,6 +173,17 @@
       ]
     },
     "Enable PostGIS": {
+      "main": [
+        [
+          {
+            "node": "Drop Old Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Drop Old Table": {
       "main": [
         [
           {
@@ -156,14 +209,30 @@
       "main": [
         [
           {
-            "node": "Create Stats View",
+            "node": "Create Ward Stats View",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create District Stats View",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Create Stats View": {
+    "Create Ward Stats View": {
+      "main": [
+        [
+          {
+            "node": "Done",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create District Stats View": {
       "main": [
         [
           {

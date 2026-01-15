@@ -9,7 +9,7 @@
         "options": {}
       },
       "id": "webhook-1",
-      "name": "Detail Webhook",
+      "name": "Listing Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
@@ -21,7 +21,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT id, title, city, district, ward, price_million, area_m2, rent_per_sqm_million, lat, lon, type, segment, frontage, floors, views, saved_count, image_url, raw_data, created_at FROM listings WHERE id = {{ $json.params.id }} LIMIT 1",
+        "query": "SELECT l.*, (SELECT json_agg(row_to_json(s)) FROM (SELECT province, district, ward, type, listing_count, median_price, p25_price, p75_price FROM view_ward_stats WHERE district = l.district AND type = l.type LIMIT 1) s) as area_stats FROM listings l WHERE l.id = '{{ $json.params.id }}';",
         "options": {}
       },
       "id": "postgres-1",
@@ -41,22 +41,44 @@
     },
     {
       "parameters": {
+        "jsCode": "const data = $input.first().json;\n\nif (!data || !data.id) {\n  return { json: { found: false } };\n}\n\n// Calculate price label\nlet priceLabel = 'fair';\nif (data.ai_suggested_price && data.price_million) {\n  const ratio = data.price_million / data.ai_suggested_price;\n  if (ratio < 0.9) priceLabel = 'cheap';\n  else if (ratio > 1.1) priceLabel = 'expensive';\n}\n\n// Parse owner if string\nlet owner = data.owner;\nif (typeof owner === 'string') {\n  try { owner = JSON.parse(owner); } catch(e) {}\n}\n\nreturn {\n  json: {\n    found: true,\n    ...data,\n    owner: owner,\n    price_label: priceLabel\n  }\n};"
+      },
+      "id": "code-1",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        320
+      ]
+    },
+    {
+      "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ $input.all().length > 0 ? { success: true, data: $input.first().json } : { success: false, error: 'Not found' } }}",
-        "options": {}
+        "responseBody": "={{ { success: $json.found, data: $json.found ? $json : null } }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
       },
       "id": "respond-1",
       "name": "Respond",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        680,
+        900,
         320
       ]
     }
   ],
   "connections": {
-    "Detail Webhook": {
+    "Listing Webhook": {
       "main": [
         [
           {
@@ -68,6 +90,17 @@
       ]
     },
     "Get Listing": {
+      "main": [
+        [
+          {
+            "node": "Format Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Response": {
       "main": [
         [
           {

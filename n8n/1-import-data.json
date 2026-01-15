@@ -1,5 +1,5 @@
 {
-  "name": "1 - Import Listings Data",
+  "name": "1 - Import 3 Cities Data",
   "nodes": [
     {
       "parameters": {},
@@ -14,15 +14,13 @@
     },
     {
       "parameters": {
-        "url": "http://host.docker.internal:8000/listings.json",
-        "method": "GET",
-        "responseFormat": "json",
+        "url": "http://host.docker.internal:8000/vn_rental_3cities.json",
         "options": {}
       },
       "id": "http-1",
-      "name": "Fetch JSON via HTTP",
+      "name": "Fetch JSON Data",
       "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
+      "typeVersion": 4.2,
       "position": [
         460,
         320
@@ -30,9 +28,9 @@
     },
     {
       "parameters": {
-        "jsCode": "// Ensure data array\nlet data = items[0].json;\nif (!Array.isArray(data)) {\n  // If n8n wrapped it or returned object\n  if (data.data && Array.isArray(data.data)) data = data.data;\n  else data = [data];\n}\n\n// Transform\nreturn data.map(item => ({\n  json: {\n    title: item.title || '',\n    city: item.city || '',\n    district: item.district || '',\n    ward: item.ward || '',\n    price_million: (item.rent_vnd_month || 0) / 1000000,\n    area_m2: item.area_m2 || 0,\n    rent_per_sqm_million: (item.rent_vnd_m2 || 0) / 1000000,\n    lat: item.lat || 0,\n    lon: item.lon || 0,\n    type: item.type || '',\n    segment: item.segment || '',\n    frontage: item.frontage || null,\n    floors: item.floors || null,\n    views: item.views || 0,\n    saved_count: item.savedCount || 0,\n    image_url: item.image_url || item.primary_image_url || '',\n    raw_data: JSON.stringify(item)\n  }\n}));"
+        "jsCode": "// Transform and prepare data for insert\nconst items = $input.all();\nconst output = [];\n\nfor (const item of items) {\n  const data = item.json;\n  \n  // Parse admin_codes string to JSON\n  let adminCodes = {};\n  try {\n    if (data.admin_codes) {\n      adminCodes = JSON.parse(data.admin_codes.replace(/'/g, '\"'));\n    }\n  } catch (e) {\n    adminCodes = {};\n  }\n  \n  // Parse owner string to JSON\n  let owner = {};\n  try {\n    if (data.owner) {\n      owner = JSON.parse(data.owner.replace(/'/g, '\"'));\n    }\n  } catch (e) {\n    owner = {};\n  }\n  \n  output.push({\n    json: {\n      id: data.id,\n      name: data.name,\n      address: data.address,\n      province: data.province,\n      district: data.district,\n      ward: data.ward,\n      admin_codes: JSON.stringify(adminCodes),\n      latitude: data.latitude,\n      longitude: data.longitude,\n      type: data.type,\n      market_segment: data.market_segment,\n      area_m2: data.area,\n      frontage_m: data.frontage,\n      floors: data.floors || 1,\n      price_million: data.price,\n      rent_per_sqm_million: data.rent_per_sqm_million,\n      views: data.views || 0,\n      saved_count: data.savedCount || 0,\n      owner: JSON.stringify(owner),\n      primary_image_url: data.primary_image_url,\n      ai_suggested_price: data.ai_suggested_price,\n      ai_potential_score: data.ai_potential_score,\n      ai_risk_level: data.ai_risk_level,\n      posted_at: data.posted_at,\n      raw_data: JSON.stringify(data)\n    }\n  });\n}\n\nreturn output;"
       },
-      "id": "transform-1",
+      "id": "code-1",
       "name": "Transform Data",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -43,14 +41,14 @@
     },
     {
       "parameters": {
-        "operation": "insert",
-        "schema": "public",
-        "table": "listings",
-        "columns": "title, city, district, ward, price_million, area_m2, rent_per_sqm_million, lat, lon, type, segment, frontage, floors, views, saved_count, image_url, raw_data",
-        "options": {}
+        "operation": "executeQuery",
+        "query": "INSERT INTO listings (id, name, address, province, district, ward, admin_codes, latitude, longitude, geom, type, market_segment, area_m2, frontage_m, floors, price_million, rent_per_sqm_million, views, saved_count, owner, primary_image_url, ai_suggested_price, ai_potential_score, ai_risk_level, posted_at, raw_data) VALUES ($1, $2, $3, $4, $5, $6, $7::jsonb, $8, $9, ST_SetSRID(ST_MakePoint($10, $11), 4326), $12, $13, $14, $15, $16, $17, $18, $19, $20, $21::jsonb, $22, $23, $24, $25, $26::timestamp, $27::jsonb) ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, price_million = EXCLUDED.price_million, views = EXCLUDED.views, saved_count = EXCLUDED.saved_count;",
+        "options": {
+          "queryReplacement": "={{ [$json.id, $json.name, $json.address, $json.province, $json.district, $json.ward, $json.admin_codes, $json.latitude, $json.longitude, $json.longitude, $json.latitude, $json.type, $json.market_segment, $json.area_m2, $json.frontage_m, $json.floors, $json.price_million, $json.rent_per_sqm_million, $json.views, $json.saved_count, $json.owner, $json.primary_image_url, $json.ai_suggested_price, $json.ai_potential_score, $json.ai_risk_level, $json.posted_at, $json.raw_data] }}"
+        }
       },
       "id": "postgres-1",
-      "name": "Insert to Postgres",
+      "name": "Insert to DB",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
@@ -67,11 +65,11 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "UPDATE listings SET geom = ST_SetSRID(ST_MakePoint(lon, lat), 4326) WHERE geom IS NULL AND lat IS NOT NULL AND lon IS NOT NULL;",
+        "query": "SELECT COUNT(*) as total FROM listings;",
         "options": {}
       },
-      "id": "geom-1",
-      "name": "Create Geometry",
+      "id": "count-1",
+      "name": "Count Records",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
@@ -84,6 +82,27 @@
           "name": "JFinder DB"
         }
       }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "status",
+              "value": "={{ 'Imported ' + $json.total + ' listings from 3 cities!' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "done-1",
+      "name": "Done",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1340,
+        320
+      ]
     }
   ],
   "connections": {
@@ -91,14 +110,14 @@
       "main": [
         [
           {
-            "node": "Fetch JSON via HTTP",
+            "node": "Fetch JSON Data",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Fetch JSON via HTTP": {
+    "Fetch JSON Data": {
       "main": [
         [
           {
@@ -113,18 +132,29 @@
       "main": [
         [
           {
-            "node": "Insert to Postgres",
+            "node": "Insert to DB",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Insert to Postgres": {
+    "Insert to DB": {
       "main": [
         [
           {
-            "node": "Create Geometry",
+            "node": "Count Records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Count Records": {
+      "main": [
+        [
+          {
+            "node": "Done",
             "type": "main",
             "index": 0
           }
@@ -134,5 +164,8 @@
   },
   "settings": {
     "executionOrder": "v1"
+  },
+  "meta": {
+    "notes": "Requires: 1) Run 'python -m http.server 8000 --directory app/data' first, 2) Postgres credential configured"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "API - Search Listings",
+  "name": "API - Search Listings (Full)",
   "nodes": [
     {
       "parameters": {
@@ -20,16 +20,29 @@
     },
     {
       "parameters": {
+        "jsCode": "// Build dynamic query based on params\nconst query = $input.first().json.query || {};\n\nlet whereClauses = ['1=1'];\nlet params = [];\nlet paramIndex = 1;\n\n// City filter (alias: city or province)\nif (query.city || query.province) {\n  const city = query.city || query.province;\n  params.push(`%${city}%`);\n  whereClauses.push(`province ILIKE $${paramIndex++}`);\n}\n\n// District filter\nif (query.district) {\n  params.push(`%${query.district}%`);\n  whereClauses.push(`district ILIKE $${paramIndex++}`);\n}\n\n// Ward filter\nif (query.ward) {\n  params.push(`%${query.ward}%`);\n  whereClauses.push(`ward ILIKE $${paramIndex++}`);\n}\n\n// Type filter\nif (query.type) {\n  params.push(query.type);\n  whereClauses.push(`type = $${paramIndex++}`);\n}\n\n// Segment filter\nif (query.segment) {\n  params.push(query.segment);\n  whereClauses.push(`market_segment = $${paramIndex++}`);\n}\n\n// Price filters\nif (query.min_price || query.minPrice) {\n  const minP = query.min_price || query.minPrice;\n  params.push(parseFloat(minP));\n  whereClauses.push(`price_million >= $${paramIndex++}`);\n}\nif (query.max_price || query.maxPrice) {\n  const maxP = query.max_price || query.maxPrice;\n  params.push(parseFloat(maxP));\n  whereClauses.push(`price_million <= $${paramIndex++}`);\n}\n\n// Area filters\nif (query.min_area || query.minArea) {\n  const minA = query.min_area || query.minArea;\n  params.push(parseFloat(minA));\n  whereClauses.push(`area_m2 >= $${paramIndex++}`);\n}\nif (query.max_area || query.maxArea) {\n  const maxA = query.max_area || query.maxArea;\n  params.push(parseFloat(maxA));\n  whereClauses.push(`area_m2 <= $${paramIndex++}`);\n}\n\n// Radius search via Haversine (if lat, lon, radius_m provided)\nlet radiusFilter = '';\nif (query.lat && query.lon && query.radius_m) {\n  const lat = parseFloat(query.lat);\n  const lon = parseFloat(query.lon);\n  const radiusKm = parseFloat(query.radius_m) / 1000;\n  \n  // Haversine formula in SQL\n  radiusFilter = `\n    AND (\n      6371 * acos(\n        cos(radians(${lat})) * cos(radians(latitude)) *\n        cos(radians(longitude) - radians(${lon})) +\n        sin(radians(${lat})) * sin(radians(latitude))\n      )\n    ) <= ${radiusKm}`;\n}\n\n// Pagination\nconst limit = parseInt(query.limit) || 50;\nconst offset = parseInt(query.offset) || 0;\n\n// Build final SQL\nconst sql = `\nSELECT \n  id, name, address, province, district, ward,\n  latitude, longitude, type, market_segment,\n  area_m2, frontage_m, floors,\n  price_million, rent_per_sqm_million,\n  views, saved_count,\n  primary_image_url,\n  ai_suggested_price, ai_potential_score, ai_risk_level,\n  posted_at\nFROM listings\nWHERE ${whereClauses.join(' AND ')}${radiusFilter}\nORDER BY posted_at DESC NULLS LAST\nLIMIT ${limit} OFFSET ${offset}\n`;\n\n// Count query\nconst countSql = `SELECT COUNT(*) as total FROM listings WHERE ${whereClauses.join(' AND ')}${radiusFilter}`;\n\nreturn {\n  json: {\n    sql: sql,\n    countSql: countSql,\n    params: params,\n    limit: limit,\n    offset: offset\n  }\n};"
+      },
+      "id": "code-build",
+      "name": "Build Query",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        320
+      ]
+    },
+    {
+      "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT id, title, city, district, ward, price_million, area_m2, rent_per_sqm_million, lat, lon, type, segment, frontage, floors, views, saved_count, image_url FROM listings WHERE 1=1 {{ $json.query.city ? \"AND city ILIKE '%\" + $json.query.city + \"%'\" : '' }} {{ $json.query.district ? \"AND district ILIKE '%\" + $json.query.district + \"%'\" : '' }} {{ $json.query.maxPrice ? 'AND price_million <= ' + $json.query.maxPrice : '' }} {{ $json.query.minArea ? 'AND area_m2 >= ' + $json.query.minArea : '' }} ORDER BY created_at DESC LIMIT {{ $json.query.limit || 50 }}",
+        "query": "={{ $json.sql }}",
         "options": {}
       },
-      "id": "postgres-1",
-      "name": "Query Listings",
+      "id": "postgres-data",
+      "name": "Query Data",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        460,
+        680,
         320
       ],
       "credentials": {
@@ -41,16 +54,38 @@
     },
     {
       "parameters": {
+        "jsCode": "// Add price label based on district median\nconst listings = $input.all();\nconst output = [];\n\nfor (const item of listings) {\n  const data = item.json;\n  \n  // Calculate price label (simple version - compare to ai_suggested_price)\n  let priceLabel = 'fair';\n  if (data.ai_suggested_price && data.price_million) {\n    const ratio = data.price_million / data.ai_suggested_price;\n    if (ratio < 0.9) priceLabel = 'cheap';\n    else if (ratio > 1.1) priceLabel = 'expensive';\n  }\n  \n  output.push({\n    json: {\n      ...data,\n      price_label: priceLabel\n    }\n  });\n}\n\nreturn output;"
+      },
+      "id": "code-label",
+      "name": "Add Price Labels",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        320
+      ]
+    },
+    {
+      "parameters": {
         "respondWith": "json",
         "responseBody": "={{ { success: true, data: $input.all().map(i => i.json), count: $input.all().length } }}",
-        "options": {}
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
       },
       "id": "respond-1",
       "name": "Respond",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        680,
+        1120,
         320
       ]
     }
@@ -60,14 +95,36 @@
       "main": [
         [
           {
-            "node": "Query Listings",
+            "node": "Build Query",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Query Listings": {
+    "Build Query": {
+      "main": [
+        [
+          {
+            "node": "Query Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Data": {
+      "main": [
+        [
+          {
+            "node": "Add Price Labels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Price Labels": {
       "main": [
         [
           {

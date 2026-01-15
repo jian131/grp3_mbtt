@@ -1,260 +1,323 @@
-# JFinder System Audit Report
+# 🔍 JFinder System Audit Report v2.0
 
 **Date**: 2026-01-15
-**Auditor**: Principal Engineer (Refactor Specialist)
-**Objective**: Simplify to n8n + Superset only, eliminate manual SQL, remove AI/Vision services
+**Auditor**: Senior Architect + Lead Engineer
+**Objective**: Pivot dự án theo hướng mới - chỉ n8n + Superset, loại bỏ all AI/Vision/Vector/manual SQL
 
 ---
 
-## Executive Summary
+## 📋 Executive Summary
 
-✅ **GOOD NEWS**: No AI/Vision/Vector DB code found
-🚨 **CRITICAL**: Manual SQL scripts violate no-code principle
-⚠️ **MEDIUM**: Python import script bypasses n8n
-✅ **ARCHITECTURE**: Docker Compose already minimal (n8n + Superset + Postgres + Redis)
-
----
-
-## 1. Current State
-
-###  Services Running (Docker)
-| Service | Image | Port | Purpose | **Status** |
-|---------|-------|------|---------|-----------|
-| postgres | postgis/postgis:15-3.3 | 5433 | Data store | ✅ **KEEP** |
-| n8n | n8nio/n8n:latest | 5678 | Backend/ETL | ✅ **KEEP** |
-| superset | apache/superset:latest | 8088 | BI Dashboard | ✅ **KEEP** |
-| redis | redis:7 | 6379 | Superset cache | ✅ **KEEP** |
-
-### Frontend (Not in Docker)
-- **Next.js** (npm run dev, port 3000) - Consumer of n8n API
+| Hạng mục | Trạng thái | Ghi chú |
+|----------|-----------|---------|
+| ✅ Docker Stack | **OK** | n8n + Superset + Postgres + Redis |
+| ✅ No AI/Vision/Vector | **OK** | Không phát hiện code liên quan |
+| ✅ No Node/Express API | **OK** | Frontend chỉ gọi n8n webhook |
+| ⚠️ Schema via n8n | **PARTIAL** | Đã có workflow nhưng cần refine |
+| ⚠️ Dataset mismatch | **TODO** | Cần update sang dataset 3 cities mới |
+| ⚠️ Missing features | **TODO** | Radius search, price label, pagination |
 
 ---
 
-## 2. Critical Findings
+## 1️⃣ Current Architecture Analysis
 
-### 🚨 **VIOLATION #1: Manual SQL Script**
-**File**: `db/init_db.sql`
-**Severity**: **CRITICAL**
-**Issue**:
-- 56 lines of hand-written SQL (CREATE TABLE, INDEX, VIEW)
-- Mounted to postgres container as init script
-- Violates "no manual SQL in repo" rule
-
-**Impact**:
-- Dev must maintain schema SQL
-- Hard to version/migrate
-- Not "low-code friendly"
-
-**Solution**:
-Remove `db/init_db.sql` and replace with:
-1. **n8n workflow** that creates table via `Postgres` node (Execute Query)
-2. OR use **Superset Metadata** to auto-create datasets (but this doesn't create tables)
-3. OR **Hasura/Directus** (but not in scope)
-
-**Recommended**: Create `n8n/init_db_workflow.json` that runs:
-```sql
-CREATE TABLE IF NOT EXISTS listings (...);
-CREATE INDEX IF NOT EXISTS ...;
-```
-via n8n Postgres node, triggered manually once.
-
----
-
-### ⚠️ **VIOLATION #2: Python Import Script**
-**File**: `scripts/import_data.py`
-**Severity**: **MEDIUM**
-**Issue**:
-- Hardcoded DB connection
-- Bypasses n8n (user ran Python directly to import 2500 listings)
-- Not reproducible via n8n UI
-
-**Solution**:
-- **DELETE** `scripts/import_data.py`
-- Use existing `n8n/import_workflow.json` (already exists!)
-- Fix workflow to work properly (current version has issues)
-
----
-
-### ⚠️ **VIOLATION #3: Hardcoded Secrets**
-**File**: `docker-compose.yml`
-**Lines**: 10, 47
-**Issue**:
-- `POSTGRES_PASSWORD: jfinder_password` (plaintext)
-- `SUPERSET_SECRET_KEY: YOUR_OWN_RANDOM_GENERATED_SECRET_KEY` (placeholder)
-
-**Solution**:
-- Move to `.env` file
-- Use `docker-compose.yml` with `${VAR}` syntax
-
----
-
-### ℹ️ **INFO #4: Incomplete n8n Workflows**
-**Files**:
-- `n8n/import_workflow.json` ✅ Exists (but buggy - Binary read issue)
-- `n8n/search_api_workflow.json` ✅ Exists
-- `n8n/listing_api_workflow.json` ✅ Exists
-
-**Issues**:
-1. Import workflow fails due to file path/permission (fixed via Python workaround)
-2. Workflows not committed to Git in exported format
-3. No "init DB schema" workflow
-
----
-
-### ℹ️ **INFO #5: Missing Superset Setup**
-**Current**: Manual container exec commands
-**Files**: `scripts/setup_superset.sh`, `setup_superset.ps1`
-
-**Issue**:
-- Scripts exist but not integrated into `docker-compose` healthcheck
-- No exported Superset metadata (dashboards, datasets, charts)
-
-**Solution**:
-- Add Superset init as `entrypoint` override in compose
-- Export Superset config as JSON (via CLI)
-
----
-
-### ℹ️ **INFO #6: Orphaned Files**
-**Unnecessary files in repo**:
-- `mockListings.json` (821KB) - Mock data, not used
-- `n8n_backend.json` (12KB) - Legacy workflow?
-- `extract_districts.js` - One-off script
-- `env_setup_guide.txt` - Outdated
-
-**Action**: Delete or move to `archive/`
-
----
-
-## 3. Data Flow Audit
-
-### Current Flow
-```
-[CSV/JSON] → Python script → [Postgres] ← n8n (API) → Frontend
-                                ↓
-                            Superset (BI)
-```
-
-### Target Flow (No Python)
-```
-[CSV/JSON] → n8n (Import workflow) → [Postgres] ← n8n (API) → Frontend
-                                         ↓
-                                     Superset (BI)
-```
-
----
-
-## 4. Schema Consistency Check
-
-### Postgres Columns (Actual)
-```
-id, title, city, district, ward,
-price_million, area_m2, rent_per_sqm_million,
-lat, lon, geom, type, image_url, raw_data, created_at
-```
-
-### Dataset Expected Columns (User requirement)
-```
-id, title, city/district/ward + admin_codes,
-lat, lon, type/segment,
-price_million, rent_per_sqm_million, area_m2,
-frontage, floors, views, savedCount, createdAt,
-primary_image_url
-```
-
-### Missing in DB Schema
-❌ `frontage`, `floors`, `segment`, `admin_codes`
-❌ `views`, `savedCount` (engagement metrics)
-❌ `primary_image_url` vs `image_url`
-
-**Impact**: Frontend expects these fields but DB doesn't have them!
-
-**Solution**:
-- Add missing columns to schema
-- OR Parse from `raw_data` JSONB in queries
-- OR Update dataset to remove unavailable fields
-
----
-
-## 5. Security & Performance
-
-### Findings
-✅ **CORS**: Properly configured (`N8N_CORS_ALLOW_ORIGIN`)
-⚠️ **Secrets**: Hardcoded in compose (move to .env)
-✅ **Indexes**: Present (geom, price, district, city)
-❌ **Auth**: No webhook auth on n8n endpoints (public!)
-❌ **Rate Limit**: No API rate limiting
-
-### Recommendations
-1. Add n8n webhook auth tokens
-2. Add nginx reverse proxy for rate limiting (optional)
-3. Use `.env` for all secrets
-
----
-
-## 6. Removal Plan
-
-### DELETE immediately
-- ❌ `db/init_db.sql` (56 lines)
-- ❌ `scripts/import_data.py` (60 lines)
-- ❌ `mockListings.json` (800KB)
-- ❌ `extract_districts.js`
-- ❌ `n8n_backend.json` (if legacy)
-
-### UPDATE
-- ✏️ `docker-compose.yml` - Move secrets to .env
-- ✏️ `n8n/import_workflow.json` - Fix file read issues
-- ✏️ Add `n8n/init_schema_workflow.json` (replaces SQL)
-
-### CREATE
-- ➕ `.env.example` template
-- ➕ `docs/TESTING.md` (test plan)
-- ➕ Superset metadata export (JSON)
-
----
-
-## 7. Architecture Recommendation
-
-### Minimal Setup (Target)
+### Services (Docker Compose)
 ```yaml
 services:
-  postgres:       # Data store ONLY
-  n8n:            # ETL + API
-  superset:       # BI
-  redis:          # Superset cache
+  postgres:   # PostGIS 15-3.3, port 5433     ✅ KEEP
+  n8n:        # Backend API/ETL, port 5678    ✅ KEEP
+  superset:   # BI Dashboard, port 8088       ✅ KEEP
+  redis:      # Superset cache                ✅ KEEP
 ```
 
-### Schema Management Strategy
-**Option A (Recommended)**:
-- n8n workflow `0-init-schema.json` runs once
-- Contains CREATE TABLE SQL in Postgres node
-- Idempotent (IF NOT EXISTS)
+### Frontend (Next.js)
+- Port 3000, consumes n8n webhooks
+- Pages: `/`, `/search`, `/map`, `/analysis`, `/landlord`, `/dashboard`, `/bi-dashboard`
 
-**Option B**:
-- Use Hasura/Directus (adds service - NOT recommended per requirements)
-
-**Option C**:
-- Keep init_db.sql but document as "exception" (least preferred)
-
-**DECISION**: Use Option A
+### ✅ KHÔNG CÓ các thành phần cần loại bỏ:
+- ❌ Vision AI / Visual Search
+- ❌ Vector DB (Milvus/Qdrant/Pinecone)
+- ❌ OCR / Legal AI / LLM integration
+- ❌ Node/Express/NestJS/FastAPI riêng
+- ❌ Mobile app / camera features
+- ❌ File `.sql` thủ công trong repo (đã xóa trước đó)
 
 ---
 
-## 8. Assumptions
+## 2️⃣ Dataset Analysis
 
-Since user did not provide:
-1. Exact dataset file location → **Assumed**: `app/data/listings.json`
-2. Missing columns strategy → **Assumed**: Parse from `raw_data` JSONB
-3. Superset dashboard requirements → **Assumed**: Price heatmap, district stats, trend charts
-4. Auth requirements → **Assumed**: Local dev (no auth for now)
+### Dataset hiện tại trong repo: `app/data/listings.json`
+- **Format**: JSON array
+- **Records**: ~2500 (old dataset)
+- **Fields**: `listing_id, category, title, address, province, district, ward, lat, lon, area_m2, frontage_m, rent_vnd_month, rent_vnd_m2, image_url`
+- **Problem**: Thiếu nhiều trường quan trọng
+
+### Dataset mới (cần import): `vn_rental_listings_3cities_realimg_pricefixed.csv`
+- **Location**: `Downloads/vn_rental_3cities_gadm_pip_2500_package/`
+- **Format**: CSV + JSON
+- **Records**: 1170 listings (3 cities: Hà Nội, Đà Nẵng, TP.HCM)
+- **Full fields**:
+  ```
+  id, name, address, province, district, ward, admin_codes,
+  latitude, longitude, type, market_segment,
+  area, frontage, floors, rent_per_sqm_million, price, currency, price_unit,
+  images, amenities_schools, amenities_offices, amenities_competitors,
+  ai_suggested_price, ai_potential_score, ai_risk_level,
+  views, savedCount, posted_at, owner, primary_image_url,
+  image_source, image_author, image_license_names, image_license_urls
+  ```
+
+### Field Mapping (old → new)
+| Old Field | New Field | Notes |
+|-----------|-----------|-------|
+| listing_id | id | ID format khác |
+| category | type | Values: streetfront/shophouse/kiosk/office |
+| rent_vnd_month | price | Now in million VND |
+| rent_vnd_m2 | rent_per_sqm_million | Already in millions |
+| lat | latitude | Same |
+| lon | longitude | Same |
+| - | floors | NEW |
+| - | market_segment | NEW |
+| - | views, savedCount | NEW - engagement |
+| - | ai_suggested_price | Can be used for valuation |
+| image_url | primary_image_url | Real images from Wikimedia |
 
 ---
 
-## Next Steps
+## 3️⃣ n8n Workflows Audit
 
-1. ✅ Create implementation plan (commit-by-commit)
-2. 🔄 Implement refactor
-3. 🧪 Test full flow
-4. 📝 Update docs
+### Existing Workflows (in `/n8n/`)
+| File | Purpose | Status | Action |
+|------|---------|--------|--------|
+| `0-init-schema.json` | Create tables | ⚠️ | Update schema for new fields |
+| `1-import-data.json` | Import JSON | ⚠️ | Need CSV reader + new fields |
+| `search_api_workflow.json` | GET /search | ⚠️ | Add radius search, pagination |
+| `listing_api_workflow.json` | GET /listing/:id | ✅ | OK |
+| `stats_api_workflow.json` | GET /stats | ⚠️ | Add ward-level stats |
 
-**Estimated effort**: 2-3 hours
+### Missing Workflows (per requirements)
+| Workflow | Endpoint | Description |
+|----------|----------|-------------|
+| **roi_api_workflow.json** | POST /roi | ROI/break-even calculator |
+| **valuation_api_workflow.json** | POST /valuation | Price percentile scoring |
+| **compute_stats_workflow.json** | Manual | Pre-compute area stats |
+
+---
+
+## 4️⃣ Schema Requirements (New)
+
+```sql
+-- Created via n8n workflow, NOT manual SQL file
+CREATE TABLE IF NOT EXISTS listings (
+  id TEXT PRIMARY KEY,                    -- VN26000001 format
+  name TEXT,
+  address TEXT,
+  province TEXT,                          -- city/province
+  district TEXT,
+  ward TEXT,
+  admin_codes JSONB,                      -- {level1_id, level2_id, level3_id}
+  latitude DOUBLE PRECISION,
+  longitude DOUBLE PRECISION,
+  geom GEOMETRY(POINT, 4326),             -- PostGIS point
+  type TEXT,                              -- streetfront/shophouse/kiosk/office
+  market_segment TEXT,                    -- street_retail/shopping_mall/office
+  area_m2 NUMERIC,
+  frontage_m NUMERIC,
+  floors INTEGER,
+  price_million NUMERIC,                  -- monthly rent in million VND
+  rent_per_sqm_million NUMERIC,
+  views INTEGER DEFAULT 0,
+  saved_count INTEGER DEFAULT 0,
+  owner JSONB,                            -- {name, phone}
+  primary_image_url TEXT,
+  ai_suggested_price NUMERIC,             -- pre-calculated
+  ai_potential_score NUMERIC,
+  ai_risk_level TEXT,
+  posted_at TIMESTAMP,
+  created_at TIMESTAMP DEFAULT NOW(),
+  raw_data JSONB                          -- Full original record
+);
+
+-- Indexes
+CREATE INDEX idx_listings_geom ON listings USING GIST (geom);
+CREATE INDEX idx_listings_province ON listings (province);
+CREATE INDEX idx_listings_district ON listings (district);
+CREATE INDEX idx_listings_ward ON listings (ward);
+CREATE INDEX idx_listings_type ON listings (type);
+CREATE INDEX idx_listings_price ON listings (price_million);
+
+-- Stats View (pre-aggregated)
+CREATE OR REPLACE VIEW view_ward_stats AS
+SELECT
+  province, district, ward, type,
+  COUNT(*) as listing_count,
+  PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY price_million) as median_price,
+  PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY price_million) as p25_price,
+  PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY price_million) as p75_price,
+  AVG(views) as avg_views,
+  SUM(saved_count) as total_saved
+FROM listings
+GROUP BY province, district, ward, type;
+
+CREATE OR REPLACE VIEW view_district_stats AS
+SELECT
+  province, district,
+  COUNT(*) as listing_count,
+  PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY price_million) as median_price,
+  PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY price_million) as p25_price,
+  PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY price_million) as p75_price,
+  MIN(price_million) as min_price,
+  MAX(price_million) as max_price,
+  AVG(views) as avg_views,
+  SUM(saved_count) as total_saved
+FROM listings
+GROUP BY province, district;
+```
+
+---
+
+## 5️⃣ API Specification (Required)
+
+### GET /webhook/search
+**Query params**:
+```
+city, district, ward, type, segment,
+min_price, max_price, min_area, max_area,
+lat, lon, radius_m,
+limit, offset
+```
+
+**Response**:
+```json
+{
+  "success": true,
+  "data": [...],
+  "count": 50,
+  "total": 1170,
+  "page": 1
+}
+```
+
+**Features**:
+- Radius search via Haversine formula in Code node (no PostGIS SQL needed)
+- Price label: `cheap/fair/expensive` based on percentile vs ward stats
+
+### GET /webhook/listing/:id
+Returns single listing with full details.
+
+### GET /webhook/stats
+**Query params**: `level=ward|district`, `city`
+
+**Response**: Aggregated stats per area
+
+### POST /webhook/roi
+**Body**:
+```json
+{
+  "monthly_rent": 50,
+  "product_price": 50000,
+  "profit_margin": 0.3,
+  "target_daily_customers": 100
+}
+```
+
+**Response**:
+```json
+{
+  "break_even_days": 33,
+  "monthly_profit": 45000000,
+  "roi_percent": 90
+}
+```
+
+### POST /webhook/valuation
+**Body**: district, ward, type, area_m2, frontage_m, floors
+
+**Response**: suggested_price_range based on percentile
+
+---
+
+## 6️⃣ Files to Clean Up
+
+### DELETE (if exist)
+- `app/data/mockListings.json` (941KB) - Old mock data
+- `app/data/mockData.ts` - Hardcoded data
+- `app/data/mockListings.ts` - Hardcoded data
+- `data/superset_listings.csv` - Stale
+- `data/jfinder_listings.csv` - Stale
+
+### UPDATE
+- `app/data/listings.json` → Replace with new dataset converted to JSON
+- `n8n/*.json` → All workflows need update
+- `lib/api.ts` → Add new endpoints/types
+- `docker-compose.yml` → Already good
+
+### CREATE
+- `n8n/2-compute-stats.json` - Pre-compute stats workflow
+- `n8n/roi_api_workflow.json` - ROI calculator
+- `n8n/valuation_api_workflow.json` - Price valuation
+
+---
+
+## 7️⃣ Assumptions Made
+
+1. **Dataset location**: User will copy CSV to `app/data/` for n8n to read
+2. **PostGIS not strictly required**: Radius search can be done via Haversine in n8n Code node
+3. **No auth on webhooks**: Local dev only (production would add tokens)
+4. **Superset config not exported**: User creates dashboards manually
+5. **Price in millions**: Dataset uses `price` (million VND/month)
+
+---
+
+## 8️⃣ Refactor Plan (Commit-by-Commit)
+
+### Phase 1: Data Preparation
+1. Copy new dataset CSV → `app/data/vn_rental_3cities.csv`
+2. Create JSON version for n8n compatibility
+3. Delete old mock data files
+
+### Phase 2: Schema Update
+4. Update `n8n/0-init-schema.json` with new fields
+5. Update `n8n/1-import-data.json` for CSV/JSON format
+
+### Phase 3: API Workflows
+6. Update `n8n/search_api_workflow.json`:
+   - Add all filter params
+   - Add radius search (Haversine in Code node)
+   - Add pagination
+   - Add price label computation
+7. Update `n8n/stats_api_workflow.json`:
+   - Support ward/district level
+   - Add type breakdown
+8. Create `n8n/roi_api_workflow.json`
+9. Create `n8n/valuation_api_workflow.json`
+
+### Phase 4: Frontend
+10. Update `lib/api.ts` types and functions
+11. Verify all pages work with new schema
+
+### Phase 5: Documentation
+12. Update `README.md`
+13. Update `docs/ARCHITECTURE.md`
+14. Update `docs/TESTING.md`
+15. Create Runbook in README
+
+---
+
+## ✅ Compliance Checklist
+
+| Requirement | Status | Notes |
+|------------|--------|-------|
+| Only n8n + Superset | ✅ | No other backend |
+| No Vision/Vector/OCR/LLM | ✅ | Not present |
+| No manual SQL in repo | ✅ | Schema via n8n workflow |
+| 3 cities dataset | 🔄 | Import pending |
+| Radius search | 🔄 | Haversine in n8n |
+| Price labels | 🔄 | Percentile logic in n8n |
+| ROI calculator | 🔄 | Workflow needed |
+| Valuation API | 🔄 | Workflow needed |
+| Superset dashboard | 🔄 | User creates manually |
+
+---
+
+**Next Actions**: Proceed with refactor plan Phase 1-5

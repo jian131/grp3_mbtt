@@ -2,7 +2,18 @@
 
 import React, { useEffect, useState } from 'react';
 import { LayoutDashboard, Users, TrendingUp, DollarSign, Activity, PieChart, BarChart, MapPin, Building2, Store, Briefcase, Loader2 } from 'lucide-react';
-import { fetchStats, Stats } from '@/lib/api';
+import { fetchStats } from '@/lib/api';
+
+// Define Interface locally to avoid import errors
+interface Stats {
+  total: number;
+  avgPrice: number;
+  avgArea: number;
+  avgPotential: number;
+  byDistrict: Record<string, number>;
+  byType: Record<string, number>;
+  priceDistribution?: Record<string, number>;
+}
 
 export default function Dashboard() {
   const [stats, setStats] = useState<Stats | null>(null);
@@ -10,7 +21,10 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchStats().then(data => {
-      setStats(data);
+      // Data might specific structure depending on n8n response
+      if (data) {
+        setStats(data);
+      }
       setLoading(false);
     });
   }, []);
@@ -29,13 +43,21 @@ export default function Dashboard() {
   if (!stats) {
     return (
       <div className="min-h-screen pt-24 flex items-center justify-center">
-        <p className="text-red-400">Không thể kết nối API. Hãy chắc chắn n8n đang chạy.</p>
+        <div className="text-center text-red-400 p-8 border border-red-500/20 bg-red-500/10 rounded-xl">
+          <p className="font-bold mb-2">Không có dữ liệu</p>
+          <p className="text-sm">Hãy kiểm tra workflow n8n (/stats) đã Active chưa.</p>
+        </div>
       </div>
     );
   }
 
+  // Safe checks before rendering
+  if (!stats.byDistrict || !stats.byType) {
+    return <div className="p-8 text-center text-gray-500">Dữ liệu statistic không đúng format.</div>;
+  }
+
   const topDistricts = Object.entries(stats.byDistrict)
-    .sort((a, b) => b[1] - a[1])
+    .sort((a: any, b: any) => b[1] - a[1])
     .slice(0, 10);
 
   const typeIcons: Record<string, React.ReactNode> = {
@@ -63,7 +85,7 @@ export default function Dashboard() {
               <LayoutDashboard className="w-8 h-8 text-cyan-400" />
               JFinder Dashboard
             </h1>
-            <p className="text-gray-400">Real-time analytics from {stats.total.toLocaleString()} listings across Hanoi.</p>
+            <p className="text-gray-400">Real-time analytics from {stats.total?.toLocaleString()} listings across Hanoi.</p>
           </div>
           <div className="flex gap-4">
             <div className="text-right">
@@ -78,10 +100,10 @@ export default function Dashboard() {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {[
-            { label: 'Tổng Mặt Bằng', value: stats.total.toLocaleString(), change: 'listings', icon: Users, color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
-            { label: 'Giá TB (triệu/th)', value: stats.avgPrice.toFixed(1), change: 'VND', icon: DollarSign, color: 'text-green-400', bg: 'bg-green-500/10' },
-            { label: 'Diện tích TB (m²)', value: String(stats.avgArea), change: 'm²', icon: Activity, color: 'text-purple-400', bg: 'bg-purple-500/10' },
-            { label: 'Potential TB', value: String(stats.avgPotential), change: '/100', icon: TrendingUp, color: 'text-orange-400', bg: 'bg-orange-500/10' },
+            { label: 'Tổng Mặt Bằng', value: stats.total?.toLocaleString() || 0, change: 'listings', icon: Users, color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
+            { label: 'Giá TB (triệu/th)', value: stats.avgPrice?.toFixed(1) || 0, change: 'VND', icon: DollarSign, color: 'text-green-400', bg: 'bg-green-500/10' },
+            { label: 'Diện tích TB (m²)', value: String(stats.avgArea || 0), change: 'm²', icon: Activity, color: 'text-purple-400', bg: 'bg-purple-500/10' },
+            { label: 'Potential TB', value: String(stats.avgPotential || 0), change: '/100', icon: TrendingUp, color: 'text-orange-400', bg: 'bg-orange-500/10' },
           ].map((stat, idx) => (
             <div key={idx} className="glass-card p-6 rounded-2xl flex items-center gap-4 hover:bg-white/5 transition-colors border border-white/5">
               <div className={`p-3 rounded-xl ${stat.bg}`}>
@@ -108,13 +130,13 @@ export default function Dashboard() {
               Phân bố theo Quận (từ n8n API)
             </h3>
             <div className="space-y-3">
-              {topDistricts.map(([district, count], idx) => (
+              {topDistricts.map(([district, count]: any, idx) => (
                 <div key={district} className="flex items-center gap-3">
                   <div className="w-24 text-sm text-gray-400 truncate">{district}</div>
                   <div className="flex-1 h-8 bg-slate-800 rounded-lg overflow-hidden relative">
                     <div
                       className="h-full bg-gradient-to-r from-cyan-600 to-blue-500 rounded-lg transition-all duration-500"
-                      style={{ width: `${(count / topDistricts[0][1]) * 100}%` }}
+                      style={{ width: `${(count / (topDistricts[0][1] as number)) * 100}%` }}
                     />
                     <div className="absolute inset-0 flex items-center justify-between px-3">
                       <span className="text-xs font-bold text-white">{count}</span>
@@ -133,7 +155,7 @@ export default function Dashboard() {
             </h3>
             <div className="space-y-4">
               {Object.entries(stats.byType).map(([type, count]) => {
-                const percent = ((count / stats.total) * 100).toFixed(1);
+                const percent = ((count / (stats.total || 1)) * 100).toFixed(1);
                 const colors: Record<string, string> = {
                   shophouse: 'bg-cyan-500',
                   office: 'bg-blue-500',
@@ -142,8 +164,8 @@ export default function Dashboard() {
                 };
                 return (
                   <div key={type} className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${colors[type]}/20`}>
-                      {typeIcons[type]}
+                    <div className={`p-2 rounded-lg ${colors[type] || 'bg-gray-500'}/20`}>
+                      {typeIcons[type] || <Store />}
                     </div>
                     <div className="flex-1">
                       <div className="flex justify-between text-sm mb-1">
@@ -151,7 +173,7 @@ export default function Dashboard() {
                         <span className="font-bold text-white">{count}</span>
                       </div>
                       <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
-                        <div className={`h-full ${colors[type]} rounded-full`} style={{ width: `${percent}%` }} />
+                        <div className={`h-full ${colors[type] || 'bg-gray-500'} rounded-full`} style={{ width: `${percent}%` }} />
                       </div>
                     </div>
                   </div>

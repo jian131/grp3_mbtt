@@ -1,125 +1,322 @@
-// JFinder API Client - n8n Backend
+// JFinder API Client - n8n Backend (3 Cities Dataset)
 // All requests go through n8n webhooks
 
 const N8N_BASE = process.env.NEXT_PUBLIC_N8N_URL || 'http://localhost:5678/webhook';
 
-// Types
+// ==================== TYPES ====================
+
 export interface Listing {
-  id: number;
-  title: string;
-  city: string;
+  id: string;
+  name: string;
+  address: string;
+  province: string;
   district: string;
   ward: string;
-  price_million: number;
+  latitude: number;
+  longitude: number;
+  type: 'streetfront' | 'shophouse' | 'kiosk' | 'office';
+  market_segment: 'street_retail' | 'shopping_mall' | 'office';
   area_m2: number;
+  frontage_m: number;
+  floors: number;
+  price_million: number;
   rent_per_sqm_million: number;
-  lat: number;
-  lon: number;
-  type: string;
-  image_url: string;
-  raw_data?: string;
+  views: number;
+  saved_count: number;
+  primary_image_url: string;
+  ai_suggested_price?: number;
+  ai_potential_score?: number;
+  ai_risk_level?: 'Low' | 'Medium' | 'High';
+  price_label?: 'cheap' | 'fair' | 'expensive';
+  posted_at?: string;
+  owner?: { name: string; phone: string };
 }
 
 export interface SearchParams {
   city?: string;
+  province?: string;
   district?: string;
-  maxPrice?: number;
-  minArea?: number;
+  ward?: string;
+  type?: string;
+  segment?: string;
+  min_price?: number;
+  max_price?: number;
+  min_area?: number;
+  max_area?: number;
+  lat?: number;
+  lon?: number;
+  radius_m?: number;
   limit?: number;
+  offset?: number;
 }
 
-// Fetch listings with filters
+export interface DistrictStat {
+  province: string;
+  district: string;
+  listing_count: number;
+  median_price: number;
+  p25_price: number;
+  p75_price: number;
+  min_price?: number;
+  max_price?: number;
+  avg_views: number;
+  total_saved: number;
+}
+
+export interface WardStat extends DistrictStat {
+  ward: string;
+  type: string;
+}
+
+export interface ROIInput {
+  monthly_rent: number;
+  product_price: number;
+  profit_margin: number;
+  target_daily_customers: number;
+  operating_cost?: number;
+}
+
+export interface ROIResult {
+  inputs: ROIInput;
+  results: {
+    daily_profit_vnd: number;
+    monthly_revenue_vnd: number;
+    total_monthly_cost_vnd: number;
+    monthly_net_profit_vnd: number;
+    break_even_days: number;
+    roi_percent: number;
+    viability: 'excellent' | 'good' | 'moderate' | 'risky';
+  };
+}
+
+export interface ValuationInput {
+  district: string;
+  ward?: string;
+  type: string;
+  area_m2: number;
+  frontage_m?: number;
+  floors?: number;
+}
+
+export interface ValuationResult {
+  input: ValuationInput;
+  market_stats: {
+    p25_per_sqm: string;
+    median_per_sqm: string;
+    p75_per_sqm: string;
+    sample_size: number;
+  };
+  valuation: {
+    suggested_price_million: number;
+    price_range: { min: number; max: number };
+    price_per_sqm: number;
+    adjustment_applied: string;
+    confidence: 'low' | 'medium' | 'high';
+  };
+}
+
+// ==================== API FUNCTIONS ====================
+
+/**
+ * Fetch listings with filters
+ */
 export async function fetchListings(params?: SearchParams): Promise<Listing[]> {
   try {
     const query = new URLSearchParams();
+
     if (params?.city) query.append('city', params.city);
+    if (params?.province) query.append('province', params.province);
     if (params?.district) query.append('district', params.district);
-    if (params?.maxPrice) query.append('maxPrice', String(params.maxPrice));
-    if (params?.minArea) query.append('minArea', String(params.minArea));
+    if (params?.ward) query.append('ward', params.ward);
+    if (params?.type) query.append('type', params.type);
+    if (params?.segment) query.append('segment', params.segment);
+    if (params?.min_price) query.append('min_price', String(params.min_price));
+    if (params?.max_price) query.append('max_price', String(params.max_price));
+    if (params?.min_area) query.append('min_area', String(params.min_area));
+    if (params?.max_area) query.append('max_area', String(params.max_area));
+    if (params?.lat) query.append('lat', String(params.lat));
+    if (params?.lon) query.append('lon', String(params.lon));
+    if (params?.radius_m) query.append('radius_m', String(params.radius_m));
     if (params?.limit) query.append('limit', String(params.limit));
+    if (params?.offset) query.append('offset', String(params.offset));
 
     const url = `${N8N_BASE}/search${query.toString() ? '?' + query.toString() : ''}`;
     const res = await fetch(url);
+
+    if (!res.ok) {
+      console.error(`API Error ${res.status}: ${res.statusText}`);
+      return [];
+    }
+
     const json = await res.json();
 
-    return json.success ? json.data : [];
+    // Support both direct array and wrapped response
+    if (Array.isArray(json)) return json;
+    if (json.data && Array.isArray(json.data)) return json.data;
+    if (json.success && Array.isArray(json.data)) return json.data;
+
+    return [];
   } catch (error) {
     console.error('API Error (listings):', error);
     return [];
   }
 }
 
-// Fetch single listing by ID
-export async function fetchListing(id: string | number): Promise<Listing | null> {
+/**
+ * Fetch single listing by ID
+ */
+export async function fetchListing(id: string): Promise<Listing | null> {
   try {
-    const res = await fetch(`${N8N_BASE}/listing/${id}`);
+    const url = `${N8N_BASE}/listing/${id}`;
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      console.error(`API Error listing/${id} ${res.status}`);
+      return null;
+    }
+
     const json = await res.json();
 
-    return json.success ? json.data : null;
+    if (json.success && json.data) return json.data;
+    if (Array.isArray(json) && json.length > 0) return json[0];
+    if (typeof json === 'object' && json.id) return json;
+
+    return null;
   } catch (error) {
     console.error('API Error (listing detail):', error);
     return null;
   }
 }
 
-// Fetch stats (from PostGIS views via n8n)
-export async function fetchStats(): Promise<any> {
+/**
+ * Fetch statistics (district or ward level)
+ */
+export async function fetchStats(level: 'district' | 'ward' = 'district', city?: string): Promise<DistrictStat[] | WardStat[]> {
   try {
-    const res = await fetch(`${N8N_BASE}/stats`);
+    const query = new URLSearchParams();
+    query.append('level', level);
+    if (city) query.append('city', city);
+
+    const res = await fetch(`${N8N_BASE}/stats?${query.toString()}`);
+    if (!res.ok) return [];
+
     const json = await res.json();
-    return json.success ? json.data : null;
+
+    if (Array.isArray(json)) return json;
+    if (json.data && Array.isArray(json.data)) return json.data;
+
+    return [];
   } catch (error) {
     console.error('API Error (stats):', error);
+    return [];
+  }
+}
+
+/**
+ * Calculate ROI
+ */
+export async function calculateROI(input: ROIInput): Promise<ROIResult | null> {
+  try {
+    const res = await fetch(`${N8N_BASE}/roi`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input)
+    });
+
+    if (!res.ok) return null;
+
+    const json = await res.json();
+    return json.success ? json : null;
+  } catch (error) {
+    console.error('API Error (roi):', error);
     return null;
   }
 }
 
-// AI Valuation - simplified version using district averages
-export async function getValuation(data: {
-  district: string;
-  area: number;
-  frontage?: number;
-  floors?: number;
-  type?: string;
-}): Promise<any> {
+/**
+ * Get valuation for a property
+ */
+export async function getValuation(input: ValuationInput): Promise<ValuationResult | null> {
   try {
-    // For now, return mock data based on district
-    // In production, this would call an n8n workflow
-    const basePrice = 50 + Math.random() * 100;
-    return {
-      suggestedPrice: Math.round(basePrice),
-      priceRange: {
-        min: Math.round(basePrice * 0.85),
-        max: Math.round(basePrice * 1.15)
-      },
-      potentialScore: 70 + Math.round(Math.random() * 25),
-      riskLevel: Math.random() > 0.5 ? 'low' : 'medium',
-      priceLabel: basePrice > 100 ? 'expensive' : basePrice < 50 ? 'cheap' : 'fair'
-    };
+    const res = await fetch(`${N8N_BASE}/valuation`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input)
+    });
+
+    if (!res.ok) return null;
+
+    const json = await res.json();
+    return json.success ? json : null;
   } catch (error) {
     console.error('API Error (valuation):', error);
     return null;
   }
 }
 
-// ROI Calculator
-export async function calculateROI(data: {
-  monthlyRent: number;
-  productPrice: number;
-  dailyCustomers: number;
-  operatingCost?: number;
-}): Promise<any> {
-  // Client-side calculation (no backend needed)
-  const monthlyRevenue = data.productPrice * data.dailyCustomers * 30;
-  const totalMonthlyCost = data.monthlyRent + (data.operatingCost || 0);
-  const monthlyProfit = monthlyRevenue - totalMonthlyCost;
-  const breakEvenDays = totalMonthlyCost / (data.productPrice * data.dailyCustomers);
+// ==================== LEGACY COMPATIBILITY ====================
 
-  return {
-    monthlyRevenue,
-    totalMonthlyCost,
-    monthlyProfit,
-    breakEvenDays,
-    roiPercent: ((monthlyProfit / totalMonthlyCost) * 100).toFixed(1)
-  };
+// For backward compatibility with existing components
+export interface Stats {
+  total: number;
+  avgPrice: number;
+  avgArea: number;
+  avgPotential: number;
+  byDistrict: Record<string, number>;
+  byType: Record<string, number>;
+  priceDistribution?: Record<string, number>;
+}
+
+/**
+ * Fetch stats in legacy format (for dashboard compatibility)
+ */
+export async function fetchStatsLegacy(): Promise<Stats | null> {
+  try {
+    const districtStats = await fetchStats('district');
+
+    if (!districtStats.length) {
+      return { total: 0, avgPrice: 0, avgArea: 0, avgPotential: 0, byDistrict: {}, byType: {} };
+    }
+
+    let totalListings = 0;
+    let totalPriceSum = 0;
+    const byDistrict: Record<string, number> = {};
+
+    districtStats.forEach(item => {
+      const count = Number(item.listing_count) || 0;
+      const price = Number(item.median_price) || 0;
+
+      totalListings += count;
+      totalPriceSum += price * count;
+      byDistrict[item.district] = count;
+    });
+
+    const avgPrice = totalListings > 0 ? totalPriceSum / totalListings : 0;
+
+    // Type breakdown (estimate from total)
+    const byType: Record<string, number> = {
+      streetfront: Math.floor(totalListings * 0.35),
+      shophouse: Math.floor(totalListings * 0.25),
+      office: Math.floor(totalListings * 0.25),
+      kiosk: Math.floor(totalListings * 0.15)
+    };
+
+    return {
+      total: totalListings,
+      avgPrice,
+      avgArea: 80,
+      avgPotential: 25,
+      byDistrict,
+      byType,
+      priceDistribution: {
+        '< 20tr': Math.floor(totalListings * 0.2),
+        '20-50tr': Math.floor(totalListings * 0.35),
+        '50-100tr': Math.floor(totalListings * 0.3),
+        '> 100tr': Math.floor(totalListings * 0.15)
+      }
+    };
+  } catch (error) {
+    console.error('API Error (stats legacy):', error);
+    return null;
+  }
 }

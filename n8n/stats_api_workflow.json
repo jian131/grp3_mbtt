@@ -20,16 +20,29 @@
     },
     {
       "parameters": {
+        "jsCode": "const query = $input.first().json.query || {};\nconst level = query.level || 'district';\nconst city = query.city || query.province;\n\nlet sql;\nlet cityFilter = city ? `WHERE province ILIKE '%${city}%'` : '';\n\nif (level === 'ward') {\n  sql = `SELECT * FROM view_ward_stats ${cityFilter} ORDER BY province, district, ward;`;\n} else {\n  sql = `SELECT * FROM view_district_stats ${cityFilter} ORDER BY province, district;`;\n}\n\nreturn { json: { sql: sql, level: level } };"
+      },
+      "id": "code-1",
+      "name": "Build Query",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        320
+      ]
+    },
+    {
+      "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT city, district, COUNT(*) as listing_count, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY price_million) as median_price, PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY price_million) as p25_price, PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY price_million) as p75_price, AVG(views)::int as avg_views, SUM(saved_count) as total_saved FROM listings GROUP BY city, district ORDER BY listing_count DESC",
+        "query": "={{ $json.sql }}",
         "options": {}
       },
       "id": "postgres-1",
-      "name": "Get Stats",
+      "name": "Query Stats",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        460,
+        680,
         320
       ],
       "credentials": {
@@ -42,15 +55,24 @@
     {
       "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ { success: true, data: $input.all().map(i => i.json) } }}",
-        "options": {}
+        "responseBody": "={{ { success: true, level: $('Build Query').item.json.level, data: $input.all().map(i => i.json), count: $input.all().length } }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
       },
       "id": "respond-1",
       "name": "Respond",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        680,
+        900,
         320
       ]
     }
@@ -60,14 +82,25 @@
       "main": [
         [
           {
-            "node": "Get Stats",
+            "node": "Build Query",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Get Stats": {
+    "Build Query": {
+      "main": [
+        [
+          {
+            "node": "Query Stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Stats": {
       "main": [
         [
           {

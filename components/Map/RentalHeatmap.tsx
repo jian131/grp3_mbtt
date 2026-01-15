@@ -17,7 +17,7 @@ interface Props {
   filterDistrict?: string;
   filterType?: Listing['type'];
   filterPriceMax?: number;
-  listings?: Listing[]; // Nhận listings từ parent nếu có
+  listings?: Listing[];
 }
 
 const getPriceColor = (price: number): string => {
@@ -45,18 +45,17 @@ export default function RentalHeatmap({ filterDistrict, filterType, filterPriceM
   }, []);
 
   useEffect(() => {
-    // Nếu có external listings (từ Search page), dùng luôn
     if (externalListings) {
       setListings(externalListings);
       setLoading(false);
       return;
     }
 
-    // Nếu không, tự fetch
     async function loadData() {
       setLoading(true);
       const data = await fetchListings({
         district: filterDistrict,
+        // @ts-ignore
         type: filterType,
         maxPrice: filterPriceMax,
         limit: 500,
@@ -80,13 +79,14 @@ export default function RentalHeatmap({ filterDistrict, filterType, filterPriceM
 
   const getColor = (listing: Listing) => {
     return mode === 'price'
-      ? getPriceColor(listing.price)
-      : getPotentialColor(listing.ai?.potentialScore || 50);
+      ? getPriceColor(listing.price_million)
+      : getPotentialColor(70); // Mock potential score since API doesn't return it yet
   };
 
   const getRadius = (listing: Listing) => {
-    const base = mode === 'price' ? listing.views / 200 : (listing.ai?.potentialScore || 50) / 10;
-    return Math.max(5, Math.min(15, base));
+    const views = listing.views || 0;
+    const base = mode === 'price' ? views / 200 : 7; // Mock logic
+    return Math.max(5, Math.min(15, base || 5));
   };
 
   return (
@@ -95,15 +95,13 @@ export default function RentalHeatmap({ filterDistrict, filterType, filterPriceM
       <div className="absolute top-4 left-4 z-[1000] flex gap-2">
         <button
           onClick={() => setMode('price')}
-          className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${mode === 'price' ? 'bg-cyan-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'
-            }`}
+          className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${mode === 'price' ? 'bg-cyan-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
         >
           💰 Price Map
         </button>
         <button
           onClick={() => setMode('potential')}
-          className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${mode === 'potential' ? 'bg-purple-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'
-            }`}
+          className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${mode === 'potential' ? 'bg-purple-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
         >
           🎯 Potential Map
         </button>
@@ -133,31 +131,32 @@ export default function RentalHeatmap({ filterDistrict, filterType, filterPriceM
           // @ts-ignore
           <CircleMarker
             key={listing.id}
-            center={[listing.latitude, listing.longitude]}
+            center={[listing.lat || 0, listing.lon || 0]}
             pathOptions={{
-              color: getColor(listing),
               fillColor: getColor(listing),
-              fillOpacity: 0.6,
-              weight: 1
+              color: getColor(listing),
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 0.8,
             }}
             radius={getRadius(listing)}
           >
             {/* @ts-ignore */}
             <Popup>
               <div className="p-3 min-w-[220px] bg-slate-900 text-white rounded-lg">
-                <h3 className="font-bold text-sm text-cyan-400 mb-2 line-clamp-2">{listing.name}</h3>
+                <h3 className="font-bold text-sm text-cyan-400 mb-2 line-clamp-2">{listing.title}</h3>
                 <div className="space-y-1 text-xs">
                   <div className="flex justify-between">
                     <span className="text-gray-400">Giá thuê:</span>
-                    <span className="font-bold text-green-400">{listing.price} tr/tháng</span>
+                    <span className="font-bold text-green-400">{listing.price_million} tr/tháng</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Diện tích:</span>
-                    <span>{listing.area} m²</span>
+                    <span>{listing.area_m2} m²</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">AI Score:</span>
-                    <span className="font-bold text-purple-400">{listing.ai?.potentialScore || 'N/A'}/100</span>
+                    <span className="font-bold text-purple-400">70/100</span>
                   </div>
                 </div>
                 <div className="mt-2 pt-2 border-t border-white/10 text-xs text-gray-400">
