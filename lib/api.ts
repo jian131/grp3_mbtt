@@ -291,12 +291,37 @@ export async function calculateROI(input: ROIInput): Promise<ROIResult | null> {
       body: JSON.stringify(input)
     });
 
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.warn('n8n ROI API failed, using Next.js fallback');
+      const fallbackRes = await fetch('/api/roi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(input)
+      });
+      if (fallbackRes.ok) {
+        const json = await fallbackRes.json();
+        return json.success ? json : null;
+      }
+      return null;
+    }
 
     const json = await res.json();
     return json.success ? json : null;
   } catch (error) {
     console.error('API Error (roi):', error);
+    try {
+      const fallbackRes = await fetch('/api/roi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(input)
+      });
+      if (fallbackRes.ok) {
+        const json = await fallbackRes.json();
+        return json.success ? json : null;
+      }
+    } catch (fallbackError) {
+      console.error('ROI fallback also failed:', fallbackError);
+    }
     return null;
   }
 }
@@ -312,12 +337,37 @@ export async function getValuation(input: ValuationInput): Promise<ValuationResu
       body: JSON.stringify(input)
     });
 
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.warn('n8n Valuation API failed, using Next.js fallback');
+      const fallbackRes = await fetch('/api/valuation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(input)
+      });
+      if (fallbackRes.ok) {
+        const json = await fallbackRes.json();
+        return json.success ? json : null;
+      }
+      return null;
+    }
 
     const json = await res.json();
     return json.success ? json : null;
   } catch (error) {
     console.error('API Error (valuation):', error);
+    try {
+      const fallbackRes = await fetch('/api/valuation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(input)
+      });
+      if (fallbackRes.ok) {
+        const json = await fallbackRes.json();
+        return json.success ? json : null;
+      }
+    } catch (fallbackError) {
+      console.error('Valuation fallback also failed:', fallbackError);
+    }
     return null;
   }
 }
