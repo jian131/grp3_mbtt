@@ -116,8 +116,8 @@ export default function RentalHeatmap({ filterDistrict, filterType, filterPriceM
 
       {/* @ts-ignore */}
       <MapContainer
-        center={[21.0285, 105.8542]}
-        zoom={12}
+        center={[16.0, 107.0]}
+        zoom={6}
         style={{ height: '100%', width: '100%', background: '#020617' }}
         className="z-0"
       >
