@@ -37,7 +37,7 @@ export default function SearchPage() {
       });
 
       const filtered = filters.minArea > 0
-        ? data.filter(item => item.area >= filters.minArea)
+        ? data.filter(item => (item.area || 0) >= filters.minArea)
         : data;
 
       setResults(filtered);

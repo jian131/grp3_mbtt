@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { DollarSign, Users, Eye, ArrowUpRight, Loader2 } from 'lucide-react';
-import { getValuation, fetchStats } from '@/lib/api';
+import { getValuation, fetchStatsLegacy } from '@/lib/api';
 import { PROVINCES, getDistrictsByProvince, getProvinceShortName } from '@/lib/districts';
 
 export default function LandlordPage() {
@@ -19,7 +19,7 @@ export default function LandlordPage() {
   const [result, setResult] = useState<any>(null);
 
   useEffect(() => {
-    fetchStats().then(data => {
+    fetchStatsLegacy().then(data => {
       if (data) setStats({ ...stats, ...data, totalViews: data.total * 15 });
     });
   }, []);
@@ -29,8 +29,8 @@ export default function LandlordPage() {
     try {
       const data = await getValuation({
         district: formData.district || 'Quận 1', // Fallback
-        area: formData.area,
-        frontage: formData.frontage,
+        area_m2: formData.area,
+        frontage_m: formData.frontage,
         floors: formData.floors,
         type: formData.type
       });
