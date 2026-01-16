@@ -14,6 +14,7 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Listing[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
+  const [selectedListingId, setSelectedListingId] = useState<string | undefined>();
 
   const [filters, setFilters] = useState({
     province: '',
@@ -23,8 +24,10 @@ export default function SearchPage() {
     minArea: 0
   });
 
-
-
+  // Handle listing selection from map
+  const handleListingSelect = (listing: Listing) => {
+    setSelectedListingId(listing.id);
+  };
   const handleSearch = async () => {
     setLoading(true);
     try {
@@ -272,7 +275,14 @@ export default function SearchPage() {
           ) : (
             // Map View
             <div className="h-[700px] rounded-2xl overflow-hidden border border-white/10">
-              <RentalHeatmap listings={results} />
+              <RentalHeatmap
+                listings={results}
+                filterProvince={filters.province}
+                filterDistrict={filters.district}
+                selectedListingId={selectedListingId}
+                onListingSelect={handleListingSelect}
+                autoFocus={true}
+              />
             </div>
           )
         ) : !loading && (
