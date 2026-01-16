@@ -344,6 +344,8 @@ npm start
 
 | Document                                               | Description                     |
 | ------------------------------------------------------ | ------------------------------- |
+| [docs/vercel_deploy.md](docs/vercel_deploy.md)         | Vercel deployment guide         |
+| [docs/bi_superset.md](docs/bi_superset.md)             | BI Dashboard setup              |
 | [reports/repo_inventory.md](reports/repo_inventory.md) | Directory tree, services, files |
 | [reports/system_flow.md](reports/system_flow.md)       | Architecture & data flow        |
 | [reports/api_contract.md](reports/api_contract.md)     | API endpoints & schemas         |
@@ -362,14 +364,17 @@ npm start
 ✅ **Image fallbacks** - FallbackImage component handles broken URLs
 ✅ **Geo-location mismatches** - Dataset re-verified with GADM
 ✅ **AI data display** - Handles `ai_potential_score = 0` correctly
+✅ **BI Dashboard** - Link/Iframe mode with fallback
+✅ **Backend offline** - Banner shows when n8n unavailable
+✅ **Vercel deployment** - API proxy for CORS bypass
 
 ### Superset Iframe Embedding
 
-⚠️ **Status:** X-Frame-Options blocking iframe in some browsers
+⚠️ **Status:** X-Frame-Options may block iframe in some browsers
 
-**Workaround:** Access Superset directly at http://localhost:8088
+**Solution:** Use Link Mode (default) - opens Superset in new tab
 
-**Fix Applied:** Added `superset_config.py` with CORS headers
+**Alternative:** Configure Superset to allow embedding (see [docs/bi_superset.md](docs/bi_superset.md))
 
 ---
 

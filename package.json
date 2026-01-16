@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy:setup": "powershell -ExecutionPolicy Bypass -File ./scripts/deploy-helper.ps1"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
