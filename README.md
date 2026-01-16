@@ -147,8 +147,16 @@ grp3_mbtt/
 Create `.env.local`:
 
 ```bash
-# n8n API
-NEXT_PUBLIC_N8N_URL=http://localhost:5678/webhook
+# Backend API URL (n8n webhook)
+NEXT_PUBLIC_API_BASE_URL=http://localhost:5678/webhook
+
+# Superset Configuration
+NEXT_PUBLIC_SUPERSET_URL=http://localhost:8088
+NEXT_PUBLIC_BI_MODE=link          # 'link' (default) or 'iframe'
+NEXT_PUBLIC_SUPERSET_DASHBOARD_PATH=/superset/dashboard/1/
+
+# Feature Flags
+NEXT_PUBLIC_ENABLE_HEALTH_CHECK=true
 
 # Optional: Mapbox for enhanced maps
 NEXT_PUBLIC_MAPBOX_TOKEN=pk.your_token_here
@@ -162,6 +170,33 @@ NEXT_PUBLIC_MAPBOX_TOKEN=pk.your_token_here
 | n8n      | n8nio/n8n:latest       | 5678 | API backend (file-based)         |
 | superset | apache/superset:latest | 8088 | BI dashboards                    |
 | redis    | redis:7-alpine         | -    | Superset cache                   |
+
+---
+
+## 🚀 Vercel Deployment
+
+### Quick Deploy
+
+1. Push code to GitHub
+2. Import project in [Vercel](https://vercel.com/new)
+3. Set environment variables:
+   - `NEXT_PUBLIC_API_BASE_URL` = Your ngrok/tunnel URL + `/webhook`
+   - `NEXT_PUBLIC_BI_MODE` = `link`
+4. Deploy!
+
+### Backend for Demo
+
+Since n8n runs locally, expose it via tunnel:
+
+```bash
+# Install ngrok
+ngrok http 5678
+
+# Use the HTTPS URL
+# https://abc123.ngrok.io/webhook
+```
+
+📖 See [docs/vercel_deploy.md](docs/vercel_deploy.md) for full guide.
 
 ---
 

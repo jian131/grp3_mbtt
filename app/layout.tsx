@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar/page";
 import Footer from "./components/footer/page";
+import { BackendStatusProvider } from "@/lib/BackendStatusContext";
+import BackendOfflineBanner from "./components/BackendOfflineBanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,15 +29,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="">
-        <header className="">
-          <Navbar/>
-        </header>
-        <main>
-          {children}
-        </main>
-        <footer>
-          <Footer/>
-        </footer>
+        <BackendStatusProvider checkInterval={30000}>
+          <header className="">
+            <Navbar/>
+          </header>
+          <BackendOfflineBanner />
+          <main>
+            {children}
+          </main>
+          <footer>
+            <Footer/>
+          </footer>
+        </BackendStatusProvider>
       </body>
     </html>
   );

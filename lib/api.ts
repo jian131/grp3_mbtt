@@ -1,6 +1,16 @@
 // JFinder API Client - 3 Cities Dataset (FIXED FIELD MAPPING)
+import {
+  API_BASE_URL,
+  getApiBaseUrl,
+  API_TIMEOUT,
+  USE_PROXY
+} from './config';
 
-const N8N_BASE = process.env.NEXT_PUBLIC_N8N_URL || 'http://localhost:5678/webhook';
+// Helper to get the base URL (uses proxy in production)
+const getBaseUrl = () => getApiBaseUrl();
+
+// Legacy support for direct access
+const N8N_BASE = API_BASE_URL;
 
 // ==================== TYPES ====================
 
@@ -193,6 +203,15 @@ function transformListing(listing: any): Listing {
 // ==================== API FUNCTIONS ====================
 
 /**
+ * Create AbortController with timeout
+ */
+function createTimeoutController(timeout: number = API_TIMEOUT): AbortController {
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(), timeout);
+  return controller;
+}
+
+/**
  * Fetch listings with filters
  */
 export async function fetchListings(params?: SearchParams): Promise<Listing[]> {
@@ -221,8 +240,11 @@ export async function fetchListings(params?: SearchParams): Promise<Listing[]> {
     if (params?.limit) query.append('limit', String(params.limit));
     if (params?.offset) query.append('offset', String(params.offset));
 
-    const url = `${N8N_BASE}/search${query.toString() ? '?' + query.toString() : ''}`;
-    const res = await fetch(url);
+    const baseUrl = getBaseUrl();
+    const url = `${baseUrl}/search${query.toString() ? '?' + query.toString() : ''}`;
+    const controller = createTimeoutController();
+
+    const res = await fetch(url, { signal: controller.signal });
 
     if (!res.ok) {
       console.error(`API Error ${res.status}: ${res.statusText}`);
@@ -260,8 +282,10 @@ export async function fetchListing(id: string): Promise<Listing | null> {
 
     // If that fails, use n8n search and filter client-side
     console.warn(`Next.js API failed, trying n8n search`);
-    const searchUrl = `${N8N_BASE}/search?limit=5000`;
-    const searchRes = await fetch(searchUrl);
+    const baseUrl = getBaseUrl();
+    const searchUrl = `${baseUrl}/search?limit=5000`;
+    const controller = createTimeoutController();
+    const searchRes = await fetch(searchUrl, { signal: controller.signal });
 
     if (searchRes.ok) {
       const json = await searchRes.json();
@@ -288,7 +312,9 @@ export async function fetchStats(level: 'district' | 'ward' = 'district', city?:
     query.append('level', level);
     if (city) query.append('city', city);
 
-    const res = await fetch(`${N8N_BASE}/stats?${query.toString()}`);
+    const baseUrl = getBaseUrl();
+    const controller = createTimeoutController();
+    const res = await fetch(`${baseUrl}/stats?${query.toString()}`, { signal: controller.signal });
     if (!res.ok) return [];
 
     const json = await res.json();
@@ -307,11 +333,15 @@ export async function fetchStats(level: 'district' | 'ward' = 'district', city?:
  * Calculate ROI
  */
 export async function calculateROI(input: ROIInput): Promise<ROIResult | null> {
+  const baseUrl = getBaseUrl();
+
   try {
-    const res = await fetch(`${N8N_BASE}/roi`, {
+    const controller = createTimeoutController();
+    const res = await fetch(`${baseUrl}/roi`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(input)
+      body: JSON.stringify(input),
+      signal: controller.signal
     });
 
     if (!res.ok) {
@@ -368,11 +398,15 @@ export async function calculateROI(input: ROIInput): Promise<ROIResult | null> {
  * Get valuation for a property
  */
 export async function getValuation(input: ValuationInput): Promise<ValuationResult | null> {
+  const baseUrl = getBaseUrl();
+
   try {
-    const res = await fetch(`${N8N_BASE}/valuation`, {
+    const controller = createTimeoutController();
+    const res = await fetch(`${baseUrl}/valuation`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(input)
+      body: JSON.stringify(input),
+      signal: controller.signal
     });
 
     if (!res.ok) {
@@ -487,5 +521,56 @@ export async function fetchStatsLegacy(): Promise<Stats | null> {
   } catch (error) {
     console.error('API Error (stats legacy):', error);
     return null;
+  }
+}
+
+// ==================== HEALTH CHECK ====================
+
+export interface HealthCheckResult {
+  online: boolean;
+  latency?: number;
+  error?: string;
+}
+
+/**
+ * Check if backend API is available
+ * Uses /search?limit=1 as a lightweight health check
+ */
+export async function checkBackendHealth(): Promise<HealthCheckResult> {
+  const startTime = Date.now();
+  const baseUrl = getBaseUrl();
+
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000); // 5s timeout for health check
+
+    const res = await fetch(`${baseUrl}/search?limit=1`, {
+      signal: controller.signal
+    });
+
+    clearTimeout(timeout);
+
+    if (!res.ok) {
+      return {
+        online: false,
+        error: `HTTP ${res.status}`,
+        latency: Date.now() - startTime
+      };
+    }
+
+    // Try to parse response
+    const json = await res.json();
+    const hasData = Array.isArray(json) || (json.data && Array.isArray(json.data));
+
+    return {
+      online: hasData,
+      latency: Date.now() - startTime
+    };
+  } catch (error: any) {
+    return {
+      online: false,
+      error: error.name === 'AbortError' ? 'Timeout' : error.message,
+      latency: Date.now() - startTime
+    };
   }
 }
