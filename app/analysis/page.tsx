@@ -18,13 +18,23 @@ function determinePriceLabel(actualPrice: number, suggestedPrice: number): 'chea
 export default function AnalysisPage() {
   const [loading, setLoading] = useState(false);
 
+  // Market segment mapping - CRITICAL: Use segment, not type!
+  // street_retail = mặt bằng kinh doanh (F&B, retail) - GIÁ CAO
+  // office = văn phòng làm việc (không kinh doanh) - GIÁ THẤP
+  const MARKET_SEGMENTS = [
+    { label: 'Mặt bằng F&B / Cửa hàng (Street Retail)', value: 'street_retail', type: 'streetfront' },
+    { label: 'Ki-ốt Trung tâm thương mại', value: 'shopping_mall', type: 'kiosk' },
+    { label: 'Văn phòng làm việc (Office)', value: 'office', type: 'office' }
+  ];
+
   // State for Valuation Form
   const [valForm, setValForm] = useState({
     province: '',
     district: '',
     area: '',
     price: '',
-    type: 'F&B / Cà phê'
+    segment: 'street_retail',  // Default to street retail (business use)
+    type: 'streetfront'  // Derived from segment
   });
   const [valuationResult, setValuationResult] = useState<any>(null);
 
@@ -41,13 +51,14 @@ export default function AnalysisPage() {
   const handleAnalysis = async () => {
     setLoading(true);
     try {
-      // 1. Get Valuation
+      // 1. Get Valuation - use segment + type from form
       const valData = await getValuation({
         district: valForm.district || 'Quận 1',
         area: Number(valForm.area) || 50,
         frontage: 5,
         floors: 1,
-        type: 'shophouse'
+        type: valForm.type || 'streetfront',  // Physical type
+        segment: valForm.segment || 'street_retail'  // Market segment (CRITICAL)
       });
       // Transform valuation response for ValuationCard
       if (valData?.valuation) {
@@ -169,6 +180,30 @@ export default function AnalysisPage() {
                     <option value="">{valForm.province ? 'Chọn Quận...' : 'Chọn TP trước'}</option>
                     {valForm.province && getDistrictsByProvince(valForm.province).map(d => (
                       <option key={d} value={d}>{d}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Market Segment Selector - CRITICAL */}
+                <div className="group">
+                  <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wider group-focus-within:text-cyan-400 transition-colors">
+                    Mục đích sử dụng
+                    <span className="text-cyan-400 ml-2 text-[10px]">(Ảnh hưởng lớn đến giá)</span>
+                  </label>
+                  <select
+                    value={valForm.segment}
+                    onChange={e => {
+                      const selected = MARKET_SEGMENTS.find(s => s.value === e.target.value);
+                      setValForm({
+                        ...valForm,
+                        segment: e.target.value,
+                        type: selected?.type || 'streetfront'
+                      });
+                    }}
+                    className="w-full bg-slate-800 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all cursor-pointer"
+                  >
+                    {MARKET_SEGMENTS.map(s => (
+                      <option key={s.value} value={s.value}>{s.label}</option>
                     ))}
                   </select>
                 </div>

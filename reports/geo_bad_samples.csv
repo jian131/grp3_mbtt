@@ -1,0 +1,101 @@
+id,province,district,ward,latitude,longitude,geo_status
+VN26000001,Thành phố Hồ Chí Minh,Quận 1,Phường Tân Định,10.793807,106.692094,adjusted
+VN26000003,Thành phố Hồ Chí Minh,Quận 1,Phường Nguyễn Cư Trinh,10.765303,106.685858,adjusted
+VN26000005,Thành phố Hồ Chí Minh,Quận 3,Phường 11,10.786442,106.672585,matched
+VN26000008,Thành phố Hồ Chí Minh,Quận 5,Phường 5,10.753191,106.675958,matched
+VN26000009,Thành phố Hồ Chí Minh,Quận 4,Phường 4,10.757834,106.701929,matched
+VN26000010,Thành phố Hồ Chí Minh,Quận 3,Phường 4,10.774741,106.683931,matched
+VN26000012,Thành phố Hồ Chí Minh,Quận 11,Phường 1,10.756761,106.640704,matched
+VN26000013,Thành phố Hồ Chí Minh,Quận 4,Phường 18,10.761277,106.715997,matched
+VN26000015,Thành phố Hồ Chí Minh,Quận 4,Phường 13,10.759243,106.711112,matched
+VN26000017,Thành phố Hồ Chí Minh,Quận 4,Phường 9,10.763138,106.700569,matched
+VN26000018,Thành phố Hồ Chí Minh,Quận 10,Phường 4,10.763296,106.670627,matched
+VN26000019,Thành phố Hồ Chí Minh,Thành phố Thủ Đức,Phường Linh Tây,10.858636,106.751755,adjusted
+VN26000020,Thành phố Hồ Chí Minh,Thành phố Thủ Đức,Phường An Phú,10.85131,106.711786,adjusted
+VN26000022,Thành phố Hồ Chí Minh,Quận 4,Phường 9,10.763614,106.702316,matched
+VN26000023,Thành phố Hồ Chí Minh,Quận 4,Phường 3,10.75338,106.698906,matched
+VN26000024,Thành phố Hồ Chí Minh,Quận 3,Phường 3,10.77222,106.678485,matched
+VN26000026,Thành phố Hồ Chí Minh,Quận 11,Phường 8,10.761992,106.64968,matched
+VN26000027,Thành phố Hồ Chí Minh,Quận 7,Phường Phú Mỹ,10.707203,106.727478,adjusted
+VN26000028,Thành phố Hồ Chí Minh,Thành phố Thủ Đức,Phường Long Bình,10.855619,106.747992,adjusted
+VN26000029,Thành phố Hồ Chí Minh,Quận 4,Phường 9,10.763552,106.702894,matched
+VN26000030,Thành phố Hồ Chí Minh,Quận 4,Phường 16,10.753853,106.711053,matched
+VN26000031,Thành phố Hồ Chí Minh,Quận 7,Phường Phú Mỹ,10.71352,106.742383,adjusted
+VN26000034,Thành phố Hồ Chí Minh,Quận 5,Phường 11,10.754192,106.661052,matched
+VN26000035,Thành phố Hồ Chí Minh,Quận 1,Phường Đa Kao,10.790851,106.700537,adjusted
+VN26000036,Thành phố Hồ Chí Minh,Quận 3,Phường Võ Thị Sáu,10.782902,106.676484,matched
+VN26000037,Thành phố Hồ Chí Minh,Quận 10,Phường 10,10.770614,106.673938,matched
+VN26000038,Thành phố Hồ Chí Minh,Quận 11,Phường 1,10.755956,106.639374,matched
+VN26000040,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Quy,10.744192,106.71521,adjusted
+VN26000042,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Hưng,10.743109,106.698833,adjusted
+VN26000043,Thành phố Hồ Chí Minh,Thành phố Thủ Đức,Phường Tăng Nhơn Phú A,10.837823,106.717041,adjusted
+VN26000044,Thành phố Hồ Chí Minh,Quận 5,Phường 1,10.753182,106.677305,matched
+VN26000045,Thành phố Hồ Chí Minh,Quận 5,Phường 11,10.755306,106.663651,matched
+VN26000046,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Hưng,10.742105,106.701739,adjusted
+VN26000047,Thành phố Hồ Chí Minh,Quận 10,Phường 15,10.778239,106.662288,matched
+VN26000049,Thành phố Hồ Chí Minh,Quận 4,Phường 18,10.753587,106.715769,matched
+VN26000050,Thành phố Hồ Chí Minh,Quận 4,Phường 13,10.764022,106.710204,matched
+VN26000052,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Thuận Tây,10.746851,106.718032,adjusted
+VN26000053,Thành phố Hồ Chí Minh,Quận 10,Phường 4,10.76266,106.669068,matched
+VN26000054,Thành phố Hồ Chí Minh,Quận 10,Phường 15,10.780243,106.662472,matched
+VN26000055,Thành phố Hồ Chí Minh,Quận 5,Phường 9,10.758501,106.671248,matched
+VN26000056,Thành phố Hồ Chí Minh,Thành phố Thủ Đức,Phường Bình Trưng Tây,10.827839,106.759587,adjusted
+VN26000057,Thành phố Hồ Chí Minh,Quận 10,Phường 1,10.762519,106.676778,matched
+VN26000058,Thành phố Hồ Chí Minh,Quận 1,Phường Nguyễn Cư Trinh,10.764699,106.684443,adjusted
+VN26000059,Thành phố Hồ Chí Minh,Quận 5,Phường 1,10.754334,106.678697,matched
+VN26000063,Thành phố Hồ Chí Minh,Quận 10,Phường 4,10.764538,106.669603,matched
+VN26000064,Thành phố Hồ Chí Minh,Quận 10,Phường 2,10.763024,106.674499,matched
+VN26000065,Thành phố Hồ Chí Minh,Quận 3,Phường 14,10.79104,106.680557,matched
+VN26000066,Thành phố Hồ Chí Minh,Quận 5,Phường 2,10.757009,106.677813,matched
+VN26000069,Thành phố Hồ Chí Minh,Quận 11,Phường 7,10.76316,106.658879,matched
+VN26000070,Thành phố Hồ Chí Minh,Quận 11,Phường 10,10.763864,106.644905,matched
+VN26000072,Thành phố Hồ Chí Minh,Quận 7,Phường Phú Thuận,10.733566,106.731988,adjusted
+VN26000073,Thành phố Hồ Chí Minh,Thành phố Thủ Đức,Phường Phước Long A,10.851271,106.755337,adjusted
+VN26000074,Thành phố Hồ Chí Minh,Quận 1,Phường Bến Nghé,10.776711,106.705641,adjusted
+VN26000075,Thành phố Hồ Chí Minh,Quận 4,Phường 4,10.757516,106.70455,matched
+VN26000077,Thành phố Hồ Chí Minh,Quận 4,Phường 9,10.764634,106.700693,matched
+VN26000078,Thành phố Hồ Chí Minh,Thành phố Thủ Đức,Phường Long Thạnh Mỹ,10.868609,106.781001,adjusted
+VN26000082,Thành phố Hồ Chí Minh,Quận 3,Phường 12,10.787997,106.674857,matched
+VN26000083,Thành phố Hồ Chí Minh,Quận 11,Phường 15,10.768678,106.655947,matched
+VN26000084,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Quy,10.744031,106.713907,adjusted
+VN26000085,Thành phố Hồ Chí Minh,Quận 10,Phường 4,10.765401,106.668219,matched
+VN26000086,Thành phố Hồ Chí Minh,Quận 5,Phường 2,10.754956,106.677289,matched
+VN26000087,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Quy,10.739569,106.709617,adjusted
+VN26000088,Thành phố Hồ Chí Minh,Quận 5,Phường 2,10.757766,106.684486,matched
+VN26000090,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Thuận Đông,10.768137,106.737975,adjusted
+VN26000091,Thành phố Hồ Chí Minh,Quận 4,Phường 2,10.757894,106.69466,matched
+VN26000092,Thành phố Hồ Chí Minh,Quận 10,Phường 4,10.762453,106.668888,matched
+VN26000093,Thành phố Hồ Chí Minh,Quận 5,Phường 4,10.763495,106.678843,matched
+VN26000095,Thành phố Hồ Chí Minh,Quận 11,Phường 3,10.764677,106.641753,matched
+VN26000097,Thành phố Hồ Chí Minh,Quận 4,Phường 13,10.762038,106.706037,matched
+VN26000098,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Phú,10.729789,106.72982,adjusted
+VN26000100,Thành phố Hồ Chí Minh,Quận 4,Phường 4,10.755212,106.702436,matched
+VN26000103,Thành phố Hồ Chí Minh,Thành phố Thủ Đức,Phường Thảo Điền,10.857104,106.760657,adjusted
+VN26000104,Thành phố Hồ Chí Minh,Quận 11,Phường 11,10.767823,106.652022,matched
+VN26000105,Thành phố Hồ Chí Minh,Quận 3,Phường 14,10.788931,106.678941,matched
+VN26000108,Thành phố Hồ Chí Minh,Quận 5,Phường 14,10.751101,106.65895,matched
+VN26000113,Thành phố Hồ Chí Minh,Quận 1,Phường Phạm Ngũ Lão,10.769804,106.687354,adjusted
+VN26000115,Thành phố Hồ Chí Minh,Quận 4,Phường 4,10.75864,106.702985,matched
+VN26000116,Thành phố Hồ Chí Minh,Thành phố Thủ Đức,Phường Hiệp Phú,10.861633,106.727028,adjusted
+VN26000117,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Phong,10.734577,106.702452,adjusted
+VN26000118,Thành phố Hồ Chí Minh,Quận 3,Phường 3,10.769278,106.681232,matched
+VN26000120,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Thuận Tây,10.746944,106.715976,adjusted
+VN26000121,Thành phố Hồ Chí Minh,Quận 4,Phường 9,10.763867,106.701567,matched
+VN26000124,Thành phố Hồ Chí Minh,Quận 10,Phường 1,10.765056,106.67623,matched
+VN26000125,Thành phố Hồ Chí Minh,Quận 4,Phường 3,10.754377,106.700404,matched
+VN26000127,Thành phố Hồ Chí Minh,Quận 1,Phường Tân Định,10.792578,106.693896,adjusted
+VN26000129,Thành phố Hồ Chí Minh,Thành phố Thủ Đức,Phường An Phú,10.852698,106.747124,adjusted
+VN26000131,Thành phố Hồ Chí Minh,Quận 3,Phường 12,10.78819,106.675866,matched
+VN26000132,Thành phố Hồ Chí Minh,Thành phố Thủ Đức,Phường Cát Lái,10.842523,106.705725,adjusted
+VN26000134,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Phú,10.733434,106.718932,adjusted
+VN26000136,Thành phố Hồ Chí Minh,Quận 11,Phường 1,10.756027,106.640682,matched
+VN26000137,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Thuận Đông,10.747898,106.737875,matched
+VN26000140,Thành phố Hồ Chí Minh,Quận 10,Phường 10,10.768982,106.672628,matched
+VN26000143,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Kiểng,10.745592,106.706726,adjusted
+VN26000145,Thành phố Hồ Chí Minh,Quận 4,Phường 16,10.75697,106.713894,matched
+VN26000149,Thành phố Hồ Chí Minh,Quận 4,Phường 15,10.753414,106.707111,matched
+VN26000150,Thành phố Hồ Chí Minh,Quận 1,Phường Phạm Ngũ Lão,10.769647,106.686768,adjusted
+VN26000151,Thành phố Hồ Chí Minh,Quận 7,Phường Tân Phú,10.727758,106.733384,adjusted
+VN26000152,Thành phố Hồ Chí Minh,Quận 7,Phường Phú Mỹ,10.704768,106.729365,matched
+VN26000153,Thành phố Hồ Chí Minh,Quận 5,Phường 2,10.755654,106.677147,matched
+VN26000154,Thành phố Hồ Chí Minh,Thành phố Thủ Đức,Phường Tam Phú,10.855418,106.734576,adjusted

@@ -1,0 +1,68 @@
+{
+  "name": "JFinder Contract Review API",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "jfinder/contract/review",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": false
+        }
+      },
+      "id": "webhook_contract",
+      "name": "Contract Review Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "contract-review"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Rule-based contract risk analysis\nconst input = $input.first().json;\nconst content = (input.body?.content || input.body?.text || input.content || input.text || '').toLowerCase();\nconst filename = input.body?.filename || input.filename || 'unknown.txt';\n\nconst startTime = Date.now();\n\n// Risk rules with Vietnamese keywords\nconst RISK_RULES = [\n  {\n    id: 'price_increase',\n    title: 'Tăng giá đột ngột',\n    severity: 'high',\n    keywords: ['tăng giá', 'tăng 50%', 'tăng 100%', 'tăng gấp đôi', 'tăng không giới hạn'],\n    patterns: [/tăng\\s*(?:giá|tiền thuê)?\\s*(?:\\d{2,}|5\\d|[6-9]\\d|\\d{3})\\s*%/gi, /tăng\\s*(?:giá)?.*mà không.*đồng ý/gi],\n    recommendation: 'Yêu cầu giới hạn tăng giá tối đa 10-15%/năm và phải thông báo trước 60 ngày.'\n  },\n  {\n    id: 'unilateral_termination',\n    title: 'Đơn phương chấm dứt bất lợi',\n    severity: 'high',\n    keywords: ['đơn phương chấm dứt', 'chấm dứt bất cứ lúc nào', 'chấm dứt mà không cần thông báo', 'hủy hợp đồng ngay lập tức'],\n    patterns: [/bên a.*(?:có quyền|được phép).*(?:đơn phương|chấm dứt).*(?:bất cứ|không.*thông báo)/gi],\n    recommendation: 'Yêu cầu thời gian thông báo tối thiểu 60-90 ngày cho cả hai bên.'\n  },\n  {\n    id: 'no_deposit_refund',\n    title: 'Không hoàn cọc',\n    severity: 'high',\n    keywords: ['không hoàn cọc', 'mất tiền cọc', 'không được hoàn lại tiền cọc', 'không hoàn lại cọc', 'mất toàn bộ tiền cọc'],\n    patterns: [/(?:không|mất).*(?:hoàn|trả).*(?:cọc|tiền cọc).*(?:mọi|bất kỳ|trong)/gi],\n    recommendation: 'Yêu cầu quy định rõ điều kiện hoàn cọc và thời gian hoàn trả.'\n  },\n  {\n    id: 'excessive_penalty',\n    title: 'Phạt vi phạm quá mức',\n    severity: 'high',\n    keywords: ['bồi thường 12 tháng', 'phạt 12 tháng', 'phạt gấp', 'bồi thường gấp'],\n    patterns: [/(?:phạt|bồi thường).*(?:1[2-9]|[2-9]\\d)\\s*tháng/gi, /phạt.*(?:gấp|200%|300%)/gi],\n    recommendation: 'Mức phạt hợp lý thường là 1-3 tháng tiền thuê. Yêu cầu điều chỉnh.'\n  },\n  {\n    id: 'force_majeure_unfair',\n    title: 'Bất khả kháng bất lợi',\n    severity: 'medium',\n    keywords: ['bất khả kháng', 'vẫn phải thanh toán', 'vẫn phải trả tiền'],\n    patterns: [/bất khả kháng.*(?:vẫn|phải).*(?:thanh toán|trả)/gi],\n    recommendation: 'Yêu cầu miễn giảm nghĩa vụ thanh toán trong trường hợp bất khả kháng.'\n  },\n  {\n    id: 'no_complaint',\n    title: 'Từ bỏ quyền khiếu nại',\n    severity: 'medium',\n    keywords: ['không được khiếu nại', 'từ bỏ quyền khiếu nại', 'không được kiện'],\n    patterns: [/không.*(?:được phép|được quyền)?.*(?:khiếu nại|kiện|phản đối)/gi],\n    recommendation: 'Điều khoản này có thể vô hiệu theo pháp luật. Yêu cầu loại bỏ.'\n  },\n  {\n    id: 'high_deposit',\n    title: 'Tiền cọc quá cao',\n    severity: 'medium',\n    keywords: ['cọc 6 tháng', 'đặt cọc 6', 'cọc 12 tháng'],\n    patterns: [/(?:đặt cọc|tiền cọc).*(?:[6-9]|1[0-2])\\s*tháng/gi],\n    recommendation: 'Mức cọc phổ biến là 2-3 tháng. Đề nghị giảm xuống mức hợp lý.'\n  },\n  {\n    id: 'tenant_all_cost',\n    title: 'Bên thuê chịu mọi chi phí',\n    severity: 'low',\n    keywords: ['tự chịu mọi chi phí', 'chịu toàn bộ chi phí sửa chữa'],\n    patterns: [/(?:tự|phải).*(?:chịu|gánh).*(?:mọi|toàn bộ).*(?:chi phí|sửa chữa)/gi],\n    recommendation: 'Phân chia trách nhiệm sửa chữa: hao mòn tự nhiên do chủ nhà, hư hỏng do sử dụng do bên thuê.'\n  },\n  {\n    id: 'unclear_duration',\n    title: 'Thời hạn mơ hồ',\n    severity: 'low',\n    keywords: ['thời hạn không xác định', 'đến khi'],\n    patterns: [/thời hạn.*(?:không|chưa).*(?:xác định|rõ)/gi],\n    recommendation: 'Yêu cầu ghi rõ thời hạn thuê cụ thể (số năm, ngày bắt đầu/kết thúc).'\n  }\n];\n\n// Analyze content\nconst riskItems = [];\nlet totalScore = 0;\n\nfor (const rule of RISK_RULES) {\n  let matched = false;\n  let matchedClause = '';\n  \n  // Check keywords\n  for (const keyword of rule.keywords) {\n    if (content.includes(keyword)) {\n      matched = true;\n      // Find surrounding context\n      const idx = content.indexOf(keyword);\n      matchedClause = content.substring(Math.max(0, idx - 50), Math.min(content.length, idx + keyword.length + 50)).trim();\n      break;\n    }\n  }\n  \n  // Check patterns if no keyword match\n  if (!matched && rule.patterns) {\n    for (const pattern of rule.patterns) {\n      const match = content.match(pattern);\n      if (match) {\n        matched = true;\n        matchedClause = match[0];\n        break;\n      }\n    }\n  }\n  \n  if (matched) {\n    const severityScore = rule.severity === 'high' ? 25 : rule.severity === 'medium' ? 15 : 8;\n    totalScore += severityScore;\n    \n    riskItems.push({\n      title: rule.title,\n      severity: rule.severity,\n      matched_clause: matchedClause.substring(0, 150) + (matchedClause.length > 150 ? '...' : ''),\n      recommendation: rule.recommendation,\n      clause_type: rule.id\n    });\n  }\n}\n\n// Cap score at 100\nconst finalScore = Math.min(100, totalScore);\n\n// Determine risk level\nlet riskLevel = 'low';\nif (finalScore >= 60) riskLevel = 'high';\nelse if (finalScore >= 30) riskLevel = 'medium';\n\n// Generate summary\nlet summary = '';\nif (riskLevel === 'high') {\n  summary = `Phát hiện ${riskItems.filter(r => r.severity === 'high').length} điều khoản rủi ro cao. Cần đàm phán lại trước khi ký.`;\n} else if (riskLevel === 'medium') {\n  summary = `Có ${riskItems.length} điều khoản cần lưu ý. Nên xem xét đàm phán một số điều khoản.`;\n} else {\n  summary = 'Hợp đồng tương đối an toàn. Vẫn nên đọc kỹ trước khi ký.';\n}\n\nconst processingTime = Date.now() - startTime;\n\nreturn {\n  success: true,\n  risk_score: finalScore,\n  risk_level: riskLevel,\n  risk_items: riskItems,\n  summary: summary,\n  total_clauses_checked: RISK_RULES.length,\n  processing_time_ms: processingTime,\n  filename: filename\n};"
+      },
+      "id": "code_analyze",
+      "name": "Analyze Contract",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [440, 0]
+    }
+  ],
+  "connections": {
+    "Contract Review Webhook": {
+      "main": [[{"node": "Analyze Contract", "type": "main", "index": 0}]]
+    },
+    "Analyze Contract": {
+      "main": [[{"node": "Respond", "type": "main", "index": 0}]]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

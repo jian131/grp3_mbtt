@@ -1,0 +1,444 @@
+{
+  "generated_at": "2026-01-16T20:10:22.419925",
+  "method": "Offline Point-in-Polygon using GADM Level 3 boundaries",
+  "summary": {
+    "total_records": 1170,
+    "matched": 233,
+    "adjusted": 937,
+    "failed": 0,
+    "match_rate_percent": 19.91,
+    "adjust_rate_percent": 80.09,
+    "fail_rate_percent": 0.0,
+    "success_rate_percent": 100.0
+  },
+  "by_match_level": {
+    "ward": 1118,
+    "district": 52,
+    "province": 0
+  },
+  "by_province": {
+    "Thành phố Hồ Chí Minh": {
+      "total": 520,
+      "matched": 221,
+      "adjusted": 299,
+      "failed": 0
+    },
+    "Thành phố Hà Nội": {
+      "total": 480,
+      "matched": 5,
+      "adjusted": 475,
+      "failed": 0
+    },
+    "Thành phố Đà Nẵng": {
+      "total": 170,
+      "matched": 7,
+      "adjusted": 163,
+      "failed": 0
+    }
+  },
+  "by_district": {
+    "Thành phố Hồ Chí Minh|Quận 1": {
+      "total": 38,
+      "matched": 0,
+      "adjusted": 38,
+      "failed": 0
+    },
+    "Thành phố Hồ Chí Minh|Quận Phú Nhuận": {
+      "total": 44,
+      "matched": 0,
+      "adjusted": 44,
+      "failed": 0
+    },
+    "Thành phố Hồ Chí Minh|Quận Bình Thạnh": {
+      "total": 41,
+      "matched": 0,
+      "adjusted": 41,
+      "failed": 0
+    },
+    "Thành phố Hồ Chí Minh|Quận 3": {
+      "total": 36,
+      "matched": 36,
+      "adjusted": 0,
+      "failed": 0
+    },
+    "Thành phố Hồ Chí Minh|Quận 5": {
+      "total": 45,
+      "matched": 45,
+      "adjusted": 0,
+      "failed": 0
+    },
+    "Thành phố Hồ Chí Minh|Quận 4": {
+      "total": 48,
+      "matched": 48,
+      "adjusted": 0,
+      "failed": 0
+    },
+    "Thành phố Hồ Chí Minh|Quận 11": {
+      "total": 40,
+      "matched": 40,
+      "adjusted": 0,
+      "failed": 0
+    },
+    "Thành phố Hồ Chí Minh|Quận Gò Vấp": {
+      "total": 39,
+      "matched": 0,
+      "adjusted": 39,
+      "failed": 0
+    },
+    "Thành phố Hồ Chí Minh|Quận 10": {
+      "total": 45,
+      "matched": 45,
+      "adjusted": 0,
+      "failed": 0
+    },
+    "Thành phố Hồ Chí Minh|Thành phố Thủ Đức": {
+      "total": 46,
+      "matched": 0,
+      "adjusted": 46,
+      "failed": 0
+    },
+    "Thành phố Hồ Chí Minh|Quận 7": {
+      "total": 51,
+      "matched": 7,
+      "adjusted": 44,
+      "failed": 0
+    },
+    "Thành phố Hồ Chí Minh|Quận Tân Bình": {
+      "total": 47,
+      "matched": 0,
+      "adjusted": 47,
+      "failed": 0
+    },
+    "Thành phố Hà Nội|Quận Tây Hồ": {
+      "total": 43,
+      "matched": 0,
+      "adjusted": 43,
+      "failed": 0
+    },
+    "Thành phố Hà Nội|Quận Nam Từ Liêm": {
+      "total": 48,
+      "matched": 0,
+      "adjusted": 48,
+      "failed": 0
+    },
+    "Thành phố Hà Nội|Quận Hoàn Kiếm": {
+      "total": 40,
+      "matched": 0,
+      "adjusted": 40,
+      "failed": 0
+    },
+    "Thành phố Hà Nội|Quận Hà Đông": {
+      "total": 36,
+      "matched": 0,
+      "adjusted": 36,
+      "failed": 0
+    },
+    "Thành phố Hà Nội|Quận Hai Bà Trưng": {
+      "total": 33,
+      "matched": 0,
+      "adjusted": 33,
+      "failed": 0
+    },
+    "Thành phố Hà Nội|Quận Đống Đa": {
+      "total": 41,
+      "matched": 0,
+      "adjusted": 41,
+      "failed": 0
+    },
+    "Thành phố Hà Nội|Quận Long Biên": {
+      "total": 39,
+      "matched": 5,
+      "adjusted": 34,
+      "failed": 0
+    },
+    "Thành phố Hà Nội|Quận Thanh Xuân": {
+      "total": 48,
+      "matched": 0,
+      "adjusted": 48,
+      "failed": 0
+    },
+    "Thành phố Hà Nội|Quận Cầu Giấy": {
+      "total": 43,
+      "matched": 0,
+      "adjusted": 43,
+      "failed": 0
+    },
+    "Thành phố Hà Nội|Quận Ba Đình": {
+      "total": 33,
+      "matched": 0,
+      "adjusted": 33,
+      "failed": 0
+    },
+    "Thành phố Hà Nội|Quận Bắc Từ Liêm": {
+      "total": 36,
+      "matched": 0,
+      "adjusted": 36,
+      "failed": 0
+    },
+    "Thành phố Hà Nội|Quận Hoàng Mai": {
+      "total": 40,
+      "matched": 0,
+      "adjusted": 40,
+      "failed": 0
+    },
+    "Thành phố Đà Nẵng|Quận Thanh Khê": {
+      "total": 30,
+      "matched": 0,
+      "adjusted": 30,
+      "failed": 0
+    },
+    "Thành phố Đà Nẵng|Quận Hải Châu": {
+      "total": 34,
+      "matched": 0,
+      "adjusted": 34,
+      "failed": 0
+    },
+    "Thành phố Đà Nẵng|Quận Liên Chiểu": {
+      "total": 34,
+      "matched": 7,
+      "adjusted": 27,
+      "failed": 0
+    },
+    "Thành phố Đà Nẵng|Quận Ngũ Hành Sơn": {
+      "total": 23,
+      "matched": 0,
+      "adjusted": 23,
+      "failed": 0
+    },
+    "Thành phố Đà Nẵng|Quận Sơn Trà": {
+      "total": 27,
+      "matched": 0,
+      "adjusted": 27,
+      "failed": 0
+    },
+    "Thành phố Đà Nẵng|Quận Cẩm Lệ": {
+      "total": 22,
+      "matched": 0,
+      "adjusted": 22,
+      "failed": 0
+    }
+  },
+  "sample_adjusted": [
+    {
+      "id": "VN26000001",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận 1",
+      "ward": "Phường Tân Định",
+      "old_lat": 10.770131,
+      "old_lon": 106.696964,
+      "new_lat": 10.793806991689785,
+      "new_lon": 106.69209418452468,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000002",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận Phú Nhuận",
+      "ward": "Phường 7",
+      "old_lat": 10.776518,
+      "old_lon": 106.569864,
+      "new_lat": 10.800348197859456,
+      "new_lon": 106.68977497522938,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000003",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận 1",
+      "ward": "Phường Nguyễn Cư Trinh",
+      "old_lat": 10.783279,
+      "old_lon": 106.705549,
+      "new_lat": 10.765303008975685,
+      "new_lon": 106.68585762204802,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000004",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận Bình Thạnh",
+      "ward": "Phường 5",
+      "old_lat": 10.764355,
+      "old_lon": 106.653439,
+      "new_lat": 10.811298448300697,
+      "new_lon": 106.68456668772706,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000006",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận Phú Nhuận",
+      "ward": "Phường 8",
+      "old_lat": 10.788026,
+      "old_lon": 106.572999,
+      "new_lat": 10.798883174038677,
+      "new_lon": 106.67275615946036,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000007",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận Bình Thạnh",
+      "ward": "Phường 2",
+      "old_lat": 10.76461,
+      "old_lon": 106.653796,
+      "new_lat": 10.80176250274426,
+      "new_lon": 106.70350757577732,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000011",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận Bình Thạnh",
+      "ward": "Phường 25",
+      "old_lat": 10.772721,
+      "old_lon": 106.650359,
+      "new_lat": 10.80938059739665,
+      "new_lon": 106.71800741432226,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000014",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận Gò Vấp",
+      "ward": "Phường 8",
+      "old_lat": 10.809939,
+      "old_lon": 106.634227,
+      "new_lat": 10.840955631432358,
+      "new_lon": 106.65040156016394,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000016",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận Bình Thạnh",
+      "ward": "Phường 13",
+      "old_lat": 10.772532,
+      "old_lon": 106.649894,
+      "new_lat": 10.827348613858359,
+      "new_lon": 106.70322912562725,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000019",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Thành phố Thủ Đức",
+      "ward": "Phường Linh Tây",
+      "old_lat": 10.832207,
+      "old_lon": 106.789595,
+      "new_lat": 10.858635997157915,
+      "new_lon": 106.75175451473204,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000020",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Thành phố Thủ Đức",
+      "ward": "Phường An Phú",
+      "old_lat": 10.829751,
+      "old_lon": 106.789997,
+      "new_lat": 10.851309883730053,
+      "new_lon": 106.71178595542673,
+      "match_level": "district"
+    },
+    {
+      "id": "VN26000021",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận Phú Nhuận",
+      "ward": "Phường 9",
+      "old_lat": 10.781376,
+      "old_lon": 106.577466,
+      "new_lat": 10.807707674662806,
+      "new_lon": 106.67634735998529,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000025",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận Gò Vấp",
+      "ward": "Phường 10",
+      "old_lat": 10.815987,
+      "old_lon": 106.633078,
+      "new_lat": 10.837657787420714,
+      "new_lon": 106.6721511922697,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000027",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận 7",
+      "ward": "Phường Phú Mỹ",
+      "old_lat": 10.748705,
+      "old_lon": 106.699196,
+      "new_lat": 10.707202683975176,
+      "new_lon": 106.7274776815337,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000028",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Thành phố Thủ Đức",
+      "ward": "Phường Long Bình",
+      "old_lat": 10.829609,
+      "old_lon": 106.794756,
+      "new_lat": 10.855618943108935,
+      "new_lon": 106.74799202309428,
+      "match_level": "district"
+    },
+    {
+      "id": "VN26000031",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận 7",
+      "ward": "Phường Phú Mỹ",
+      "old_lat": 10.76273,
+      "old_lon": 106.750021,
+      "new_lat": 10.713519891321768,
+      "new_lon": 106.74238317637429,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000032",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận Bình Thạnh",
+      "ward": "Phường 7",
+      "old_lat": 10.767561,
+      "old_lon": 106.651925,
+      "new_lat": 10.80437837130106,
+      "new_lon": 106.69377744140633,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000033",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận Gò Vấp",
+      "ward": "Phường 17",
+      "old_lat": 10.818092,
+      "old_lon": 106.634638,
+      "new_lat": 10.834101426050571,
+      "new_lon": 106.67931823722596,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000035",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận 1",
+      "ward": "Phường Đa Kao",
+      "old_lat": 10.769687,
+      "old_lon": 106.697934,
+      "new_lat": 10.790851149436788,
+      "new_lon": 106.70053659739031,
+      "match_level": "ward"
+    },
+    {
+      "id": "VN26000039",
+      "province": "Thành phố Hồ Chí Minh",
+      "district": "Quận Gò Vấp",
+      "ward": "Phường 15",
+      "old_lat": 10.81515,
+      "old_lon": 106.635259,
+      "new_lat": 10.854402855393433,
+      "new_lon": 106.66738502073112,
+      "match_level": "ward"
+    }
+  ],
+  "sample_failed": []
+}

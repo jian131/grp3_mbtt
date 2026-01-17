@@ -244,7 +244,10 @@ export async function fetchListings(params?: SearchParams): Promise<Listing[]> {
     const url = `${baseUrl}/search${query.toString() ? '?' + query.toString() : ''}`;
     const controller = createTimeoutController();
 
-    const res = await fetch(url, { signal: controller.signal });
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: { 'ngrok-skip-browser-warning': '1' }
+    });
 
     if (!res.ok) {
       console.error(`API Error ${res.status}: ${res.statusText}`);
@@ -285,7 +288,10 @@ export async function fetchListing(id: string): Promise<Listing | null> {
     const baseUrl = getBaseUrl();
     const searchUrl = `${baseUrl}/search?limit=5000`;
     const controller = createTimeoutController();
-    const searchRes = await fetch(searchUrl, { signal: controller.signal });
+    const searchRes = await fetch(searchUrl, {
+      signal: controller.signal,
+      headers: { 'ngrok-skip-browser-warning': '1' }
+    });
 
     if (searchRes.ok) {
       const json = await searchRes.json();
@@ -314,7 +320,10 @@ export async function fetchStats(level: 'district' | 'ward' = 'district', city?:
 
     const baseUrl = getBaseUrl();
     const controller = createTimeoutController();
-    const res = await fetch(`${baseUrl}/stats?${query.toString()}`, { signal: controller.signal });
+    const res = await fetch(`${baseUrl}/stats?${query.toString()}`, {
+      signal: controller.signal,
+      headers: { 'ngrok-skip-browser-warning': '1' }
+    });
     if (!res.ok) return [];
 
     const json = await res.json();
@@ -339,7 +348,10 @@ export async function calculateROI(input: ROIInput): Promise<ROIResult | null> {
     const controller = createTimeoutController();
     const res = await fetch(`${baseUrl}/roi`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': '1'
+      },
       body: JSON.stringify(input),
       signal: controller.signal
     });
@@ -404,7 +416,10 @@ export async function getValuation(input: ValuationInput): Promise<ValuationResu
     const controller = createTimeoutController();
     const res = await fetch(`${baseUrl}/valuation`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': '1'
+      },
       body: JSON.stringify(input),
       signal: controller.signal
     });
@@ -545,7 +560,8 @@ export async function checkBackendHealth(): Promise<HealthCheckResult> {
     const timeout = setTimeout(() => controller.abort(), 5000); // 5s timeout for health check
 
     const res = await fetch(`${baseUrl}/search?limit=1`, {
-      signal: controller.signal
+      signal: controller.signal,
+      headers: { 'ngrok-skip-browser-warning': '1' }
     });
 
     clearTimeout(timeout);
