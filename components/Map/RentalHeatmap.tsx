@@ -91,6 +91,18 @@ export default function RentalHeatmap({
       const validListings = externalListings.filter(l =>
         isValidVietnamCoords(l.lat || l.latitude || 0, l.lon || l.longitude || 0)
       );
+      // DEBUG: Ba Đình coord validation
+      validListings.forEach(l => {
+        const lat = l.lat || l.latitude || 0;
+        const lon = l.lon || l.longitude || 0;
+        const district = (l.district || '').toLowerCase();
+        if (district.includes('ba đình') || district.includes('ba dinh')) {
+          // Ba Đình bounds: lat [21.02, 21.06], lon [105.80, 105.86]
+          if (lat < 21.02 || lat > 21.06 || lon < 105.80 || lon > 105.86) {
+            console.warn(`⚠️ WRONG COORDS for Ba Đình listing ${l.id}: lat=${lat}, lon=${lon} (expected: lat 21.02-21.06, lon 105.80-105.86)`);
+          }
+        }
+      });
       setListings(validListings);
       setLoading(false);
       return;
@@ -98,6 +110,7 @@ export default function RentalHeatmap({
 
     async function loadData() {
       setLoading(true);
+      console.log('[DATA SOURCE] RentalHeatmap loading via fetchListings');
       const data = await fetchListings({
         province: filterProvince,
         district: filterDistrict,
@@ -109,6 +122,17 @@ export default function RentalHeatmap({
       const validData = data.filter(l =>
         isValidVietnamCoords(l.lat || l.latitude || 0, l.lon || l.longitude || 0)
       );
+      // DEBUG: Ba Đình coord validation
+      validData.forEach(l => {
+        const lat = l.lat || l.latitude || 0;
+        const lon = l.lon || l.longitude || 0;
+        const district = (l.district || '').toLowerCase();
+        if (district.includes('ba đình') || district.includes('ba dinh')) {
+          if (lat < 21.02 || lat > 21.06 || lon < 105.80 || lon > 105.86) {
+            console.warn(`⚠️ WRONG COORDS for Ba Đình listing ${l.id}: lat=${lat}, lon=${lon} (expected: lat 21.02-21.06, lon 105.80-105.86)`);
+          }
+        }
+      });
       setListings(validData);
       setLoading(false);
     }
@@ -594,6 +618,11 @@ export default function RentalHeatmap({
                   <h3 className="font-bold text-sm text-cyan-400 mb-2 line-clamp-2">
                     {listing.title || listing.name}
                   </h3>
+                  {/* DEBUG: Show ID and coords */}
+                  <div className="text-[10px] text-gray-500 font-mono mb-2 border-b border-gray-700 pb-1">
+                    ID: {listing.id}<br/>
+                    Lat: {lat.toFixed(6)} | Lon: {lon.toFixed(6)}
+                  </div>
                   <div className="space-y-1 text-xs">
                     <div className="flex justify-between">
                       <span className="text-gray-400">Giá thuê:</span>

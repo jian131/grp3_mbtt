@@ -217,6 +217,8 @@ function createTimeoutController(timeout: number = API_TIMEOUT): AbortController
 export async function fetchListings(params?: SearchParams): Promise<Listing[]> {
   try {
     const query = new URLSearchParams();
+    const baseUrl = getBaseUrl();
+    console.log('[DATA SOURCE] fetchListings using:', baseUrl);
 
     if (params?.city) query.append('city', params.city);
     if (params?.province) query.append('province', params.province);
@@ -240,7 +242,6 @@ export async function fetchListings(params?: SearchParams): Promise<Listing[]> {
     if (params?.limit) query.append('limit', String(params.limit));
     if (params?.offset) query.append('offset', String(params.offset));
 
-    const baseUrl = getBaseUrl();
     const url = `${baseUrl}/search${query.toString() ? '?' + query.toString() : ''}`;
     const controller = createTimeoutController();
 
