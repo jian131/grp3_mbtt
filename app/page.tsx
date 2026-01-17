@@ -98,7 +98,7 @@ export default function HomePage() {
       </section>
 
       {/* Dify AI Chatbot Widget */}
-      <DifyChatWidget apiKey={process.env.NEXT_PUBLIC_DIFY_API_KEY} />
+      <DifyChatWidget />
 
     </div>
   );

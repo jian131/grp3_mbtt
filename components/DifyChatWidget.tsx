@@ -1,78 +1,90 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useState } from 'react';
 
-interface DifyChatWidgetProps {
-  apiKey?: string;
-  baseUrl?: string;
-}
-
-export default function DifyChatWidget({ apiKey, baseUrl }: DifyChatWidgetProps) {
-  useEffect(() => {
-    // Skip if no API key provided
-    if (!apiKey) {
-      console.warn('Dify API key not configured');
-      return;
-    }
-
-    // Load Dify chatbot script
-    const script = document.createElement('script');
-    script.src = 'https://udify.app/embed.min.js';
-    script.id = 'dify-chatbot-script';
-    script.defer = true;
-
-    script.onload = () => {
-      // Initialize Dify chatbot
-      if (typeof window !== 'undefined' && (window as any).difyChatbotConfig) {
-        (window as any).difyChatbotConfig = {
-          token: apiKey,
-          baseUrl: baseUrl || 'https://api.dify.ai',
-          containerProps: {
-            style: {
-              position: 'fixed',
-              bottom: '20px',
-              right: '20px',
-              zIndex: 9999
-            }
-          }
-        };
-      }
-    };
-
-    document.body.appendChild(script);
-
-    return () => {
-      const existingScript = document.getElementById('dify-chatbot-script');
-      if (existingScript) {
-        document.body.removeChild(existingScript);
-      }
-    };
-  }, [apiKey, baseUrl]);
+export default function DifyChatWidget() {
+  const [isOpen, setIsOpen] = useState(false);
+  const chatUrl = 'https://udify.app/chat/lnSWyiBpBRgI9fzE';
 
   return (
     <>
-      {/* Dify chatbot will be injected here */}
-      {!apiKey && (
-        <div
-          style={{
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          color: 'white',
+          padding: '16px 24px',
+          borderRadius: '50px',
+          border: 'none',
+          cursor: 'pointer',
+          boxShadow: '0 4px 20px rgba(102, 126, 234, 0.4)',
+          fontSize: '16px',
+          fontWeight: 600,
+          zIndex: 9999
+        }}
+      >
+        💬 Tư vấn AI
+      </button>
+
+      {isOpen && (
+        <>
+          <div
+            onClick={() => setIsOpen(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(0,0,0,0.5)',
+              zIndex: 9998
+            }}
+          />
+          <div style={{
             position: 'fixed',
-            bottom: '20px',
+            bottom: '90px',
             right: '20px',
-            background: '#1890ff',
-            color: 'white',
-            padding: '12px 20px',
-            borderRadius: '24px',
-            cursor: 'pointer',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+            width: '400px',
+            height: '600px',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
             zIndex: 9999,
-            fontWeight: 500
-          }}
-          onClick={() => {
-            alert('Cấu hình Dify API key trong .env.local:\nNEXT_PUBLIC_DIFY_API_KEY=your-key');
-          }}
-        >
-          💬 Tư vấn AI
-        </div>
+            background: 'white'
+          }}>
+            <div style={{
+              padding: '16px',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <span style={{ fontWeight: 600 }}>JFinder AI Assistant</span>
+              <button
+                onClick={() => setIsOpen(false)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'white',
+                  fontSize: '24px',
+                  cursor: 'pointer'
+                }}
+              >
+                ×
+              </button>
+            </div>
+            <iframe
+              src={chatUrl}
+              style={{
+                width: '100%',
+                height: 'calc(100% - 62px)',
+                border: 'none'
+              }}
+              title="Dify Chatbot"
+            />
+          </div>
+        </>
       )}
     </>
   );
