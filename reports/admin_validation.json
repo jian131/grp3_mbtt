@@ -1,0 +1,7167 @@
+{
+  "total": 1170,
+  "valid": 1170,
+  "errors": [],
+  "warnings": [
+    {
+      "id": "VN26000001",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000002",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000003",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000004",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000005",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000006",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000007",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000008",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000009",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000010",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000011",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000012",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 1\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000013",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000014",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000015",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000016",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000017",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000018",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 4\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000019",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000020",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000021",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000022",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000023",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000024",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000025",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000026",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 8\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000027",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000028",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000029",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000030",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000031",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000032",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000033",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000034",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000035",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000036",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000037",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 10\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000038",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 1\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000039",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000040",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000041",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000042",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000043",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000044",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000045",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000046",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000047",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 15\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000048",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000049",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000050",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000051",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000052",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000053",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 4\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000054",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 15\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000055",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000056",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000057",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 1\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000058",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000059",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000060",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000061",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000062",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000063",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 4\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000064",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 2\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000065",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000066",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000067",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000068",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000069",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 7\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000070",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 10\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000071",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000072",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000073",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000074",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000075",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000076",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000077",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000078",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000079",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000080",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000081",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000082",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000083",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 15\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000084",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000085",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 4\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000086",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000087",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000088",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000089",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000090",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000091",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000092",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 4\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000093",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000094",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000095",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 3\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000096",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000097",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000098",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000099",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000100",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000101",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000102",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000103",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000104",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 11\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000105",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000106",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000107",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000108",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000109",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000110",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000111",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000112",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000113",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000114",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000115",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000116",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000117",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000118",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000119",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000120",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000121",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000122",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000123",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000124",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 1\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000125",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000126",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000127",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000128",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000129",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000130",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000131",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000132",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000133",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000134",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000135",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000136",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 1\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000137",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000138",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000139",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000140",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 10\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000141",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000142",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000143",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000144",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000145",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000146",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000147",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000148",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000149",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000150",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000151",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000152",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000153",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000154",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000155",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000156",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000157",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000158",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000159",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000160",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 5\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000161",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 10\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000162",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 8\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000163",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 3\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000164",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000165",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000166",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000167",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 13\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000168",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000169",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000170",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 9\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000171",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000172",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000173",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 11\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000174",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000175",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000176",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000177",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000178",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000179",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000180",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000181",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000182",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000183",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000184",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000185",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000186",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000187",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000188",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000189",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000190",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 12\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000191",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000192",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000193",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000194",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 6\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000195",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000196",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000197",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000198",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000199",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000200",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000201",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000202",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000203",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000204",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000205",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000206",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000207",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000208",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000209",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000210",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000211",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000212",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000213",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000214",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 14\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000215",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000216",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000217",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000218",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000219",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000220",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000221",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000222",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 3\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000223",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000224",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000225",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000226",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000227",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000228",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000229",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 15\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000230",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000231",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000232",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000233",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 8\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000234",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000235",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000236",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000237",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000238",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000239",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000240",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000241",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 4\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000242",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000243",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 12\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000244",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000245",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000246",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000247",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000248",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000249",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000250",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000251",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000252",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000253",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000254",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000255",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000256",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 11\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000257",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000258",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000259",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000260",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000261",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000262",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000263",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000264",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000265",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000266",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000267",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000268",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000269",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 10\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000270",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000271",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000272",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000273",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000274",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000275",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000276",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000277",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 14\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000278",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000279",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000280",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000281",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000282",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000283",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000284",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000285",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 10\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000286",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000287",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000288",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 6\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000289",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000290",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000291",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000292",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 7\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000293",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000294",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000295",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000296",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 5\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000297",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000298",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000299",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000300",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000301",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 8\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000302",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000303",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000304",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000305",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000306",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000307",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000308",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000309",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000310",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000311",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000312",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000313",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 7\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000314",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 4\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000315",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000316",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000317",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000318",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000319",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000320",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000321",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000322",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000323",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000324",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 16\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000325",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 11\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000326",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000327",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 7\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000328",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000329",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000330",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000331",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000332",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000333",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 9\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000334",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000335",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000336",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000337",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000338",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 14\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000339",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000340",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000341",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000342",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 13\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000343",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000344",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000345",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000346",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000347",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000348",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000349",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000350",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000351",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000352",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000353",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 9\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000354",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000355",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000356",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000357",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 15\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000358",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 15\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000359",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000360",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000361",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000362",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000363",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000364",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000365",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000366",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000367",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000368",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000369",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000370",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000371",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000372",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000373",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000374",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000375",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000376",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000377",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000378",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 8\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000379",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000380",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000381",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000382",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000383",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000384",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 10\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000385",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000386",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000387",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000388",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000389",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 10\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000390",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 12\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000391",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000392",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000393",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 3\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000394",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000395",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000396",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000397",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000398",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 14\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000399",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 16\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000400",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000401",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000402",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000403",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000404",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000405",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000406",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000407",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000408",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000409",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000410",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000411",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000412",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000413",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000414",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000415",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000416",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000417",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000418",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000419",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 10\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000420",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000421",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000422",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000423",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000424",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 5\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000425",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000426",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000427",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000428",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000429",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000430",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 15\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000431",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000432",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 12\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000433",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000434",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000435",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000436",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 16\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000437",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000438",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000439",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000440",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000441",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000442",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 4\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000443",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000444",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000445",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000446",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000447",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000448",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000449",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000450",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000451",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 1\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000452",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000453",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000454",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000455",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000456",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000457",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000458",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 6\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000459",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000460",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000461",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000462",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000463",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000464",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000465",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000466",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000467",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000468",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 4\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000469",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000470",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 7\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000471",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000472",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000473",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 6\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000474",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 11\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000475",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000476",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 10\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000477",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000478",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000479",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000480",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000481",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000482",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000483",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000484",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 5\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000485",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000486",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000487",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 5\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000488",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000489",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 1\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000490",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000491",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000492",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000493",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 15\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000494",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000495",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000496",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000497",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000498",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000499",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000500",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000501",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000502",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 1\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000503",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000504",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000505",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 5\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000506",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000507",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000508",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000509",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 7\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000510",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000511",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000512",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000513",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 15\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000514",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000515",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 15\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000516",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000517",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000518",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\"",
+        "WARD_NOT_IN_LIST: \"Phường 12\" not found in Quận 1"
+      ]
+    },
+    {
+      "id": "VN26000519",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000520",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hồ Chí Minh\" → \"Hồ Chí Minh\""
+      ]
+    },
+    {
+      "id": "VN26000521",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000522",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000523",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000524",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000525",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000526",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000527",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000528",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000529",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000530",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000531",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000532",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000533",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000534",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000535",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000536",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000537",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000538",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000539",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000540",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000541",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000542",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000543",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000544",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000545",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000546",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000547",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000548",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000549",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000550",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000551",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000552",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000553",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000554",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000555",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000556",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000557",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000558",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000559",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000560",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000561",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000562",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000563",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000564",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000565",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000566",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000567",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000568",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000569",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000570",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000571",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000572",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000573",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000574",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000575",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000576",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000577",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000578",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000579",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000580",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000581",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000582",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000583",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000584",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000585",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000586",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000587",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000588",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000589",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000590",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000591",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000592",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000593",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000594",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000595",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000596",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000597",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000598",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000599",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000600",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000601",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000602",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000603",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000604",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000605",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000606",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000607",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000608",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000609",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000610",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000611",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000612",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000613",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000614",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000615",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000616",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000617",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000618",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000619",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000620",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000621",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000622",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000623",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000624",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000625",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000626",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000627",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000628",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000629",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000630",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000631",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000632",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000633",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000634",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000635",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000636",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000637",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000638",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000639",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000640",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000641",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000642",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000643",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000644",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000645",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000646",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000647",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000648",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000649",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000650",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000651",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000652",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000653",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000654",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000655",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000656",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000657",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000658",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000659",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000660",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000661",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000662",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000663",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000664",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000665",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000666",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000667",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000668",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000669",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000670",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000671",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000672",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000673",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000674",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000675",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000676",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000677",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000678",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000679",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000680",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000681",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000682",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000683",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000684",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000685",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000686",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000687",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000688",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000689",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000690",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000691",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000692",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000693",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000694",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000695",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000696",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000697",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000698",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000699",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000700",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000701",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000702",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000703",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000704",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000705",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000706",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000707",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000708",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000709",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000710",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000711",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000712",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000713",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000714",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000715",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000716",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000717",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000718",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000719",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000720",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000721",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000722",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000723",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000724",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000725",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000726",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000727",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000728",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000729",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000730",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000731",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000732",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000733",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000734",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000735",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000736",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000737",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000738",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000739",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000740",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000741",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000742",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000743",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000744",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000745",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000746",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000747",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000748",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000749",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000750",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000751",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000752",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000753",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000754",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000755",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000756",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000757",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000758",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000759",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000760",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000761",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000762",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000763",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000764",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000765",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000766",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000767",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000768",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000769",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000770",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000771",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000772",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000773",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000774",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000775",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000776",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000777",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000778",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000779",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000780",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000781",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000782",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000783",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000784",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000785",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000786",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000787",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000788",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000789",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000790",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000791",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000792",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000793",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000794",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000795",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000796",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000797",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000798",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000799",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000800",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000801",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000802",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000803",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000804",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000805",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000806",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000807",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000808",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000809",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000810",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000811",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000812",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000813",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000814",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000815",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000816",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000817",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000818",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000819",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000820",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000821",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000822",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000823",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000824",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000825",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000826",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000827",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000828",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000829",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000830",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000831",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000832",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000833",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000834",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000835",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000836",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000837",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000838",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000839",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000840",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000841",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000842",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000843",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000844",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000845",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000846",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000847",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000848",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000849",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000850",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000851",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000852",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000853",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000854",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000855",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000856",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000857",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000858",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000859",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000860",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000861",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000862",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000863",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000864",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000865",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000866",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000867",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000868",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000869",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000870",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000871",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000872",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000873",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000874",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000875",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000876",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000877",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000878",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000879",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000880",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000881",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000882",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000883",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000884",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000885",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000886",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000887",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000888",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000889",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000890",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000891",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000892",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000893",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000894",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000895",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000896",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000897",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000898",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000899",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000900",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000901",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000902",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000903",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000904",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000905",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000906",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000907",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000908",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000909",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000910",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000911",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000912",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000913",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000914",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000915",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000916",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000917",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000918",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000919",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000920",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000921",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000922",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000923",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000924",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000925",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000926",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000927",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000928",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000929",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000930",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000931",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000932",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000933",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000934",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000935",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000936",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000937",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000938",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000939",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000940",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000941",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000942",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000943",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000944",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000945",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000946",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000947",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000948",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000949",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000950",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000951",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000952",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000953",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000954",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000955",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000956",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000957",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000958",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000959",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000960",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000961",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000962",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000963",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000964",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000965",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000966",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000967",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000968",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000969",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000970",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000971",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000972",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000973",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000974",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000975",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000976",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000977",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000978",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000979",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000980",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000981",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000982",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000983",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000984",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000985",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000986",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000987",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000988",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000989",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000990",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000991",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000992",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000993",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000994",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000995",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000996",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000997",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000998",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26000999",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26001000",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Hà Nội\" → \"Hà Nội\""
+      ]
+    },
+    {
+      "id": "VN26001001",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001002",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001003",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001004",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001005",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001006",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001007",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001008",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001009",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001010",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001011",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\"",
+        "WARD_NOT_IN_LIST: \"Phường Hải Châu\" not found in Quận Hải Châu"
+      ]
+    },
+    {
+      "id": "VN26001012",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001013",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001014",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001015",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001016",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001017",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001018",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\"",
+        "WARD_NOT_IN_LIST: \"Phường Hải Châu\" not found in Quận Hải Châu"
+      ]
+    },
+    {
+      "id": "VN26001019",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001020",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\"",
+        "WARD_NOT_IN_LIST: \"Phường An Hải Nam\" not found in Quận Sơn Trà"
+      ]
+    },
+    {
+      "id": "VN26001021",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001022",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001023",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001024",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001025",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001026",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001027",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001028",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001029",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001030",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001031",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001032",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001033",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001034",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001035",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001036",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001037",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001038",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001039",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001040",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001041",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001042",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001043",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001044",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001045",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001046",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001047",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001048",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001049",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001050",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001051",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001052",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001053",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001054",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001055",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001056",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001057",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001058",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\"",
+        "WARD_NOT_IN_LIST: \"Phường An Hải Nam\" not found in Quận Sơn Trà"
+      ]
+    },
+    {
+      "id": "VN26001059",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001060",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001061",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001062",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001063",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001064",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001065",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001066",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001067",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001068",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001069",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001070",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001071",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001072",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001073",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001074",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001075",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001076",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001077",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001078",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001079",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001080",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\"",
+        "WARD_NOT_IN_LIST: \"Phường An Hải Nam\" not found in Quận Sơn Trà"
+      ]
+    },
+    {
+      "id": "VN26001081",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001082",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001083",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001084",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001085",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001086",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001087",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001088",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001089",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001090",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\"",
+        "WARD_NOT_IN_LIST: \"Phường Hải Châu\" not found in Quận Hải Châu"
+      ]
+    },
+    {
+      "id": "VN26001091",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001092",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001093",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001094",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\"",
+        "WARD_NOT_IN_LIST: \"Phường Hải Châu\" not found in Quận Hải Châu"
+      ]
+    },
+    {
+      "id": "VN26001095",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001096",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001097",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001098",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001099",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001100",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001101",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001102",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001103",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001104",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001105",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001106",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001107",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001108",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001109",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001110",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001111",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001112",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\"",
+        "WARD_NOT_IN_LIST: \"Phường Hải Châu\" not found in Quận Hải Châu"
+      ]
+    },
+    {
+      "id": "VN26001113",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001114",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001115",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001116",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001117",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001118",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001119",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001120",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001121",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001122",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001123",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001124",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001125",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001126",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001127",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001128",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001129",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001130",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001131",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001132",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001133",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001134",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001135",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001136",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001137",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001138",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001139",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001140",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001141",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001142",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001143",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001144",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001145",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001146",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001147",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001148",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001149",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001150",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001151",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001152",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001153",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001154",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001155",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001156",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001157",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001158",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001159",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001160",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001161",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001162",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001163",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001164",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001165",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001166",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001167",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001168",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\"",
+        "WARD_NOT_IN_LIST: \"Phường An Hải Nam\" not found in Quận Sơn Trà"
+      ]
+    },
+    {
+      "id": "VN26001169",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    },
+    {
+      "id": "VN26001170",
+      "warnings": [
+        "PROVINCE_NORMALIZED: \"Thành phố Đà Nẵng\" → \"Đà Nẵng\""
+      ]
+    }
+  ],
+  "stats": {
+    "province": {
+      "valid": 1170,
+      "invalid": 0,
+      "normalized": 1170
+    },
+    "district": {
+      "valid": 1170,
+      "invalid": 0,
+      "notInList": 0
+    },
+    "ward": {
+      "valid": 1076,
+      "invalid": 0,
+      "notInList": 94
+    },
+    "coords": {
+      "valid": 1170,
+      "invalid": 0,
+      "swapped": 0,
+      "outsideCity": 0
+    },
+    "duplicateCoords": {
+      "count": 0,
+      "affected": 0,
+      "jittered": 0
+    }
+  },
+  "byProvince": {
+    "Hồ Chí Minh": {
+      "total": 520,
+      "errors": 0,
+      "warnings": 520
+    },
+    "Hà Nội": {
+      "total": 480,
+      "errors": 0,
+      "warnings": 480
+    },
+    "Đà Nẵng": {
+      "total": 170,
+      "errors": 0,
+      "warnings": 170
+    }
+  },
+  "invalidRecords": []
+}

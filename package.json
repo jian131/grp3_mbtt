@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "validate:data": "node scripts/validate_admin_vn_3cities.js",
+    "prebuild": "npm run validate:data",
     "deploy:setup": "powershell -ExecutionPolicy Bypass -File ./scripts/deploy-helper.ps1"
   },
   "dependencies": {
