@@ -161,11 +161,11 @@ export default function AnalysisPage() {
                   <select
                     value={valForm.province}
                     onChange={e => setValForm({ ...valForm, province: e.target.value, district: '' })}
-                    className="w-full bg-slate-800 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all cursor-pointer"
+                    className="w-full bg-slate-700 border border-slate-600 rounded-xl p-4 text-white focus:border-cyan-500 focus:bg-slate-600 outline-none transition-all cursor-pointer"
                   >
-                    <option value="">Chọn thành phố...</option>
+                    <option value="" className="bg-slate-800 text-gray-400">Chọn thành phố...</option>
                     {PROVINCES.map(p => (
-                      <option key={p} value={p}>{getProvinceShortName(p)}</option>
+                      <option key={p} value={p} className="bg-slate-800 text-white">{getProvinceShortName(p)}</option>
                     ))}
                   </select>
                 </div>
@@ -177,11 +177,11 @@ export default function AnalysisPage() {
                     value={valForm.district}
                     onChange={e => setValForm({ ...valForm, district: e.target.value })}
                     disabled={!valForm.province}
-                    className="w-full bg-slate-800 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all cursor-pointer disabled:opacity-50"
+                    className="w-full bg-slate-700 border border-slate-600 rounded-xl p-4 text-white focus:border-cyan-500 focus:bg-slate-600 outline-none transition-all cursor-pointer disabled:opacity-50"
                   >
-                    <option value="">{valForm.province ? 'Chọn Quận...' : 'Chọn TP trước'}</option>
+                    <option value="" className="bg-slate-800 text-gray-400">{valForm.province ? 'Chọn Quận...' : 'Chọn TP trước'}</option>
                     {valForm.province && getDistrictsByProvince(valForm.province).map(d => (
-                      <option key={d} value={d}>{d}</option>
+                      <option key={d} value={d} className="bg-slate-800 text-white">{d}</option>
                     ))}
                   </select>
                 </div>
@@ -202,10 +202,10 @@ export default function AnalysisPage() {
                         type: selected?.type || 'streetfront'
                       });
                     }}
-                    className="w-full bg-slate-800 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all cursor-pointer"
+                    className="w-full bg-slate-700 border border-slate-600 rounded-xl p-4 text-white focus:border-cyan-500 focus:bg-slate-600 outline-none transition-all cursor-pointer"
                   >
                     {MARKET_SEGMENTS.map(s => (
-                      <option key={s.value} value={s.value}>{s.label}</option>
+                      <option key={s.value} value={s.value} className="bg-slate-800 text-white">{s.label}</option>
                     ))}
                   </select>
                 </div>
@@ -218,7 +218,7 @@ export default function AnalysisPage() {
                       value={valForm.area}
                       onChange={e => setValForm({ ...valForm, area: e.target.value })}
                       placeholder="50"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all"
+                      className="w-full bg-slate-700 border border-slate-600 rounded-xl p-4 text-white placeholder-gray-400 focus:border-cyan-500 focus:bg-slate-600 outline-none transition-all"
                     />
                   </div>
                   <div className="group">
@@ -228,7 +228,7 @@ export default function AnalysisPage() {
                       value={valForm.price}
                       onChange={e => setValForm({ ...valForm, price: e.target.value })}
                       placeholder="25"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-500/50 focus:bg-white/10 outline-none transition-all"
+                      className="w-full bg-slate-700 border border-slate-600 rounded-xl p-4 text-white placeholder-gray-400 focus:border-cyan-500 focus:bg-slate-600 outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -286,7 +286,7 @@ export default function AnalysisPage() {
                     value={roiForm.productPrice}
                     onChange={e => { setRoiForm({ ...roiForm, productPrice: Number(e.target.value) }); }}
                     onBlur={updateROI}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-sm text-white focus:border-cyan-500 outline-none"
+                    className="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:border-cyan-500 focus:bg-slate-600 outline-none"
                   />
                 </div>
                 <div>
@@ -298,7 +298,7 @@ export default function AnalysisPage() {
                     onBlur={updateROI}
                     min={5}
                     max={90}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-sm text-white focus:border-cyan-500 outline-none"
+                    className="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:border-cyan-500 focus:bg-slate-600 outline-none"
                   />
                 </div>
                 <div>
@@ -308,7 +308,7 @@ export default function AnalysisPage() {
                     value={roiForm.customers}
                     onChange={e => { setRoiForm({ ...roiForm, customers: Number(e.target.value) }); }}
                     onBlur={updateROI}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-sm text-white focus:border-cyan-500 outline-none"
+                    className="w-full bg-slate-700 border border-slate-600 rounded-lg p-2 text-sm text-white focus:border-cyan-500 focus:bg-slate-600 outline-none"
                   />
                 </div>
               </div>
