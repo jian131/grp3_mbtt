@@ -1,13 +1,14 @@
 """
-Import JFinder data from Next.js API to PostgreSQL database
+Import JFinder data from JSON file to PostgreSQL database
+Updated schema for verified dataset with market_segment, type, frontage
 """
-import requests
 import psycopg2
 from psycopg2.extras import execute_values
 import json
+from pathlib import Path
 
 # Configuration
-NEXTJS_API_URL = "http://localhost:3000/api/export?format=json"
+DATA_FILE = Path(__file__).parent.parent / "app" / "data" / "vn_rental_3cities_verified.json"
 POSTGRES_CONFIG = {
     "host": "localhost",
     "port": 5433,
@@ -16,141 +17,159 @@ POSTGRES_CONFIG = {
     "password": "jfinder_password"
 }
 
-def fetch_jfinder_data():
-    """Fetch data from Next.js API"""
-    print("📥 Fetching JFinder data from Next.js API...")
+def load_data():
+    """Load data from JSON file"""
+    print(f"📥 Loading data from {DATA_FILE}...")
     try:
-        response = requests.get(NEXTJS_API_URL)
-        response.raise_for_status()
-        data = response.json()
-        listings = data.get("data", [])
-        print(f"✅ Fetched {len(listings)} listings")
-        return listings
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        print(f"✅ Loaded {len(data)} listings")
+        return data
     except Exception as e:
-        print(f"❌ Failed to fetch data: {e}")
+        print(f"❌ Failed to load data: {e}")
         return None
 
 def create_table(conn):
-    """Create jfinder_listings table"""
-    print("🔨 Creating table...")
+    """Create jfinder_listings table with new schema"""
+    print("🔨 Creating table with new schema...")
 
     cursor = conn.cursor()
 
     # Drop table if exists
     cursor.execute("DROP TABLE IF EXISTS jfinder_listings CASCADE;")
 
-    # Create table
+    # Create table - NEW SCHEMA matching verified dataset
     create_table_sql = """
     CREATE TABLE jfinder_listings (
         id VARCHAR(50) PRIMARY KEY,
-        title TEXT,
-        price BIGINT,
-        area REAL,
+        name TEXT,
         address TEXT,
         province VARCHAR(100),
         district VARCHAR(100),
         ward VARCHAR(100),
-        lat REAL,
-        lon REAL,
-        bedrooms INTEGER,
-        bathrooms INTEGER,
-        toilets INTEGER,
+        admin_codes TEXT,
+        latitude REAL,
+        longitude REAL,
+        type VARCHAR(50),
+        market_segment VARCHAR(50),
+        area REAL,
+        frontage REAL,
         floors INTEGER,
-        status VARCHAR(50),
-        contact_name VARCHAR(200),
-        contact_phone VARCHAR(50),
-        is_verified BOOLEAN,
+        rent_per_sqm_million REAL,
+        price REAL,
+        currency VARCHAR(10),
+        price_unit VARCHAR(50),
         images TEXT,
+        amenities_schools INTEGER,
+        amenities_offices INTEGER,
+        amenities_competitors INTEGER,
+        ai_suggested_price REAL,
         ai_potential_score REAL,
-        ai_suggested_price BIGINT,
         ai_risk_level VARCHAR(50),
-        ai_price_label VARCHAR(50),
-        roi_monthly_yield REAL,
-        roi_annual_yield REAL,
-        roi_occupancy_rate REAL,
-        roi_market_demand VARCHAR(50),
-        valuation_market_value BIGINT,
-        valuation_confidence REAL,
-        valuation_price_range_min BIGINT,
-        valuation_price_range_max BIGINT,
-        created_at TIMESTAMP,
-        updated_at TIMESTAMP,
-        scraped_at TIMESTAMP
+        views INTEGER,
+        saved_count INTEGER,
+        posted_at TIMESTAMP,
+        owner_name VARCHAR(200),
+        owner_phone VARCHAR(50),
+        primary_image_url TEXT,
+        image_source VARCHAR(100),
+        image_author VARCHAR(200),
+        image_license_names TEXT,
+        image_license_urls TEXT,
+        image_page_url TEXT,
+        image_required_credit VARCHAR(200)
     );
     """
 
     cursor.execute(create_table_sql)
 
-    # Create indexes
+    # Create indexes for common queries
     cursor.execute("CREATE INDEX idx_province ON jfinder_listings(province);")
     cursor.execute("CREATE INDEX idx_district ON jfinder_listings(district);")
+    cursor.execute("CREATE INDEX idx_type ON jfinder_listings(type);")
+    cursor.execute("CREATE INDEX idx_market_segment ON jfinder_listings(market_segment);")
     cursor.execute("CREATE INDEX idx_price ON jfinder_listings(price);")
-    cursor.execute("CREATE INDEX idx_lat_lon ON jfinder_listings(lat, lon);")
+    cursor.execute("CREATE INDEX idx_area ON jfinder_listings(area);")
+    cursor.execute("CREATE INDEX idx_lat_lon ON jfinder_listings(latitude, longitude);")
 
     conn.commit()
     print("✅ Table created successfully")
 
 def insert_data(conn, listings):
-    """Insert listings into PostgreSQL"""
+    """Insert listings into PostgreSQL with new schema"""
     print(f"💾 Inserting {len(listings)} listings...")
 
     cursor = conn.cursor()
 
-    # Prepare data
     insert_sql = """
     INSERT INTO jfinder_listings (
-        id, title, price, area, address, province, district, ward,
-        lat, lon, bedrooms, bathrooms, toilets, floors,
-        status, contact_name, contact_phone, is_verified,
-        images,
-        ai_potential_score, ai_suggested_price, ai_risk_level, ai_price_label,
-        roi_monthly_yield, roi_annual_yield, roi_occupancy_rate, roi_market_demand,
-        valuation_market_value, valuation_confidence, valuation_price_range_min, valuation_price_range_max,
-        created_at, updated_at, scraped_at
+        id, name, address, province, district, ward, admin_codes,
+        latitude, longitude, type, market_segment,
+        area, frontage, floors, rent_per_sqm_million, price, currency, price_unit,
+        images, amenities_schools, amenities_offices, amenities_competitors,
+        ai_suggested_price, ai_potential_score, ai_risk_level,
+        views, saved_count, posted_at,
+        owner_name, owner_phone, primary_image_url,
+        image_source, image_author, image_license_names, image_license_urls,
+        image_page_url, image_required_credit
     ) VALUES %s
     """
 
+    def parse_owner(owner_str):
+        """Parse owner string like {'name': 'X', 'phone': 'Y'}"""
+        if not owner_str:
+            return None, None
+        if isinstance(owner_str, dict):
+            return owner_str.get('name'), owner_str.get('phone')
+        try:
+            import ast
+            owner_dict = ast.literal_eval(owner_str)
+            return owner_dict.get('name'), owner_dict.get('phone')
+        except:
+            return None, None
+
     values = []
     for listing in listings:
-        # Handle images array - convert to JSON string
-        images = listing.get('images', [])
-        images_str = json.dumps(images) if images else '[]'
+        owner_name, owner_phone = parse_owner(listing.get('owner'))
 
         values.append((
             listing.get('id'),
-            listing.get('title'),
-            listing.get('price'),
-            listing.get('area'),
+            listing.get('name'),
             listing.get('address'),
             listing.get('province'),
             listing.get('district'),
             listing.get('ward'),
-            listing.get('lat'),
-            listing.get('lon'),
-            listing.get('bedrooms'),
-            listing.get('bathrooms'),
-            listing.get('toilets'),
+            listing.get('admin_codes'),
+            listing.get('latitude'),
+            listing.get('longitude'),
+            listing.get('type'),
+            listing.get('market_segment'),
+            listing.get('area'),
+            listing.get('frontage'),
             listing.get('floors'),
-            listing.get('status'),
-            listing.get('contact_name'),
-            listing.get('contact_phone'),
-            listing.get('is_verified', False),
-            images_str,
-            listing.get('ai_potential_score'),
+            listing.get('rent_per_sqm_million'),
+            listing.get('price'),
+            listing.get('currency', 'VND'),
+            listing.get('price_unit', 'million_vnd_per_month'),
+            listing.get('images'),
+            listing.get('amenities_schools'),
+            listing.get('amenities_offices'),
+            listing.get('amenities_competitors'),
             listing.get('ai_suggested_price'),
+            listing.get('ai_potential_score'),
             listing.get('ai_risk_level'),
-            listing.get('ai_price_label'),
-            listing.get('roi_monthly_yield'),
-            listing.get('roi_annual_yield'),
-            listing.get('roi_occupancy_rate'),
-            listing.get('roi_market_demand'),
-            listing.get('valuation_market_value'),
-            listing.get('valuation_confidence'),
-            listing.get('valuation_price_range_min'),
-            listing.get('valuation_price_range_max'),
-            listing.get('created_at'),
-            listing.get('updated_at'),
-            listing.get('scraped_at')
+            listing.get('views'),
+            listing.get('savedCount'),
+            listing.get('posted_at'),
+            owner_name,
+            owner_phone,
+            listing.get('primary_image_url'),
+            listing.get('image_source'),
+            listing.get('image_author'),
+            listing.get('image_license_names'),
+            listing.get('image_license_urls'),
+            listing.get('image_page_url'),
+            listing.get('image_required_credit')
         ))
 
     execute_values(cursor, insert_sql, values)
@@ -160,11 +179,11 @@ def insert_data(conn, listings):
 
 def main():
     print("\n" + "="*60)
-    print("🚀 JFinder → PostgreSQL Import Tool")
+    print("🚀 JFinder → PostgreSQL Import Tool (New Schema)")
     print("="*60 + "\n")
 
-    # Step 1: Fetch data
-    listings = fetch_jfinder_data()
+    # Step 1: Load data from file
+    listings = load_data()
     if not listings:
         print("\n❌ No data to import")
         return

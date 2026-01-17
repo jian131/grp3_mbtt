@@ -1,0 +1,194 @@
+{
+  "name": "Valuation AI Enhanced v2",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "jfinder/ai/valuation",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-start",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "valuation-ai-webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "district",
+              "name": "district",
+              "value": "={{ $json.body.district }}",
+              "type": "string"
+            },
+            {
+              "id": "province",
+              "name": "province",
+              "value": "={{ $json.body.province }}",
+              "type": "string"
+            },
+            {
+              "id": "type",
+              "name": "type",
+              "value": "={{ $json.body.type }}",
+              "type": "string"
+            },
+            {
+              "id": "segment",
+              "name": "segment",
+              "value": "={{ $json.body.segment }}",
+              "type": "string"
+            },
+            {
+              "id": "area",
+              "name": "area",
+              "value": "={{ $json.body.area }}",
+              "type": "number"
+            },
+            {
+              "id": "frontage",
+              "name": "frontage",
+              "value": "={{ $json.body.frontage }}",
+              "type": "number"
+            },
+            {
+              "id": "floors",
+              "name": "floors",
+              "value": "={{ $json.body.floors }}",
+              "type": "number"
+            },
+            {
+              "id": "current_price",
+              "name": "current_price",
+              "value": "={{ $json.body.current_price || 0 }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "extract-params",
+      "name": "Extract Parameters",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const data = require('/data/files/vn_rental_3cities_verified.json');\n\nconst district = $input.item.json.district;\nconst type = $input.item.json.type;\nconst segment = $input.item.json.segment;\nconst area = $input.item.json.area;\nconst frontage = $input.item.json.frontage;\nconst floors = $input.item.json.floors;\n\nconst filtered = data.filter(item => \n  item.district === district &&\n  item.type === type &&\n  item.market_segment === segment\n);\n\nif (filtered.length === 0) {\n  return [{\n    json: {\n      success: false,\n      error: 'No matching data found',\n      sample_size: 0\n    }\n  }];\n}\n\nconst prices = filtered.map(item => item.rental_price).sort((a,b) => a - b);\nconst p25 = prices[Math.floor(prices.length * 0.25)];\nconst median = prices[Math.floor(prices.length * 0.5)];\nconst p75 = prices[Math.floor(prices.length * 0.75)];\nconst min = Math.min(...prices);\nconst max = Math.max(...prices);\n\nconst areaAdjust = area > 30 ? 1 : area / 30;\nconst frontageAdjust = frontage > 4 ? 1 : frontage / 4;\nconst floorAdjust = 1 + ((floors - 1) * 0.15);\n\nconst factor = areaAdjust * frontageAdjust * floorAdjust;\n\nconst valuation = {\n  suggested_price: Math.round(median * factor),\n  price_range: {\n    min: Math.round(p25 * factor),\n    max: Math.round(p75 * factor)\n  },\n  stats: { p25, median, p75, min, max, sample_size: filtered.length },\n  adjustments: { area: areaAdjust, frontage: frontageAdjust, floors: floorAdjust, factor }\n};\n\nreturn [{ json: valuation }];"
+      },
+      "id": "calculate-valuation",
+      "name": "Calculate Valuation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "prompt",
+              "name": "prompt",
+              "value": "=Bạn là chuyên gia thị trường bất động sản Việt Nam. Phân tích mặt bằng {{ $('Extract Parameters').item.json.segment }} tại {{ $('Extract Parameters').item.json.district }}, {{ $('Extract Parameters').item.json.province }}:\n\nThông tin:\n- Diện tích: {{ $('Extract Parameters').item.json.area }}m²\n- Mặt tiền: {{ $('Extract Parameters').item.json.frontage }}m\n- Số tầng: {{ $('Extract Parameters').item.json.floors }}\n- Giá đề xuất: {{ $json.suggested_price.toLocaleString() }} VNĐ/tháng\n- Khoảng giá thị trường: {{ $json.price_range.min.toLocaleString() }} - {{ $json.price_range.max.toLocaleString() }} VNĐ\n- Số mẫu: {{ $json.stats.sample_size }}\n\nHãy đưa ra (max 300 từ):\n1. Nhận xét về giá và vị trí\n2. Gợi ý nâng cấp (nếu có)\n3. Lời khuyên thương lượng",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "prepare-prompt",
+      "name": "Prepare Prompt",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAVLv-9OmNzwECmnOw0rP_JZb6MxLiBtCg",
+        "authentication": "none",
+        "sendBody": true,
+        "contentType": "application/json",
+        "body": "={{ JSON.stringify({ contents: [{ parts: [{ text: $json.prompt }] }] }) }}",
+        "options": {}
+      },
+      "id": "gemini-call",
+      "name": "Gemini Insight",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const valuation = $('Calculate Valuation').item.json;\nconst geminiResponse = $input.item.json;\n\nlet ai_powered = false;\nlet market_insight = `Khu vực ${valuation.stats.sample_size > 0 ? 'có ' + valuation.stats.sample_size : 'có 0'} tin rao ${$('Extract Parameters').item.json.segment}.`;\nlet model = '';\nlet upgrade_suggestions = [];\nlet negotiation_tips = [];\n\nif (geminiResponse.candidates && geminiResponse.candidates.length > 0) {\n  const text = geminiResponse.candidates[0].content.parts[0].text;\n  ai_powered = true;\n  market_insight = text;\n  model = 'gemini-1.5-flash';\n  upgrade_suggestions = ['Dựa trên phân tích AI'];\n  negotiation_tips = ['Tham khảo chi tiết từ AI'];\n}\n\nreturn [{\n  json: {\n    success: true,\n    valuation: {\n      suggested_price: valuation.suggested_price,\n      price_range: valuation.price_range,\n      stats: valuation.stats,\n      adjustments: valuation.adjustments\n    },\n    ai_insights: {\n      ai_powered,\n      model,\n      market_insight,\n      upgrade_suggestions,\n      negotiation_tips\n    }\n  }\n}];"
+      },
+      "id": "format-response",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1450, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const valuation = $('Calculate Valuation').item.json;\n\nif (!valuation.success && valuation.error) {\n  return [{\n    json: {\n      success: false,\n      error: valuation.error,\n      ai_insights: {\n        ai_powered: false,\n        market_insight: 'Không đủ dữ liệu để định giá.'\n      }\n    }\n  }];\n}\n\nreturn [{\n  json: {\n    success: true,\n    valuation: {\n      suggested_price: valuation.suggested_price,\n      price_range: valuation.price_range,\n      stats: valuation.stats,\n      adjustments: valuation.adjustments\n    },\n    ai_insights: {\n      ai_powered: false,\n      fallback_reason: 'Gemini API error',\n      market_insight: `Khu vực có ${valuation.stats.sample_size} tin rao tương tự. Giá trung vị thị trường: ${valuation.stats.median.toLocaleString()} VNĐ/tháng.`\n    }\n  }\n}];"
+      },
+      "id": "fallback",
+      "name": "Fallback Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 500]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Extract Parameters", "type": "main", "index": 0 }]]
+    },
+    "Extract Parameters": {
+      "main": [[{ "node": "Calculate Valuation", "type": "main", "index": 0 }]]
+    },
+    "Calculate Valuation": {
+      "main": [[{ "node": "Prepare Prompt", "type": "main", "index": 0 }]]
+    },
+    "Prepare Prompt": {
+      "main": [[{ "node": "Gemini Insight", "type": "main", "index": 0 }]]
+    },
+    "Gemini Insight": {
+      "main": [[{ "node": "Format Response", "type": "main", "index": 0 }]],
+      "error": [[{ "node": "Fallback Response", "type": "main", "index": 0 }]]
+    },
+    "Format Response": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    },
+    "Fallback Response": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "versionId": "1",
+  "id": "valuation-ai-v2",
+  "meta": {
+    "instanceId": "local"
+  },
+  "tags": []
+}

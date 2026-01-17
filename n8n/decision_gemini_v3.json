@@ -1,0 +1,118 @@
+{
+  "name": "Decision Gemini v3",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "jfinder/ai/decision",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "decision-gemini-v3"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const data = require('/data/files/vn_rental_3cities_verified.json');\n\nconst body = $input.item.json.body;\nconst listing_id = body.listing_id;\nconst user_intent = body.user_intent || '';\n\nconst listing = data.find(item => item.listing_id === listing_id);\n\nif (!listing) {\n  return [{\n    json: {\n      error: true,\n      message: 'Listing not found',\n      listing_id\n    }\n  }];\n}\n\nconst prompt = `Bạn là chuyên gia tư vấn BĐS. Khách hàng xem mặt bằng:\\n\\n- ID: ${listing.listing_id}\\n- Địa điểm: ${listing.ward}, ${listing.district}, ${listing.province}\\n- Loại: ${listing.market_segment}\\n- Diện tích: ${listing.area}m²\\n- Mặt tiền: ${listing.frontage}m\\n- Tầng: ${listing.floors}\\n- Giá: ${listing.rental_price.toLocaleString()} VNĐ/tháng\\n- Mô tả: ${listing.description.substring(0, 200)}\\n\\nMục đích: ${user_intent}\\n\\nĐánh giá (max 250 từ):\\n1. Ưu điểm (2-3)\\n2. Nhược điểm (2-3)\\n3. Khuyến nghị: highly_recommended/recommended/consider/not_suitable\\n4. Lý do`;\n\nreturn [{\n  json: {\n    listing,\n    user_intent,\n    prompt\n  }\n}];"
+      },
+      "id": "load",
+      "name": "Load Listing",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "operation": "message",
+        "resource": "text",
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gemini-1.5-flash"
+        },
+        "prompt": "={{ $json.prompt }}",
+        "options": {
+          "temperature": 0.7,
+          "maxOutputTokens": 1024
+        }
+      },
+      "id": "gemini",
+      "name": "Gemini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [640, 300],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "gemini_api",
+          "name": "Google PaLM API account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const listing = $('Load Listing').item.json.listing;\nconst text = $input.item.json.message?.content || '';\n\nlet verdict = 'consider';\nconst lower = text.toLowerCase();\nif (lower.includes('highly') || lower.includes('rất phù hợp')) {\n  verdict = 'highly_recommended';\n} else if (lower.includes('recommended') || lower.includes('phù hợp')) {\n  verdict = 'recommended';\n} else if (lower.includes('not') || lower.includes('không phù hợp')) {\n  verdict = 'not_suitable';\n}\n\nreturn [{\n  json: {\n    success: true,\n    listing_id: listing.listing_id,\n    ai_powered: text.length > 0,\n    model: text.length > 0 ? 'gemini-1.5-flash' : '',\n    verdict,\n    analysis: text || 'Mặt bằng có vị trí thuận tiện. Hãy xem trực tiếp.',\n    pros: ['Vị trí tốt'],\n    cons: ['Cần khảo sát']\n  }\n}];"
+      },
+      "id": "format",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [840, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "respond_webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1040, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const load = $('Load Listing').item.json;\n\nif (load.error) {\n  return [{\n    json: {\n      success: false,\n      error: load.message,\n      listing_id: load.listing_id\n    }\n  }];\n}\n\nreturn [{\n  json: {\n    success: true,\n    listing_id: load.listing.listing_id,\n    ai_powered: false,\n    fallback_reason: 'Gemini error',\n    verdict: 'consider',\n    analysis: 'Mặt bằng có vị trí thuận tiện. Hãy xem trực tiếp để đánh giá chi tiết.',\n    pros: ['Vị trí tốt'],\n    cons: ['Cần khảo sát thực tế']\n  }\n}];"
+      },
+      "id": "fallback",
+      "name": "Fallback",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [840, 480]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Load Listing", "type": "main", "index": 0 }]]
+    },
+    "Load Listing": {
+      "main": [[{ "node": "Gemini", "type": "main", "index": 0 }]]
+    },
+    "Gemini": {
+      "main": [[{ "node": "Format Response", "type": "main", "index": 0 }]],
+      "error": [[{ "node": "Fallback", "type": "main", "index": 0 }]]
+    },
+    "Format Response": {
+      "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]]
+    },
+    "Fallback": {
+      "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-01-17T07:00:00.000Z",
+  "versionId": "1"
+}

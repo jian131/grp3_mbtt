@@ -1,0 +1,129 @@
+{
+  "name": "Decision Support AI v2",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "jfinder/ai/decision",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-start",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "decision-ai-webhook"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const data = require('/data/files/vn_rental_3cities_verified.json');\nconst listing_id = $input.item.json.body.listing_id;\nconst user_intent = $input.item.json.body.user_intent;\n\nconst listing = data.find(item => item.listing_id === listing_id);\n\nif (!listing) {\n  return [{\n    json: {\n      success: false,\n      error: 'Listing not found',\n      listing_id\n    }\n  }];\n}\n\nreturn [{\n  json: {\n    listing,\n    user_intent\n  }\n}];"
+      },
+      "id": "load-listing",
+      "name": "Load Listing",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "prompt",
+              "name": "prompt",
+              "value": "=Bạn là chuyên gia tư vấn bất động sản. Khách hàng đang xem xét thuê mặt bằng:\n\nMặt bằng:\n- ID: {{ $json.listing.listing_id }}\n- Địa điểm: {{ $json.listing.ward }}, {{ $json.listing.district }}, {{ $json.listing.province }}\n- Loại: {{ $json.listing.market_segment }}\n- Diện tích: {{ $json.listing.area }}m²\n- Mặt tiền: {{ $json.listing.frontage }}m\n- Tầng: {{ $json.listing.floors }}\n- Giá: {{ $json.listing.rental_price.toLocaleString() }} VNĐ/tháng\n- Mô tả: {{ $json.listing.description }}\n\nMục đích thuê: {{ $json.user_intent }}\n\nHãy đánh giá (max 250 từ):\n1. Ưu điểm (2-3 điểm)\n2. Nhược điểm (2-3 điểm)\n3. Khuyến nghị: \"highly_recommended\" / \"recommended\" / \"consider\" / \"not_suitable\"\n4. Lý do khuyến nghị",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "prepare-prompt",
+      "name": "Prepare Prompt",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAVLv-9OmNzwECmnOw0rP_JZb6MxLiBtCg",
+        "authentication": "none",
+        "sendBody": true,
+        "contentType": "application/json",
+        "body": "={{ JSON.stringify({ contents: [{ parts: [{ text: $json.prompt }] }] }) }}",
+        "options": {}
+      },
+      "id": "gemini-call",
+      "name": "Gemini Decision",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const geminiResponse = $input.item.json;\nconst listing = $('Load Listing').item.json.listing;\n\nlet ai_powered = false;\nlet analysis = 'Phân tích cơ bản.';\nlet verdict = 'consider';\nlet model = '';\nlet pros = ['Vị trí thuận tiện'];\nlet cons = ['Cần đánh giá trực tiếp'];\n\nif (geminiResponse.candidates && geminiResponse.candidates.length > 0) {\n  const text = geminiResponse.candidates[0].content.parts[0].text;\n  ai_powered = true;\n  analysis = text;\n  model = 'gemini-1.5-flash';\n  \n  const lowerText = text.toLowerCase();\n  if (lowerText.includes('highly') || lowerText.includes('rất phù hợp')) {\n    verdict = 'highly_recommended';\n  } else if (lowerText.includes('recommended') || lowerText.includes('phù hợp')) {\n    verdict = 'recommended';\n  } else if (lowerText.includes('not') || lowerText.includes('không phù hợp')) {\n    verdict = 'not_suitable';\n  }\n}\n\nreturn [{\n  json: {\n    success: true,\n    listing_id: listing.listing_id,\n    ai_powered,\n    model,\n    verdict,\n    analysis,\n    pros,\n    cons\n  }\n}];"
+      },
+      "id": "format-response",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const listing = $('Load Listing').item.json.listing;\n\nreturn [{\n  json: {\n    success: true,\n    listing_id: listing.listing_id,\n    ai_powered: false,\n    fallback_reason: 'Gemini API error',\n    verdict: 'consider',\n    analysis: 'Mặt bằng này có vị trí thuận tiện. Hãy đến xem trực tiếp để đánh giá chi tiết.',\n    pros: ['Vị trí thuận tiện'],\n    cons: ['Cần khảo sát thực tế']\n  }\n}];"
+      },
+      "id": "fallback",
+      "name": "Fallback Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 500]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Load Listing", "type": "main", "index": 0 }]]
+    },
+    "Load Listing": {
+      "main": [[{ "node": "Prepare Prompt", "type": "main", "index": 0 }]]
+    },
+    "Prepare Prompt": {
+      "main": [[{ "node": "Gemini Decision", "type": "main", "index": 0 }]]
+    },
+    "Gemini Decision": {
+      "main": [[{ "node": "Format Response", "type": "main", "index": 0 }]],
+      "error": [[{ "node": "Fallback Response", "type": "main", "index": 0 }]]
+    },
+    "Format Response": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    },
+    "Fallback Response": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "versionId": "1",
+  "id": "decision-ai-v2",
+  "meta": {
+    "instanceId": "local"
+  },
+  "tags": []
+}

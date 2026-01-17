@@ -1,0 +1,116 @@
+{
+  "name": "JFinder Contract Review AI",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "jfinder/contract/review",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": false
+        }
+      },
+      "id": "webhook_contract",
+      "name": "Contract Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "contract-review"
+    },
+    {
+      "parameters": {
+        "jsCode": "// =================================================================\n// STEP 1: Prepare content and run rule-based pre-analysis\n// =================================================================\nconst input = $input.first().json;\nconst content = (input.body?.content || input.body?.text || input.content || input.text || '');\nconst filename = input.body?.filename || input.filename || 'unknown.txt';\nconst contentLower = content.toLowerCase();\nconst startTime = Date.now();\n\n// Truncate for LLM (max ~6000 chars to save tokens)\nconst truncatedContent = content.substring(0, 6000);\n\n// Rule-based keywords for pre-filtering\nconst RISK_RULES = [\n  { id: 'price_increase', title: 'Tăng giá đột ngột', severity: 'high', keywords: ['tăng giá', 'tăng 50%', 'tăng 100%'] },\n  { id: 'unilateral_termination', title: 'Đơn phương chấm dứt', severity: 'high', keywords: ['đơn phương chấm dứt', 'chấm dứt bất cứ lúc nào'] },\n  { id: 'no_deposit_refund', title: 'Không hoàn cọc', severity: 'high', keywords: ['không hoàn cọc', 'mất tiền cọc', 'mất toàn bộ'] },\n  { id: 'excessive_penalty', title: 'Phạt vi phạm quá mức', severity: 'high', keywords: ['bồi thường 12 tháng', 'phạt 12 tháng'] },\n  { id: 'force_majeure', title: 'Bất khả kháng bất lợi', severity: 'medium', keywords: ['bất khả kháng', 'vẫn phải thanh toán'] },\n  { id: 'high_deposit', title: 'Tiền cọc quá cao', severity: 'medium', keywords: ['cọc 6 tháng', 'cọc 12 tháng'] },\n  { id: 'no_complaint', title: 'Từ bỏ quyền khiếu nại', severity: 'medium', keywords: ['không được khiếu nại', 'từ bỏ quyền'] }\n];\n\n// Quick pre-analysis\nlet preRisks = [];\nfor (const rule of RISK_RULES) {\n  for (const kw of rule.keywords) {\n    if (contentLower.includes(kw)) {\n      preRisks.push(rule.title);\n      break;\n    }\n  }\n}\n\n// Store for next nodes\nreturn {\n  json: {\n    content: truncatedContent,\n    filename,\n    startTime,\n    preRisks,\n    preRisksCount: preRisks.length,\n    hasContent: content.length > 0,\n    contentLength: content.length\n  }\n};"
+      },
+      "id": "prepare_content",
+      "name": "Prepare Content",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={{ $credentials.gemini_api_key }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"Bạn là luật sư chuyên về hợp đồng thuê mặt bằng thương mại tại Việt Nam. Phân tích hợp đồng và xác định các điều khoản rủi ro cho bên thuê.\\n\\nOutput JSON theo format:\\n{\\n  \\\"risk_score\\\": <0-100>,\\n  \\\"risk_level\\\": \\\"high|medium|low\\\",\\n  \\\"summary\\\": \\\"<Tóm tắt 2-3 câu>\\\",\\n  \\\"risk_items\\\": [\\n    {\\n      \\\"title\\\": \\\"Tên rủi ro\\\",\\n      \\\"severity\\\": \\\"high|medium|low\\\",\\n      \\\"matched_clause\\\": \\\"Trích dẫn điều khoản...\\\",\\n      \\\"recommendation\\\": \\\"Khuyến nghị cụ thể...\\\"\\n    }\\n  ],\\n  \\\"missing_clauses\\\": [\\\"Điều khoản cần bổ sung\\\"],\\n  \\\"questions_for_landlord\\\": [\\\"Câu hỏi nên đặt cho chủ nhà\\\"]\\n}\\n\\nChú ý:\\n- Giá thuê hợp lý tại VN: 50-500 triệu/tháng tùy vị trí\\n- Tiền cọc hợp lý: 2-3 tháng\\n- Tăng giá hợp lý: 5-10%/năm\\n- Thông báo chấm dứt hợp lý: 60-90 ngày\\n- Luôn ưu tiên bảo vệ quyền lợi bên thuê\\n\\nPhân tích hợp đồng sau:\\n\\n{{ $json.content }}\"\n        }\n      ]\n    }\n  ],\n  \"generationConfig\": {\n    \"temperature\": 0.3,\n    \"maxOutputTokens\": 2000,\n    \"responseMimeType\": \"application/json\"\n  }\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "gemini_call",
+      "name": "Gemini Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "gemini_api",
+          "name": "Gemini API Key"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// =================================================================\n// STEP 3: Parse LLM response OR fallback to rule-based\n// =================================================================\nconst items = $input.all();\nconst prepData = items.find(i => i.json.startTime)?.json || {};\nconst llmResponse = items.find(i => i.json.choices)?.json;\nconst llmError = items.find(i => i.json.error)?.json;\n\nconst processingTime = Date.now() - (prepData.startTime || Date.now());\nconst filename = prepData.filename || 'unknown.txt';\n\n// Try to parse LLM response\nlet result = null;\n\nif (llmResponse?.choices?.[0]?.message?.content) {\n  try {\n    const content = llmResponse.choices[0].message.content;\n    // Extract JSON from markdown code block if present\n    const jsonMatch = content.match(/```json\\s*([\\s\\S]*?)```/) || content.match(/```\\s*([\\s\\S]*?)```/);\n    const jsonStr = jsonMatch ? jsonMatch[1] : content;\n    result = JSON.parse(jsonStr.trim());\n    result.ai_powered = true;\n    result.model = 'gpt-4o-mini';\n  } catch (e) {\n    console.log('Failed to parse LLM response:', e.message);\n  }\n}\n\n// Fallback to rule-based if LLM failed\nif (!result) {\n  const preRisks = prepData.preRisks || [];\n  const riskScore = Math.min(100, preRisks.length * 20);\n  \n  result = {\n    risk_score: riskScore,\n    risk_level: riskScore >= 60 ? 'high' : riskScore >= 30 ? 'medium' : 'low',\n    summary: preRisks.length > 0 \n      ? `Phát hiện ${preRisks.length} điều khoản rủi ro: ${preRisks.join(', ')}. Hệ thống AI tạm thời không khả dụng, kết quả dựa trên phân tích rule-based.`\n      : 'Không phát hiện rủi ro rõ ràng. Hệ thống AI tạm thời không khả dụng, vui lòng kiểm tra lại sau.',\n    risk_items: preRisks.map(title => ({\n      title,\n      severity: 'medium',\n      matched_clause: 'Phát hiện bởi rule-based analysis',\n      recommendation: 'Vui lòng xem xét kỹ điều khoản này.'\n    })),\n    missing_clauses: [],\n    questions_for_landlord: [],\n    ai_powered: false,\n    fallback_reason: llmError?.error?.message || 'LLM unavailable'\n  };\n}\n\n// Add metadata\nresult.success = true;\nresult.processing_time_ms = processingTime;\nresult.filename = filename;\nresult.total_clauses_checked = (result.risk_items || []).length;\n\nreturn { json: result };"
+      },
+      "id": "parse_response",
+      "name": "Parse Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Access-Control-Allow-Methods", "value": "POST, OPTIONS" },
+              { "name": "Access-Control-Allow-Headers", "value": "Content-Type" }
+            ]
+          }
+        }
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [880, 0]
+    }
+  ],
+  "connections": {
+    "Contract Webhook": {
+      "main": [[{ "node": "Prepare Content", "type": "main", "index": 0 }]]
+    },
+    "Prepare Content": {
+      "main": [[{ "node": "Gemini Analysis", "type": "main", "index": 0 }]]
+    },
+    "Gemini Analysis": {
+      "main": [[{ "node": "Parse Response", "type": "main", "index": 0 }]]
+    },
+    "Parse Response": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "description": "Contract review with real AI (Gemini 1.5 Flash) + rule-based fallback. FREE with Google AI Studio API key."
+  }
+}

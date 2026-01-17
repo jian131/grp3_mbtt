@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { fetchListing, Listing } from '@/lib/api';
+import { fetchListing, Listing, getAIDecision, DecisionResult } from '@/lib/api';
 import ImageGallery from '@/components/Listing/ImageGallery';
-import { MapPin, Home, Ruler, TrendingUp, Eye, Calendar, Heart, Phone, User, Building2, School, Briefcase, Store } from 'lucide-react';
+import { MapPin, Home, Ruler, TrendingUp, Eye, Calendar, Heart, Phone, User, Building2, School, Briefcase, Store, Sparkles, CheckCircle, AlertTriangle, Loader2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 const MapComponent = dynamic(() => import('@/components/Map/RentalHeatmap'), { ssr: false });
@@ -14,6 +14,8 @@ export default function ListingDetailPage() {
   const router = useRouter();
   const [listing, setListing] = useState<Listing | null>(null);
   const [loading, setLoading] = useState(true);
+  const [aiDecision, setAIDecision] = useState<DecisionResult | null>(null);
+  const [aiLoading, setAILoading] = useState(false);
 
   useEffect(() => {
     const id = params.id as string;
@@ -24,6 +26,24 @@ export default function ListingDetailPage() {
       });
     }
   }, [params.id]);
+
+  const handleAIConsult = async () => {
+    if (!listing) return;
+    setAILoading(true);
+    try {
+      const result = await getAIDecision({
+        listing_id: listing.id,
+        user_intent: 'Kinh doanh F&B / Cửa hàng',
+        budget: listing.price || 50,
+        expected_revenue: (listing.price || 50) * 3
+      });
+      setAIDecision(result);
+    } catch (e) {
+      console.error('AI Decision error:', e);
+    } finally {
+      setAILoading(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -143,7 +163,104 @@ export default function ListingDetailPage() {
                     }`}>{listing.ai.riskLevel === 'low' ? 'Thấp' : listing.ai.riskLevel === 'high' ? 'Cao' : 'Trung bình'}</span>
                 </div>
               </div>
+
+              {/* AI Decision Support Button */}
+              {!aiDecision && (
+                <button
+                  onClick={handleAIConsult}
+                  disabled={aiLoading}
+                  className="mt-6 w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-xl text-white font-bold transition-all disabled:opacity-50"
+                >
+                  {aiLoading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Đang phân tích...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-5 h-5" />
+                      Tư Vấn AI Chi Tiết
+                    </>
+                  )}
+                </button>
+              )}
             </div>
+            )}
+
+            {/* AI Decision Result */}
+            {aiDecision && (
+              <div className="glass-card rounded-2xl p-8 border-2 border-purple-500/30">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-purple-400" />
+                    Tư Vấn AI
+                    {aiDecision.ai_powered && (
+                      <span className="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full">
+                        {aiDecision.model || 'Gemini'}
+                      </span>
+                    )}
+                  </h3>
+                  <div className={`text-2xl font-black ${
+                    aiDecision.verdict === 'recommend' ? 'text-green-400' :
+                    aiDecision.verdict === 'avoid' ? 'text-red-400' : 'text-yellow-400'
+                  }`}>
+                    {aiDecision.verdict === 'recommend' ? '✓ Khuyến nghị' :
+                     aiDecision.verdict === 'avoid' ? '✗ Không nên' : '⚖ Cân nhắc'}
+                  </div>
+                </div>
+
+                <p className="text-gray-300 mb-6">{aiDecision.summary}</p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  {/* Pros */}
+                  <div className="bg-green-500/10 p-4 rounded-xl border border-green-500/20">
+                    <h4 className="font-bold text-green-400 mb-3 flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4" /> Điểm mạnh
+                    </h4>
+                    <ul className="space-y-2">
+                      {aiDecision.pros.map((pro, i) => (
+                        <li key={i} className="text-sm text-gray-300 flex items-start gap-2">
+                          <span className="text-green-400 mt-1">•</span>
+                          {pro}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Cons */}
+                  <div className="bg-red-500/10 p-4 rounded-xl border border-red-500/20">
+                    <h4 className="font-bold text-red-400 mb-3 flex items-center gap-2">
+                      <AlertTriangle className="w-4 h-4" /> Điểm yếu
+                    </h4>
+                    <ul className="space-y-2">
+                      {aiDecision.cons.map((con, i) => (
+                        <li key={i} className="text-sm text-gray-300 flex items-start gap-2">
+                          <span className="text-red-400 mt-1">•</span>
+                          {con}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                {aiDecision.recommended_actions && aiDecision.recommended_actions.length > 0 && (
+                  <div className="bg-white/5 p-4 rounded-xl">
+                    <h4 className="font-bold text-cyan-400 mb-3">Hành động khuyến nghị</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {aiDecision.recommended_actions.map((action, i) => (
+                        <span key={i} className="text-xs bg-cyan-500/20 text-cyan-300 px-3 py-1.5 rounded-full">
+                          {action}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-4 text-xs text-gray-500 text-right">
+                  AI Score: {aiDecision.ai_score}/100 | Confidence: {aiDecision.confidence} | {aiDecision.processing_time_ms}ms
+                </div>
+              </div>
             )}
 
             {/* Amenities */}

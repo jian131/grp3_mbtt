@@ -1,0 +1,111 @@
+{
+  "name": "JFinder Valuation AI Enhanced",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "jfinder/ai/valuation",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook_valuation",
+      "name": "Valuation Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "ai-valuation"
+    },
+    {
+      "parameters": {
+        "jsCode": "// =================================================================\n// STEP 1: Calculate statistical valuation + prepare for LLM\n// =================================================================\nconst fs = require('fs');\nconst input = $input.first().json;\nconst body = input.body || input;\n\nconst district = body.district || '';\nconst ward = body.ward || '';\nconst type = body.type || 'streetfront';\nconst segment = body.segment || body.market_segment || 'street_retail';\nconst area = parseFloat(body.area_m2 || body.area) || 50;\nconst frontage = parseFloat(body.frontage_m || body.frontage) || 5;\nconst floors = parseInt(body.floors) || 1;\nconst province = body.province || body.city || '';\nconst currentPrice = parseFloat(body.current_price || body.price) || 0;\n\n// Load listings\nlet listings = $getWorkflowStaticData('global').listings || [];\nif (listings.length === 0) {\n  const paths = [\n    '/data/files/vn_rental_3cities_verified.json',\n    '/home/node/.n8n/files/vn_rental_3cities_verified.json'\n  ];\n  for (const p of paths) {\n    try {\n      if (fs.existsSync(p)) {\n        listings = JSON.parse(fs.readFileSync(p, 'utf8'));\n        $getWorkflowStaticData('global').listings = listings;\n        break;\n      }\n    } catch(e) {}\n  }\n}\n\nfunction normalize(str) {\n  if (!str) return '';\n  return str.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').trim();\n}\n\n// Filter comparables by segment (CRITICAL)\nlet comparables = listings.filter(l => {\n  if (segment && l.market_segment !== segment) return false;\n  if (type && l.type !== type) return false;\n  if (district && !normalize(l.district || '').includes(normalize(district))) return false;\n  if (province && !normalize(l.province || '').includes(normalize(province))) return false;\n  return true;\n});\n\n// Calculate statistics\nconst rentPerSqm = comparables\n  .map(l => l.rent_per_sqm_million || ((l.price || 0) / (l.area || 1)))\n  .filter(r => r > 0 && r < 100)\n  .sort((a, b) => a - b);\n\nconst n = rentPerSqm.length;\nlet p25 = 0.5, median = 1.0, p75 = 2.0, min = 0.3, max = 5.0;\n\nif (n > 0) {\n  p25 = rentPerSqm[Math.floor(n * 0.25)];\n  median = rentPerSqm[Math.floor(n * 0.5)];\n  p75 = rentPerSqm[Math.floor(n * 0.75)];\n  min = rentPerSqm[0];\n  max = rentPerSqm[n - 1];\n}\n\n// Adjustment factors\nlet adjustmentFactor = 1.0;\nlet adjustmentReasons = [];\n\nif (frontage > 8) {\n  adjustmentFactor += 0.15;\n  adjustmentReasons.push('Mặt tiền rộng (+15%)');\n} else if (frontage > 5) {\n  adjustmentFactor += 0.05;\n  adjustmentReasons.push('Mặt tiền tốt (+5%)');\n} else if (frontage < 3) {\n  adjustmentFactor -= 0.1;\n  adjustmentReasons.push('Mặt tiền hẹp (-10%)');\n}\n\nif ((type === 'shophouse' || type === 'office') && floors > 2) {\n  const bonus = (floors - 2) * 0.03;\n  adjustmentFactor += bonus;\n  adjustmentReasons.push(`Nhiều tầng (${floors} tầng, +${Math.round(bonus * 100)}%)`);\n}\n\nif (area > 150) {\n  adjustmentFactor -= 0.05;\n  adjustmentReasons.push('Diện tích lớn (-5%)');\n} else if (area < 30) {\n  adjustmentFactor += 0.1;\n  adjustmentReasons.push('Diện tích nhỏ (+10%)');\n}\n\n// Calculate prices\nconst suggestedPricePerSqm = median * adjustmentFactor;\nconst suggestedPrice = suggestedPricePerSqm * area;\nconst minPrice = p25 * adjustmentFactor * 0.95 * area;\nconst maxPrice = p75 * adjustmentFactor * 1.05 * area;\n\n// Confidence\nlet confidence = n >= 30 ? 'high' : n >= 10 ? 'medium' : 'low';\n\n// Top comparables for LLM context\nconst topComps = comparables.slice(0, 5).map(l => ({\n  name: l.name,\n  district: l.district,\n  area: l.area || l.area_m2,\n  price: l.price || l.price_million,\n  rent_per_sqm: l.rent_per_sqm_million\n}));\n\nreturn {\n  json: {\n    input: { district, ward, type, segment, area, frontage, floors, province, currentPrice },\n    stats: { p25, median, p75, min, max, sample_size: n },\n    adjustments: { factor: adjustmentFactor, reasons: adjustmentReasons },\n    valuation: {\n      suggested_price_million: Math.round(suggestedPrice * 10) / 10,\n      price_range: { min: Math.round(minPrice * 10) / 10, max: Math.round(maxPrice * 10) / 10 },\n      price_per_sqm: Math.round(suggestedPricePerSqm * 1000) / 1000,\n      confidence\n    },\n    comparables: topComps,\n    startTime: Date.now()\n  }\n};"
+      },
+      "id": "calc_valuation",
+      "name": "Calculate Valuation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={{ $credentials.gemini_api_key }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"Bạn là chuyên gia định giá bất động sản thương mại Việt Nam. Dựa trên dữ liệu thống kê, đưa ra nhận xét và gợi ý.\\n\\nOutput JSON:\\n{\\n  \\\"market_insight\\\": \\\"Nhận xét 1-2 câu về thị trường khu vực\\\",\\n  \\\"price_assessment\\\": \\\"Đánh giá mức giá đề xuất\\\",\\n  \\\"upgrade_suggestions\\\": [\\\"Gợi ý nâng cấp để tăng giá\\\"],\\n  \\\"negotiation_range\\\": {\\\"aggressive\\\": <số>, \\\"reasonable\\\": <số>, \\\"fair\\\": <số>},\\n  \\\"timing_advice\\\": \\\"Lời khuyên về thời điểm thuê\\\"\\n}\\n\\nPhân tích định giá mặt bằng:\\n\\nVị trí: {{ $json.input.district }}, {{ $json.input.province }}\\nLoại: {{ $json.input.type }} ({{ $json.input.segment }})\\nDiện tích: {{ $json.input.area }}m², Mặt tiền: {{ $json.input.frontage }}m, {{ $json.input.floors }} tầng\\n\\nThống kê thị trường ({{ $json.stats.sample_size }} tin rao):\\n- P25: {{ $json.stats.p25 }} triệu/m²\\n- Median: {{ $json.stats.median }} triệu/m²\\n- P75: {{ $json.stats.p75 }} triệu/m²\\n\\nĐịnh giá đề xuất: {{ $json.valuation.suggested_price_million }} triệu/tháng\\nKhoảng giá: {{ $json.valuation.price_range.min }} - {{ $json.valuation.price_range.max }} triệu\\nĐiều chỉnh: {{ $json.adjustments.reasons }}\\n\\nGiá hiện tại (nếu có): {{ $json.input.currentPrice }} triệu\"\n        }\n      ]\n    }\n  ],\n  \"generationConfig\": {\n    \"temperature\": 0.3,\n    \"maxOutputTokens\": 1000,\n    \"responseMimeType\": \"application/json\"\n  }\n}",
+        "options": {
+          "timeout": 25000
+        }
+      },
+      "id": "gemini_insight",
+      "name": "Gemini Insight",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "gemini_api",
+          "name": "Gemini API Key"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// =================================================================\n// STEP 3: Merge statistical valuation with LLM insights\n// =================================================================\nconst items = $input.all();\nconst valData = items.find(i => i.json.valuation)?.json || {};\nconst llmResponse = items.find(i => i.json.choices)?.json;\nconst llmError = items.find(i => i.json.error)?.json;\n\nconst processingTime = Date.now() - (valData.startTime || Date.now());\n\n// Base response from statistical calculation\nconst response = {\n  success: true,\n  input: valData.input,\n  market_stats: {\n    p25_per_sqm: valData.stats?.p25,\n    median_per_sqm: valData.stats?.median,\n    p75_per_sqm: valData.stats?.p75,\n    sample_size: valData.stats?.sample_size\n  },\n  valuation: valData.valuation,\n  adjustments: valData.adjustments,\n  comparable_listings: valData.comparables\n};\n\n// Try to add LLM insights\nlet aiInsights = null;\nif (llmResponse?.choices?.[0]?.message?.content) {\n  try {\n    const content = llmResponse.choices[0].message.content;\n    const jsonMatch = content.match(/```json\\s*([\\s\\S]*?)```/) || content.match(/```\\s*([\\s\\S]*?)```/);\n    const jsonStr = jsonMatch ? jsonMatch[1] : content;\n    aiInsights = JSON.parse(jsonStr.trim());\n  } catch (e) {\n    console.log('LLM parse failed:', e.message);\n  }\n}\n\nif (aiInsights) {\n  response.ai_insights = {\n    market_insight: aiInsights.market_insight,\n    price_assessment: aiInsights.price_assessment,\n    upgrade_suggestions: aiInsights.upgrade_suggestions || [],\n    negotiation_range: aiInsights.negotiation_range,\n    timing_advice: aiInsights.timing_advice,\n    ai_powered: true,\n    model: 'gpt-4o-mini'\n  };\n} else {\n  // Fallback insights\n  const suggested = valData.valuation?.suggested_price_million || 50;\n  response.ai_insights = {\n    market_insight: `Khu vực ${valData.input?.district || ''} có ${valData.stats?.sample_size || 0} tin rao ${valData.input?.segment === 'office' ? 'văn phòng' : 'mặt bằng kinh doanh'}.`,\n    price_assessment: 'Định giá dựa trên dữ liệu thống kê thị trường.',\n    upgrade_suggestions: ['Cải thiện mặt tiền', 'Thêm bảng hiệu rõ ràng', 'Nâng cấp điều hòa/chiếu sáng'],\n    negotiation_range: {\n      aggressive: Math.round(suggested * 0.85),\n      reasonable: Math.round(suggested * 0.93),\n      fair: Math.round(suggested)\n    },\n    timing_advice: 'Cuối quý thường có nhiều ưu đãi từ chủ nhà.',\n    ai_powered: false,\n    fallback_reason: llmError?.error?.message || 'LLM unavailable'\n  };\n}\n\nresponse.processing_time_ms = processingTime;\n\nreturn { json: response };"
+      },
+      "id": "merge_result",
+      "name": "Merge Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Access-Control-Allow-Methods", "value": "POST, OPTIONS" },
+              { "name": "Access-Control-Allow-Headers", "value": "Content-Type" }
+            ]
+          }
+        }
+      },
+      "id": "respond_valuation",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [880, 0]
+    }
+  ],
+  "connections": {
+    "Valuation Webhook": {
+      "main": [[{ "node": "Calculate Valuation", "type": "main", "index": 0 }]]
+    },
+    "Calculate Valuation": {
+      "main": [[{ "node": "Gemini Insight", "type": "main", "index": 0 }]]
+    },
+    "Gemini Insight": {
+      "main": [[{ "node": "Merge Results", "type": "main", "index": 0 }]]
+    },
+    "Merge Results": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "description": "Enhanced valuation with statistical analysis + LLM insights. Gemini 1.5 Flash for market commentary. FREE tier."
+  }
+}

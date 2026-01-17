@@ -1,0 +1,133 @@
+{
+  "name": "Contract Gemini v3",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "jfinder/contract/review",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "contract-gemini-v3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "contract_text",
+              "name": "contract_text",
+              "value": "={{ $json.body.contract_text }}",
+              "type": "string"
+            },
+            {
+              "id": "prompt",
+              "name": "prompt",
+              "value": "=Bạn là luật sư chuyên hợp đồng BĐS Việt Nam. Phân tích hợp đồng thuê:\\n\\n{{ $json.body.contract_text }}\\n\\nĐưa ra (max 400 từ):\\n1. Rủi ro pháp lý (2-3 điểm)\\n2. Điều khoản cần lưu ý (2-3)\\n3. Khuyến nghị: safe/review_needed/high_risk\\n4. Điều khoản nên thương lượng",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "prepare",
+      "name": "Prepare Prompt",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "operation": "message",
+        "resource": "text",
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gemini-1.5-flash"
+        },
+        "prompt": "={{ $json.prompt }}",
+        "options": {
+          "temperature": 0.7,
+          "maxOutputTokens": 1024
+        }
+      },
+      "id": "gemini",
+      "name": "Gemini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [640, 300],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "gemini_api",
+          "name": "Google PaLM API account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const text = $input.item.json.message?.content || '';\n\nlet risk_level = 'review_needed';\nconst lower = text.toLowerCase();\nif (lower.includes('high') || lower.includes('cao')) {\n  risk_level = 'high_risk';\n} else if (lower.includes('safe') || lower.includes('an toàn')) {\n  risk_level = 'safe';\n}\n\nreturn [{\n  json: {\n    success: true,\n    ai_powered: text.length > 0,\n    model: text.length > 0 ? 'gemini-1.5-flash' : '',\n    risk_level,\n    analysis: text || 'Hợp đồng cần xem xét bởi chuyên gia pháp lý.',\n    risks: ['Cần đánh giá chi tiết'],\n    recommendations: ['Tham khảo luật sư']\n  }\n}];"
+      },
+      "id": "format",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [840, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "respond_webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1040, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "return [{\n  json: {\n    success: true,\n    ai_powered: false,\n    fallback_reason: 'Gemini error',\n    risk_level: 'review_needed',\n    analysis: 'Hợp đồng cần được xem xét bởi chuyên gia pháp lý.',\n    risks: ['Không thể phân tích tự động'],\n    recommendations: ['Liên hệ luật sư để rà soát hợp đồng']\n  }\n}];"
+      },
+      "id": "fallback",
+      "name": "Fallback",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [840, 480]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Prepare Prompt", "type": "main", "index": 0 }]]
+    },
+    "Prepare Prompt": {
+      "main": [[{ "node": "Gemini", "type": "main", "index": 0 }]]
+    },
+    "Gemini": {
+      "main": [[{ "node": "Format Response", "type": "main", "index": 0 }]],
+      "error": [[{ "node": "Fallback", "type": "main", "index": 0 }]]
+    },
+    "Format Response": {
+      "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]]
+    },
+    "Fallback": {
+      "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-01-17T07:00:00.000Z",
+  "versionId": "1"
+}

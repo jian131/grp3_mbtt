@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import ValuationCard from '@/components/Analysis/ValuationCard';
 import { Calculator, FileText, ArrowRight, Loader2 } from 'lucide-react';
-import { calculateROI, getValuation } from '@/lib/api';
+import { calculateROI, getEnhancedValuation } from '@/lib/api';
 import { PROVINCES, getDistrictsByProvince, getProvinceShortName } from '@/lib/districts';
 
 // Helper: Determine price label based on comparison with suggested price
@@ -51,14 +51,16 @@ export default function AnalysisPage() {
   const handleAnalysis = async () => {
     setLoading(true);
     try {
-      // 1. Get Valuation - use segment + type from form
-      const valData = await getValuation({
+      // 1. Get Enhanced Valuation with AI insights - use segment + type from form
+      const valData = await getEnhancedValuation({
         district: valForm.district || 'Quận 1',
+        province: valForm.province || 'Hồ Chí Minh',
         area: Number(valForm.area) || 50,
         frontage: 5,
         floors: 1,
         type: valForm.type || 'streetfront',  // Physical type
-        segment: valForm.segment || 'street_retail'  // Market segment (CRITICAL)
+        segment: valForm.segment || 'street_retail',  // Market segment (CRITICAL)
+        current_price: Number(valForm.price) || 0
       });
       // Transform valuation response for ValuationCard
       if (valData?.valuation) {

@@ -1,0 +1,138 @@
+{
+  "name": "Contract Review AI v2",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "jfinder/contract/review",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-start",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "contract-ai-webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "contract_text",
+              "name": "contract_text",
+              "value": "={{ $json.body.contract_text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "extract-text",
+      "name": "Extract Contract Text",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "prompt",
+              "name": "prompt",
+              "value": "=Bạn là luật sư chuyên hợp đồng bất động sản Việt Nam. Phân tích hợp đồng thuê sau:\n\n{{ $json.contract_text }}\n\nHãy đưa ra (max 400 từ):\n1. Rủi ro pháp lý (2-3 điểm)\n2. Điều khoản cần lưu ý (2-3 điểm)\n3. Khuyến nghị: \"safe\", \"review_needed\", \"high_risk\"\n4. Điều khoản nên thương lượng (nếu có)",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "prepare-prompt",
+      "name": "Prepare Prompt",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAVLv-9OmNzwECmnOw0rP_JZb6MxLiBtCg",
+        "authentication": "none",
+        "sendBody": true,
+        "contentType": "application/json",
+        "body": "={{ JSON.stringify({ contents: [{ parts: [{ text: $json.prompt }] }] }) }}",
+        "options": {}
+      },
+      "id": "gemini-call",
+      "name": "Gemini Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const geminiResponse = $input.item.json;\n\nlet ai_powered = false;\nlet analysis = 'Phân tích cơ bản.';\nlet risk_level = 'review_needed';\nlet model = '';\nlet risks = ['Cần xem xét bởi chuyên gia'];\nlet recommendations = ['Tham khảo luật sư trước khi ký'];\n\nif (geminiResponse.candidates && geminiResponse.candidates.length > 0) {\n  const text = geminiResponse.candidates[0].content.parts[0].text;\n  ai_powered = true;\n  analysis = text;\n  model = 'gemini-1.5-flash';\n  \n  const lowerText = text.toLowerCase();\n  if (lowerText.includes('high') || lowerText.includes('cao')) {\n    risk_level = 'high_risk';\n  } else if (lowerText.includes('safe') || lowerText.includes('an toàn')) {\n    risk_level = 'safe';\n  }\n}\n\nreturn [{\n  json: {\n    success: true,\n    ai_powered,\n    model,\n    risk_level,\n    analysis,\n    risks,\n    recommendations\n  }\n}];"
+      },
+      "id": "format-response",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "return [{\n  json: {\n    success: true,\n    ai_powered: false,\n    fallback_reason: 'Gemini API error',\n    risk_level: 'review_needed',\n    analysis: 'Hợp đồng cần được xem xét bởi chuyên gia pháp lý.',\n    risks: ['Không thể phân tích tự động'],\n    recommendations: ['Liên hệ luật sư để rà soát hợp đồng']\n  }\n}];"
+      },
+      "id": "fallback",
+      "name": "Fallback Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 500]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Extract Contract Text", "type": "main", "index": 0 }]]
+    },
+    "Extract Contract Text": {
+      "main": [[{ "node": "Prepare Prompt", "type": "main", "index": 0 }]]
+    },
+    "Prepare Prompt": {
+      "main": [[{ "node": "Gemini Analysis", "type": "main", "index": 0 }]]
+    },
+    "Gemini Analysis": {
+      "main": [[{ "node": "Format Response", "type": "main", "index": 0 }]],
+      "error": [[{ "node": "Fallback Response", "type": "main", "index": 0 }]]
+    },
+    "Format Response": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    },
+    "Fallback Response": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "versionId": "1",
+  "id": "contract-ai-v2",
+  "meta": {
+    "instanceId": "local"
+  },
+  "tags": []
+}

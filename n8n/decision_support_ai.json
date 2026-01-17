@@ -1,0 +1,111 @@
+{
+  "name": "JFinder Decision Support AI",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "jfinder/ai/decision",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook_decision",
+      "name": "Decision Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "ai-decision"
+    },
+    {
+      "parameters": {
+        "jsCode": "// =================================================================\n// STEP 1: Load listing data and prepare context for LLM\n// =================================================================\nconst fs = require('fs');\nconst input = $input.first().json;\nconst body = input.body || input;\n\nconst listingId = body.listing_id || body.listingId;\nconst userIntent = body.user_intent || body.intent || 'Kinh doanh F&B';\nconst budget = parseFloat(body.budget) || 0;\nconst expectedRevenue = parseFloat(body.expected_revenue || body.expectedRevenue) || 0;\n\n// Load listings\nlet listings = $getWorkflowStaticData('global').listings || [];\nif (listings.length === 0) {\n  const paths = [\n    '/data/files/vn_rental_3cities_verified.json',\n    '/home/node/.n8n/files/vn_rental_3cities_verified.json'\n  ];\n  for (const p of paths) {\n    try {\n      if (fs.existsSync(p)) {\n        listings = JSON.parse(fs.readFileSync(p, 'utf8'));\n        $getWorkflowStaticData('global').listings = listings;\n        break;\n      }\n    } catch(e) {}\n  }\n}\n\n// Find listing\nconst listing = listings.find(l => l.id === listingId);\n\nif (!listing) {\n  return {\n    json: {\n      success: false,\n      error: 'Listing not found',\n      listing_id: listingId\n    }\n  };\n}\n\n// Get market comparables\nconst comparables = listings.filter(l => \n  l.district === listing.district && \n  l.market_segment === listing.market_segment &&\n  l.id !== listingId\n).slice(0, 5);\n\nconst prices = comparables.map(l => l.price || 0).filter(p => p > 0);\nprices.sort((a, b) => a - b);\nconst medianPrice = prices.length > 0 ? prices[Math.floor(prices.length / 2)] : 0;\nconst listingPrice = listing.price || listing.price_million || 0;\n\nconst priceAnalysis = medianPrice > 0 ? {\n  is_below_market: listingPrice < medianPrice * 0.9,\n  is_above_market: listingPrice > medianPrice * 1.1,\n  price_vs_market_pct: Math.round(((listingPrice - medianPrice) / medianPrice) * 100)\n} : { is_below_market: false, is_above_market: false, price_vs_market_pct: 0 };\n\n// Parse owner\nlet owner = listing.owner;\nif (typeof owner === 'string') {\n  try {\n    owner = JSON.parse(owner.replace(/'/g, '\"'));\n  } catch(e) {\n    owner = { name: 'Unknown' };\n  }\n}\n\n// Build context\nconst context = {\n  listing: {\n    id: listing.id,\n    name: listing.name,\n    address: listing.address,\n    district: listing.district,\n    ward: listing.ward,\n    province: listing.province,\n    type: listing.type,\n    market_segment: listing.market_segment,\n    area: listing.area || listing.area_m2,\n    frontage: listing.frontage || listing.frontage_m,\n    floors: listing.floors,\n    price_million: listingPrice,\n    rent_per_sqm: listing.rent_per_sqm_million,\n    ai_potential_score: listing.ai_potential_score,\n    ai_risk_level: listing.ai_risk_level,\n    ai_suggested_price: listing.ai_suggested_price\n  },\n  market: {\n    comparable_count: comparables.length,\n    median_price: medianPrice,\n    price_analysis: priceAnalysis\n  },\n  user: {\n    intent: userIntent,\n    budget: budget,\n    expected_revenue: expectedRevenue\n  }\n};\n\nreturn {\n  json: {\n    context,\n    startTime: Date.now(),\n    hasListing: true\n  }\n};"
+      },
+      "id": "prepare_context",
+      "name": "Prepare Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={{ $credentials.gemini_api_key }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"Bạn là chuyên gia tư vấn bất động sản thương mại tại Việt Nam. Phân tích mặt bằng và đưa ra khuyến nghị cho người thuê.\\n\\nOutput JSON theo format:\\n{\\n  \\\"summary\\\": \\\"Tóm tắt đánh giá 2-3 câu\\\",\\n  \\\"ai_score\\\": <0-100, điểm tổng hợp>,\\n  \\\"confidence\\\": \\\"high|medium|low\\\",\\n  \\\"pros\\\": [\\\"Điểm mạnh 1\\\", \\\"Điểm mạnh 2\\\"],\\n  \\\"cons\\\": [\\\"Điểm yếu 1\\\", \\\"Điểm yếu 2\\\"],\\n  \\\"risk_flags\\\": [\\\"Rủi ro cần lưu ý\\\"],\\n  \\\"recommended_actions\\\": [\\\"Hành động 1\\\", \\\"Hành động 2\\\"],\\n  \\\"negotiation_tips\\\": [\\\"Mẹo đàm phán\\\"],\\n  \\\"verdict\\\": \\\"recommend|consider|avoid\\\"\\n}\\n\\nKiến thức thị trường VN:\\n- Mặt bằng Quận 1, Hoàn Kiếm: premium, 80-300 triệu/tháng\\n- Quận 3, 7, Bình Thạnh: 30-80 triệu/tháng\\n- Street retail (mặt tiền): giá cao hơn 30-50% office\\n- Frontage tốt: >= 5m\\n- F&B cần area >= 40m2, retail >= 30m2\\n\\nPhân tích mặt bằng sau cho mục đích: {{ $json.context.user.intent }}\\n\\nThông tin mặt bằng:\\n- Tên: {{ $json.context.listing.name }}\\n- Địa chỉ: {{ $json.context.listing.address || $json.context.listing.district }}\\n- Quận: {{ $json.context.listing.district }}, {{ $json.context.listing.province }}\\n- Loại: {{ $json.context.listing.type }} ({{ $json.context.listing.market_segment }})\\n- Diện tích: {{ $json.context.listing.area }}m², Mặt tiền: {{ $json.context.listing.frontage }}m\\n- Số tầng: {{ $json.context.listing.floors }}\\n- Giá thuê: {{ $json.context.listing.price_million }} triệu/tháng ({{ $json.context.listing.rent_per_sqm }} triệu/m²)\\n- AI Potential Score: {{ $json.context.listing.ai_potential_score }}\\n- AI Suggested Price: {{ $json.context.listing.ai_suggested_price }} triệu\\n\\nSo sánh thị trường:\\n- Số tin rao cùng khu vực: {{ $json.context.market.comparable_count }}\\n- Giá median khu vực: {{ $json.context.market.median_price }} triệu\\n- So với thị trường: {{ $json.context.market.price_analysis.price_vs_market_pct }}%\\n\\nNgân sách người dùng: {{ $json.context.user.budget }} triệu\\nDoanh thu kỳ vọng: {{ $json.context.user.expected_revenue }} triệu/tháng\"\n        }\n      ]\n    }\n  ],\n  \"generationConfig\": {\n    \"temperature\": 0.4,\n    \"maxOutputTokens\": 1500,\n    \"responseMimeType\": \"application/json\"\n  }\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "gemini_decision",
+      "name": "Gemini Decision",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "gemini_api",
+          "name": "Gemini API Key"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// =================================================================\n// STEP 3: Parse LLM response OR generate rule-based fallback\n// =================================================================\nconst items = $input.all();\nconst prepData = items.find(i => i.json.context)?.json || {};\nconst llmResponse = items.find(i => i.json.choices)?.json;\nconst llmError = items.find(i => i.json.error)?.json;\n\nconst processingTime = Date.now() - (prepData.startTime || Date.now());\nconst context = prepData.context || {};\nconst listing = context.listing || {};\nconst market = context.market || {};\n\nlet result = null;\n\n// Try parse LLM response\nif (llmResponse?.choices?.[0]?.message?.content) {\n  try {\n    const content = llmResponse.choices[0].message.content;\n    const jsonMatch = content.match(/```json\\s*([\\s\\S]*?)```/) || content.match(/```\\s*([\\s\\S]*?)```/);\n    const jsonStr = jsonMatch ? jsonMatch[1] : content;\n    result = JSON.parse(jsonStr.trim());\n    result.ai_powered = true;\n    result.model = 'gpt-4o-mini';\n  } catch (e) {\n    console.log('Failed to parse LLM:', e.message);\n  }\n}\n\n// Fallback to rule-based\nif (!result) {\n  const price = listing.price_million || 0;\n  const area = listing.area || 50;\n  const frontage = listing.frontage || 3;\n  const potentialScore = listing.ai_potential_score || 60;\n  \n  let score = 50;\n  let pros = [];\n  let cons = [];\n  let risks = [];\n  let verdict = 'consider';\n  \n  // Price analysis\n  if (market.price_analysis?.is_below_market) {\n    score += 15;\n    pros.push('Giá thuê dưới thị trường ' + Math.abs(market.price_analysis.price_vs_market_pct) + '%');\n  } else if (market.price_analysis?.is_above_market) {\n    score -= 10;\n    cons.push('Giá thuê cao hơn thị trường ' + market.price_analysis.price_vs_market_pct + '%');\n  }\n  \n  // Frontage\n  if (frontage >= 6) {\n    score += 10;\n    pros.push('Mặt tiền rộng (' + frontage + 'm), thuận lợi kinh doanh');\n  } else if (frontage < 4) {\n    score -= 5;\n    cons.push('Mặt tiền hẹp, khó nhận diện thương hiệu');\n  }\n  \n  // Area\n  if (area >= 60) {\n    pros.push('Diện tích rộng (' + area + 'm²)');\n  } else if (area < 30) {\n    cons.push('Diện tích nhỏ, hạn chế loại hình kinh doanh');\n  }\n  \n  // AI scores from dataset\n  if (potentialScore >= 80) {\n    score += 15;\n    pros.push('Tiềm năng kinh doanh cao (AI score: ' + potentialScore + ')');\n  }\n  \n  // Determine verdict\n  if (score >= 70) verdict = 'recommend';\n  else if (score < 45) verdict = 'avoid';\n  \n  result = {\n    summary: `Mặt bằng ${listing.name || 'này'} tại ${listing.district} ${score >= 60 ? 'khá phù hợp' : 'cần cân nhắc'} cho mục đích ${context.user?.intent || 'kinh doanh'}. ${verdict === 'recommend' ? 'Khuyến nghị tiến hành.' : verdict === 'avoid' ? 'Nên tìm phương án khác.' : 'Cần đàm phán thêm.'}`,\n    ai_score: Math.min(100, Math.max(0, score)),\n    confidence: 'medium',\n    pros: pros.length > 0 ? pros : ['Vị trí có traffic'],\n    cons: cons.length > 0 ? cons : ['Cần khảo sát thực tế'],\n    risk_flags: risks,\n    recommended_actions: ['Đàm phán giá thuê', 'Khảo sát vào giờ cao điểm', 'Kiểm tra hợp đồng kỹ'],\n    negotiation_tips: ['Yêu cầu miễn phí 1-2 tháng đầu', 'Đề nghị cố định giá 2 năm'],\n    verdict,\n    ai_powered: false,\n    fallback_reason: llmError?.error?.message || 'LLM unavailable'\n  };\n}\n\n// Add listing context to response\nresult.success = true;\nresult.listing = listing;\nresult.market_context = market;\nresult.processing_time_ms = processingTime;\n\nreturn { json: result };"
+      },
+      "id": "parse_decision",
+      "name": "Parse Decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Access-Control-Allow-Methods", "value": "POST, OPTIONS" },
+              { "name": "Access-Control-Allow-Headers", "value": "Content-Type" }
+            ]
+          }
+        }
+      },
+      "id": "respond_decision",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [880, 0]
+    }
+  ],
+  "connections": {
+    "Decision Webhook": {
+      "main": [[{ "node": "Prepare Context", "type": "main", "index": 0 }]]
+    },
+    "Prepare Context": {
+      "main": [[{ "node": "Gemini Decision", "type": "main", "index": 0 }]]
+    },
+    "Gemini Decision": {
+      "main": [[{ "node": "Parse Decision", "type": "main", "index": 0 }]]
+    },
+    "Parse Decision": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "description": "AI-powered decision support for rental listings. Gemini 1.5 Flash with rule-based fallback. FREE tier."
+  }
+}

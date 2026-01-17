@@ -539,6 +539,169 @@ export async function fetchStatsLegacy(): Promise<Stats | null> {
   }
 }
 
+// ==================== AI DECISION SUPPORT ====================
+
+export interface DecisionInput {
+  listing_id: string;
+  user_intent?: string;
+  budget?: number;
+  expected_revenue?: number;
+}
+
+export interface DecisionResult {
+  success: boolean;
+  summary: string;
+  ai_score: number;
+  confidence: 'low' | 'medium' | 'high';
+  pros: string[];
+  cons: string[];
+  risk_flags: string[];
+  recommended_actions: string[];
+  negotiation_tips: string[];
+  verdict: 'recommend' | 'consider' | 'avoid';
+  ai_powered: boolean;
+  model?: string;
+  listing?: any;
+  processing_time_ms?: number;
+}
+
+/**
+ * Get AI decision support for a listing
+ */
+export async function getAIDecision(input: DecisionInput): Promise<DecisionResult | null> {
+  try {
+    const controller = createTimeoutController(30000); // 30s for AI calls
+    const res = await fetch(`/api/ai/decision`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(input),
+      signal: controller.signal
+    });
+
+    if (!res.ok) {
+      console.error(`AI Decision API failed: ${res.status}`);
+      return null;
+    }
+
+    const json = await res.json();
+    return json.success ? json : null;
+  } catch (error) {
+    console.error('API Error (AI decision):', error);
+    return null;
+  }
+}
+
+// ==================== AI CONTRACT REVIEW ====================
+
+export interface ContractReviewInput {
+  content: string;
+  filename?: string;
+}
+
+export interface RiskItem {
+  title: string;
+  severity: 'high' | 'medium' | 'low';
+  matched_clause: string;
+  recommendation: string;
+}
+
+export interface ContractReviewResult {
+  success: boolean;
+  risk_score: number;
+  risk_level: 'high' | 'medium' | 'low';
+  risk_items: RiskItem[];
+  summary: string;
+  missing_clauses?: string[];
+  questions_for_landlord?: string[];
+  ai_powered: boolean;
+  model?: string;
+  processing_time_ms?: number;
+}
+
+/**
+ * Get AI contract review
+ */
+export async function getContractReview(input: ContractReviewInput): Promise<ContractReviewResult | null> {
+  try {
+    const controller = createTimeoutController(30000); // 30s for AI calls
+    const res = await fetch(`/api/ai/contract`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ contract_text: input.content }),
+      signal: controller.signal
+    });
+
+    if (!res.ok) {
+      console.error(`Contract Review API failed: ${res.status}`);
+      return null;
+    }
+
+    const json = await res.json();
+    return json.success ? json : null;
+  } catch (error) {
+    console.error('API Error (contract review):', error);
+    return null;
+  }
+}
+
+// ==================== AI ENHANCED VALUATION ====================
+
+export interface EnhancedValuationInput extends ValuationInput {
+  segment?: string;
+  province?: string;
+  current_price?: number;
+}
+
+export interface AIInsights {
+  market_insight: string;
+  price_assessment: string;
+  upgrade_suggestions: string[];
+  negotiation_range?: {
+    aggressive: number;
+    reasonable: number;
+    fair: number;
+  };
+  timing_advice: string;
+  ai_powered: boolean;
+}
+
+export interface EnhancedValuationResult extends ValuationResult {
+  ai_insights?: AIInsights;
+}
+
+/**
+ * Get enhanced valuation with AI insights
+ */
+export async function getEnhancedValuation(input: EnhancedValuationInput): Promise<EnhancedValuationResult | null> {
+  try {
+    const controller = createTimeoutController(30000); // 30s for AI calls
+    const res = await fetch(`/api/ai/valuation`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(input),
+      signal: controller.signal
+    });
+
+    if (!res.ok) {
+      console.warn('AI Valuation API failed, falling back to basic valuation');
+      return await getValuation(input);
+    }
+
+    const json = await res.json();
+    return json.success ? json : await getValuation(input);
+  } catch (error) {
+    console.error('API Error (AI valuation):', error);
+    // Fallback to basic valuation
+    return await getValuation(input);
+  }
+}
+
 // ==================== HEALTH CHECK ====================
 
 export interface HealthCheckResult {
