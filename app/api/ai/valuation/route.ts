@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import listingsData from '@/app/data/vn_rental_3cities_verified.json';
 
-const GEMINI_API_KEY = 'AIzaSyAVLv-9OmNzwECmnOw0rP_JZb6MxLiBtCg';
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+const GROQ_API_KEY = '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';
+const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 interface Listing {
   district: string;
   type: string;
   market_segment: string;
-  rental_price: number;
+  price: number;
   [key: string]: unknown;
 }
 
@@ -36,8 +36,8 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Calculate statistics
-    const prices = filtered.map(item => item.rental_price).sort((a, b) => a - b);
+    // Calculate statistics - price is in millions, convert to VND
+    const prices = filtered.map(item => item.price * 1000000).sort((a, b) => a - b);
     const p25 = prices[Math.floor(prices.length * 0.25)];
     const median = prices[Math.floor(prices.length * 0.5)];
     const p75 = prices[Math.floor(prices.length * 0.75)];
@@ -71,28 +71,30 @@ Hãy đưa ra (tối đa 300 từ):
 2. Gợi ý nâng cấp để tăng giá trị (nếu có)
 3. Lời khuyên khi thương lượng giá`;
 
-    // Call Gemini API
-    const geminiResponse = await fetch(`${GEMINI_URL}?key=${GEMINI_API_KEY}`, {
+    // Call Groq API
+    const groqResponse = await fetch(GROQ_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_API_KEY}`
+      },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 1024
-        }
+        model: 'llama-3.3-70b-versatile',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.7,
+        max_tokens: 800
       })
     });
 
     let aiText = '';
     let aiPowered = false;
 
-    if (geminiResponse.ok) {
-      const geminiData = await geminiResponse.json();
-      aiText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    if (groqResponse.ok) {
+      const groqData = await groqResponse.json();
+      aiText = groqData.choices?.[0]?.message?.content || '';
       aiPowered = aiText.length > 0;
     } else {
-      console.error('Gemini API error:', await geminiResponse.text());
+      console.error('Groq API error:', await groqResponse.text());
       aiText = `Khu vực ${district} có ${filtered.length} tin rao ${segment}. Giá trung vị: ${median.toLocaleString()} VNĐ/tháng. Giá đề xuất cho mặt bằng ${area}m²: ${suggested_price.toLocaleString()} VNĐ/tháng.`;
     }
 
@@ -114,7 +116,7 @@ Hãy đưa ra (tối đa 300 từ):
       },
       ai_insights: {
         ai_powered: aiPowered,
-        model: aiPowered ? 'gemini-1.5-flash' : '',
+        model: aiPowered ? 'llama-3.3-70b' : '',
         market_insight: aiText,
         upgrade_suggestions: [],
         negotiation_tips: []

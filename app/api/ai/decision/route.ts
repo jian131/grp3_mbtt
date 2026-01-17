@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import listingsData from '@/app/data/vn_rental_3cities_verified.json';
 
-const GEMINI_API_KEY = 'AIzaSyAVLv-9OmNzwECmnOw0rP_JZb6MxLiBtCg';
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+// Free API key: https://console.groq.com/keys
+const GROQ_API_KEY = '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';
+const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 interface Listing {
-  listing_id: string;
+  id: string;
   district: string;
   ward: string;
   province: string;
@@ -13,8 +14,8 @@ interface Listing {
   area: number;
   frontage: number;
   floors: number;
-  rental_price: number;
-  description: string;
+  price: number;
+  name: string;
   [key: string]: unknown;
 }
 
@@ -25,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     // Find listing
     const listings = listingsData as Listing[];
-    const listing = listings.find(l => l.listing_id === listing_id);
+    const listing = listings.find(l => l.id === listing_id);
 
     if (!listing) {
       return NextResponse.json({
@@ -38,14 +39,14 @@ export async function POST(request: NextRequest) {
     // Build prompt
     const prompt = `Bạn là chuyên gia tư vấn bất động sản Việt Nam. Khách hàng đang xem mặt bằng:
 
-- ID: ${listing.listing_id}
+- ID: ${listing.id}
 - Địa điểm: ${listing.ward}, ${listing.district}, ${listing.province}
 - Loại: ${listing.market_segment}
 - Diện tích: ${listing.area}m²
 - Mặt tiền: ${listing.frontage}m
 - Số tầng: ${listing.floors}
-- Giá thuê: ${listing.rental_price.toLocaleString()} VNĐ/tháng
-- Mô tả: ${listing.description?.substring(0, 300) || 'Không có mô tả'}
+- Giá thuê: ${(listing.price * 1000000).toLocaleString()} VNĐ/tháng
+- Tên: ${listing.name || 'Không có tên'}
 
 Mục đích thuê của khách: ${user_intent || 'Chưa xác định'}
 
@@ -55,29 +56,31 @@ Hãy đưa ra đánh giá ngắn gọn (tối đa 250 từ):
 3. Khuyến nghị: "highly_recommended" / "recommended" / "consider" / "not_suitable"
 4. Lý do cho khuyến nghị`;
 
-    // Call Gemini API
-    const geminiResponse = await fetch(`${GEMINI_URL}?key=${GEMINI_API_KEY}`, {
+    // Call Groq API (free, fast LLM)
+    const groqResponse = await fetch(GROQ_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_API_KEY}`
+      },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 1024
-        }
+        model: 'llama-3.3-70b-versatile',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.7,
+        max_tokens: 1000
       })
     });
 
-    if (!geminiResponse.ok) {
-      const errorText = await geminiResponse.text();
-      console.error('Gemini API error:', errorText);
+    if (!groqResponse.ok) {
+      const errorText = await groqResponse.text();
+      console.error('Groq API error:', errorText);
 
       // Return fallback response
       return NextResponse.json({
         success: true,
-        listing_id: listing.listing_id,
+        listing_id: listing.id,
         ai_powered: false,
-        fallback_reason: `Gemini API error: ${geminiResponse.status}`,
+        fallback_reason: `Groq API error: ${groqResponse.status}`,
         verdict: 'consider',
         analysis: 'Mặt bằng này có vị trí thuận tiện. Hãy đến xem trực tiếp để đánh giá chi tiết hơn về không gian và tiện ích xung quanh.',
         pros: ['Vị trí thuận tiện', 'Giá hợp lý'],
@@ -85,8 +88,8 @@ Hãy đưa ra đánh giá ngắn gọn (tối đa 250 từ):
       });
     }
 
-    const geminiData = await geminiResponse.json();
-    const aiText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    const groqData = await groqResponse.json();
+    const aiText = groqData.choices?.[0]?.message?.content || '';
 
     // Determine verdict from AI response
     let verdict = 'consider';
@@ -101,9 +104,9 @@ Hãy đưa ra đánh giá ngắn gọn (tối đa 250 từ):
 
     return NextResponse.json({
       success: true,
-      listing_id: listing.listing_id,
+      listing_id: listing.id,
       ai_powered: true,
-      model: 'gemini-1.5-flash',
+      model: 'llama-3.3-70b',
       verdict,
       analysis: aiText,
       pros: ['Xem chi tiết trong phân tích'],

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const GEMINI_API_KEY = 'AIzaSyAVLv-9OmNzwECmnOw0rP_JZb6MxLiBtCg';
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+const GROQ_API_KEY = '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';
+const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,27 +27,29 @@ Hãy đưa ra (tối đa 400 từ):
 3. Đánh giá tổng thể: "safe" (an toàn), "review_needed" (cần xem xét thêm), hoặc "high_risk" (rủi ro cao)
 4. Điều khoản nên thương lượng lại (nếu có)`;
 
-    // Call Gemini API
-    const geminiResponse = await fetch(`${GEMINI_URL}?key=${GEMINI_API_KEY}`, {
+    // Call Groq API
+    const groqResponse = await fetch(GROQ_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_API_KEY}`
+      },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.5,
-          maxOutputTokens: 1024
-        }
+        model: 'llama-3.3-70b-versatile',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.5,
+        max_tokens: 1200
       })
     });
 
-    if (!geminiResponse.ok) {
-      const errorText = await geminiResponse.text();
-      console.error('Gemini API error:', errorText);
+    if (!groqResponse.ok) {
+      const errorText = await groqResponse.text();
+      console.error('Groq API error:', errorText);
 
       return NextResponse.json({
         success: true,
         ai_powered: false,
-        fallback_reason: `Gemini API error: ${geminiResponse.status}`,
+        fallback_reason: `Groq API error: ${groqResponse.status}`,
         risk_level: 'review_needed',
         analysis: 'Hợp đồng cần được xem xét bởi chuyên gia pháp lý. Vui lòng liên hệ luật sư để được tư vấn chi tiết.',
         risks: ['Không thể phân tích tự động'],
@@ -55,8 +57,8 @@ Hãy đưa ra (tối đa 400 từ):
       });
     }
 
-    const geminiData = await geminiResponse.json();
-    const aiText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    const groqData = await groqResponse.json();
+    const aiText = groqData.choices?.[0]?.message?.content || '';
 
     // Determine risk level
     let risk_level = 'review_needed';
@@ -70,7 +72,7 @@ Hãy đưa ra (tối đa 400 từ):
     return NextResponse.json({
       success: true,
       ai_powered: true,
-      model: 'gemini-1.5-flash',
+      model: 'llama-3.3-70b',
       risk_level,
       analysis: aiText,
       risks: ['Xem chi tiết trong phân tích'],
