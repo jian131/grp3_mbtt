@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import listingsData from '@/app/data/vn_rental_3cities_verified.json';
+import listingsData from '@/app/data/listings_vn_postmerge.json';
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY || '';
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';

@@ -1,160 +1,142 @@
-# Test Checklist - JFinder System Fixes
+# JFinder Post-Merge Test Checklist
 
-**Version:** 2026-01-16
-**Tester:** ******\_\_\_******
-**Environment:** ☐ Local ☐ Vercel Production
+**Date:** 2026-01-17  
+**Dataset:** `listings_vn_postmerge.csv` (1,170 listings)  
+**Admin Catalog:** `admin_catalog_vn_postmerge.json` (3 provinces, 30 districts, 329 wards)
+
+## Pre-Test Verification
+
+- [x] Dataset copied: `app/data/listings_vn_postmerge.csv`
+- [x] JSON generated: `app/data/listings_vn_postmerge.json`
+- [x] Admin catalog: `app/data/admin_catalog_vn_postmerge.json`
+- [x] FE imports updated (5 API routes)
+- [x] n8n workflow updated
+- [x] SQLite for Superset updated
+- [x] Build passes: `npm run build`
 
 ---
 
-## A. GEO DATA & MAP (Định vị)
+## Test Cases
 
-### A1. Hoàn Kiếm Search Test
+### TC01: Filter by Province → Map Auto-Fit
 
-| Step | Action                             | Expected Result                                        | Pass |
-| ---- | ---------------------------------- | ------------------------------------------------------ | ---- |
-| 1    | Mở http://localhost:3000/search    | Page load không lỗi                                    | ☐    |
-| 2    | Chọn Province = "Thành phố Hà Nội" | Dropdown cập nhật districts                            | ☐    |
-| 3    | Chọn District = "Quận Hoàn Kiếm"   | Filter áp dụng                                         | ☐    |
-| 4    | Bấm "Tìm kiếm"                     | Results hiển thị                                       | ☐    |
-| 5    | Quan sát Map                       | **Map zoom đến khu vực Hoàn Kiếm (trung tâm HN)**      | ☐    |
-| 6    | Check markers                      | **Markers nằm trong khu Hoàn Kiếm, không ở Long Biên** | ☐    |
+| Step | Action | Expected Result |
+|------|--------|-----------------|
+| 1 | Go to `/search` | Page loads with listings |
+| 2 | Select Province = "Hồ Chí Minh" | Map zooms to HCM area (lat ~10.7-10.9) |
+| 3 | Verify listings | Only HCM listings shown (520 total) |
 
-### A2. Quận 1 (HCM) Test
+**Status:** [ ] Pass / [ ] Fail
 
-| Step | Action                                  | Expected Result                  | Pass |
-| ---- | --------------------------------------- | -------------------------------- | ---- |
-| 1    | Chọn Province = "Thành phố Hồ Chí Minh" | Districts load                   | ☐    |
-| 2    | Chọn District = "Quận 1"                | Filter áp dụng                   | ☐    |
-| 3    | Bấm "Tìm kiếm"                          | Results hiển thị                 | ☐    |
-| 4    | Check Map bounds                        | Map zoom vào Q1 (gần Bến Thành)  | ☐    |
-| 5    | Check markers                           | Markers ở Q1, không ở Thủ Đức/Q7 | ☐    |
+---
 
-### A3. Script Verification (Developer)
+### TC02: Filter by District → Map Auto-Fit
+
+| Step | Action | Expected Result |
+|------|--------|-----------------|
+| 1 | Select Province = "Hà Nội" | Map zooms to Hanoi |
+| 2 | Select District = "Hoàn Kiếm" | Map zooms to Hoàn Kiếm area |
+| 3 | Verify listings | Only Hoàn Kiếm listings shown |
+
+**Status:** [ ] Pass / [ ] Fail
+
+---
+
+### TC03: Click Listing → FlyTo Correct Location
+
+| Step | Action | Expected Result |
+|------|--------|-----------------|
+| 1 | Click on any listing card | Map flies to exact lat/lon of listing |
+| 2 | Check marker position | Marker is at correct location |
+| 3 | Verify coordinates | lat/lon match listing data |
+
+**Status:** [ ] Pass / [ ] Fail
+
+---
+
+### TC04: Heatmap Points in Correct Area
+
+| Step | Action | Expected Result |
+|------|--------|-----------------|
+| 1 | Enable heatmap view | Heatmap displays |
+| 2 | Filter by "Đà Nẵng" | Heatmap points cluster in DN area (lat ~16.0) |
+| 3 | No stray points | No points outside Đà Nẵng |
+
+**Status:** [ ] Pass / [ ] Fail
+
+---
+
+### TC05: ROI Calculator
+
+| Step | Action | Expected Result |
+|------|--------|-----------------|
+| 1 | Navigate to listing detail | Detail page loads |
+| 2 | Enter ROI parameters | Calculator accepts input |
+| 3 | Calculate ROI | Returns valid ROI percentage |
+
+**Status:** [ ] Pass / [ ] Fail
+
+---
+
+### TC06: Valuation API
 
 ```bash
-cd grp3_mbtt
-python scripts/check_hoan_kiem.py
+curl -X POST http://localhost:3000/api/ai/valuation \
+  -H "Content-Type: application/json" \
+  -d '{"district":"Quận 1","type":"streetfront","segment":"street_retail","area":50}'
 ```
 
-**Expected:** `In bounds: 18/20` hoặc cao hơn (90%+)
-
-☐ Pass | ☐ Fail
+**Status:** [ ] Pass / [ ] Fail
 
 ---
 
-## B. CONTRACT REVIEW (AI Legal Guard)
-
-### B1. Access Page
-
-| Step | Action                                     | Expected Result    | Pass |
-| ---- | ------------------------------------------ | ------------------ | ---- |
-| 1    | Mở http://localhost:3000/analysis/contract | Page load với form | ☐    |
-| 2    | Có 2 tab: Paste / Upload                   | Tabs hoạt động     | ☐    |
-
-### B2. High Risk Sample Test
-
-| Step | Action             | Expected Result                                                        | Pass |
-| ---- | ------------------ | ---------------------------------------------------------------------- | ---- |
-| 1    | Bấm "📋 Dùng mẫu"  | Text sample được paste                                                 | ☐    |
-| 2    | Bấm "Rà soát ngay" | Loading spinner                                                        | ☐    |
-| 3    | Đợi kết quả        | Hiển thị Risk Score                                                    | ☐    |
-| 4    | Check Score        | **Score >= 60 (HIGH risk)**                                            | ☐    |
-| 5    | Check Risk Items   | Có ít nhất 3 items severity=high                                       | ☐    |
-| 6    | Check Items        | - Tăng giá đột ngột ✓<br>- Đơn phương chấm dứt ✓<br>- Không hoàn cọc ✓ | ☐    |
-
-### B3. Safe Contract Test
-
-| Step | Action                                                              | Expected Result              | Pass |
-| ---- | ------------------------------------------------------------------- | ---------------------------- | ---- |
-| 1    | Xóa text, paste nội dung từ `data/contract_samples/safe_sample.txt` | Text loaded                  | ☐    |
-| 2    | Bấm "Rà soát ngay"                                                  | Loading                      | ☐    |
-| 3    | Check Score                                                         | **Score <= 20 (LOW risk)**   | ☐    |
-| 4    | Check summary                                                       | "Hợp đồng tương đối an toàn" | ☐    |
-
-### B4. Download Report
-
-| Step | Action                             | Expected Result             | Pass |
-| ---- | ---------------------------------- | --------------------------- | ---- |
-| 1    | Sau khi có kết quả, bấm "Tải JSON" | File downloaded             | ☐    |
-| 2    | Open file                          | Valid JSON với risk_items[] | ☐    |
-
----
-
-## C. BI DASHBOARD (Superset)
-
-### C1. Page Access
-
-| Step | Action                                | Expected Result                            | Pass |
-| ---- | ------------------------------------- | ------------------------------------------ | ---- |
-| 1    | Mở http://localhost:3000/bi-dashboard | Page load không blank                      | ☐    |
-| 2    | Check mode                            | "Link Mode" selected (default)             | ☐    |
-| 3    | Button visible                        | "Mở Superset" và "Mở Dashboard BI" buttons | ☐    |
-
-### C2. Link Mode Test
-
-| Step | Action                | Expected Result                        | Pass |
-| ---- | --------------------- | -------------------------------------- | ---- |
-| 1    | Bấm "Mở Superset"     | Opens http://localhost:8088 in new tab | ☐    |
-| 2    | Login với admin/admin | Login thành công                       | ☐    |
-| 3    | Navigate dashboards   | Có thể xem dashboards                  | ☐    |
-
-### C3. Iframe Mode Test (Optional)
-
-| Step | Action                   | Expected Result                           | Pass |
-| ---- | ------------------------ | ----------------------------------------- | ---- |
-| 1    | Toggle sang "Embed Mode" | Mode switched                             | ☐    |
-| 2    | Wait 5s                  | Fallback message nếu không load được      | ☐    |
-| 3    | Fallback                 | "Không thể embed" status + button mở link | ☐    |
-
----
-
-## D. BACKEND SERVICES
-
-### D1. Docker Status
+### TC07: Decision Support API
 
 ```bash
-docker ps | grep grp3_mbtt
+curl -X POST http://localhost:3000/api/ai/decision \
+  -H "Content-Type: application/json" \
+  -d '{"listing_id":"VN26000001","user_intent":"mở quán cafe"}'
 ```
 
-| Service  | Port | Expected Status | Pass |
-| -------- | ---- | --------------- | ---- |
-| n8n      | 5678 | Up (healthy)    | ☐    |
-| postgres | 5433 | Up (healthy)    | ☐    |
-| superset | 8088 | Up (healthy)    | ☐    |
-| redis    | -    | Up              | ☐    |
-
-### D2. API Endpoints
-
-| Endpoint         | Method | Test Command                                          | Pass |
-| ---------------- | ------ | ----------------------------------------------------- | ---- |
-| /listings        | GET    | `curl http://localhost:5678/webhook/jfinder/listings` | ☐    |
-| /stats           | GET    | `curl http://localhost:5678/webhook/jfinder/stats`    | ☐    |
-| /contract/review | POST   | See B2 above                                          | ☐    |
+**Status:** [ ] Pass / [ ] Fail
 
 ---
 
-## E. BUILD TEST
+### TC08: Legal Review Endpoint
 
-```bash
-cd grp3_mbtt
-npm run build
-```
+**Status:** [ ] Pass / [ ] Fail
 
-☐ Build thành công (Exit code 0)
-☐ Không có TypeScript errors
-☐ Không có ESLint errors blocking
+---
+
+### TC09: Superset Dashboard Embed
+
+**Superset URL:** http://localhost:8088
+
+**Status:** [ ] Pass / [ ] Fail
+
+---
+
+### TC10: n8n Webhook Endpoints
+
+**n8n URL:** http://localhost:5678
+
+**Status:** [ ] Pass / [ ] Fail
 
 ---
 
 ## Summary
 
-| Category        | Tests Passed | Total | Status |
-| --------------- | ------------ | ----- | ------ |
-| A. Geo/Map      | \_\_\_/11    | 11    | ☐      |
-| B. Contract     | \_\_\_/12    | 12    | ☐      |
-| C. BI Dashboard | \_\_\_/9     | 9     | ☐      |
-| D. Backend      | \_\_\_/8     | 8     | ☐      |
-| E. Build        | \_\_\_/3     | 3     | ☐      |
-| **TOTAL**       | \_\_\_/43    | 43    | ☐      |
+| Test | Description | Status |
+|------|-------------|--------|
+| TC01 | Filter Province | ⬜ |
+| TC02 | Filter District | ⬜ |
+| TC03 | Click → FlyTo | ⬜ |
+| TC04 | Heatmap | ⬜ |
+| TC05 | ROI Calculator | ⬜ |
+| TC06 | Valuation API | ⬜ |
+| TC07 | Decision API | ⬜ |
+| TC08 | Legal Review | ⬜ |
+| TC09 | Superset | ⬜ |
+| TC10 | n8n Webhooks | ⬜ |
 
-**Tested By:** ******\_\_\_****** **Date:** ******\_\_\_******
+**Pass Rate:** ___ / 10

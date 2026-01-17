@@ -15,20 +15,22 @@ app/data/vn_rental_3cities_verified.json
 ```
 
 **Total Records:** 1170
-**Cities:** Hà Nội (480), Hồ Chí Minh (520), Đà Nẵng (170)
+**Cities:** Hà Nội (479), Hồ Chí Minh (521), Đà Nẵng (170)
 
 ## 🔄 Data Sources
 
-### Source Files Merged:
+### Source File:
 
-1. **Old Dataset (province/district/ward):** Original verified JSON with correct administrative boundaries
-2. **New Dataset (lat/lon):** Nominatim-geocoded data with accurate coordinates
+```
+vn_rental_listings_3cities_nominatim_fixed_admin.csv
+```
 
-### Merge Strategy:
+### Processing:
 
-- Kept: `province`, `district`, `ward` from old dataset (Nominatim returned incorrect provinces like "Thành phố Thủ Đức")
-- Updated: `latitude`, `longitude` from Nominatim dataset
-- Added: `geo_verified: true`, `geo_source: "nominatim"` flags
+- Source: CSV with Nominatim geocoded coordinates + fixed admin boundaries
+- Province normalized: Removed "Thành phố" prefix
+- Numeric fields converted: latitude, longitude, price, area, etc.
+- Coordinates: Accurate lat/lon from Nominatim geocoding
 
 ## 📊 Schema (Normalized)
 

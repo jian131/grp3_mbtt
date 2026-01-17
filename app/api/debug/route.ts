@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import listingsData from '@/app/data/vn_rental_3cities_verified.json';
+import listingsData from '@/app/data/listings_vn_postmerge.json';
 
 export async function GET() {
   const data = listingsData as Array<{ district: string; type: string; market_segment: string; price: number }>;

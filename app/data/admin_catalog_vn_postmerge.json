@@ -1,0 +1,3470 @@
+{
+    "version":  "postmerge-2026",
+    "generated_at":  "2026-01-17T17:45:10Z",
+    "source":  "listings_vn_postmerge.csv",
+    "stats":  {
+                  "total_listings":  1170,
+                  "provinces":  3,
+                  "districts":  30,
+                  "wards":  329
+              },
+    "provinces":  [
+                      {
+                          "code":  "79",
+                          "name":  "Hồ Chí Minh",
+                          "type":  "municipality",
+                          "center_lat":  10.785944,
+                          "center_lon":  106.684608,
+                          "bbox":  [
+                                       106.578351,
+                                       10.715104,
+                                       106.801094,
+                                       11.048931
+                                   ],
+                          "listing_count":  520
+                      },
+                      {
+                          "code":  "48",
+                          "name":  "Đà Nẵng",
+                          "type":  "municipality",
+                          "center_lat":  16.059382,
+                          "center_lon":  108.20486,
+                          "bbox":  [
+                                       108.11898,
+                                       15.986078,
+                                       108.262774,
+                                       16.133709
+                                   ],
+                          "listing_count":  170
+                      },
+                      {
+                          "code":  "01",
+                          "name":  "Hà Nội",
+                          "type":  "municipality",
+                          "center_lat":  20.999734,
+                          "center_lon":  105.820451,
+                          "bbox":  [
+                                       105.722966,
+                                       10.848323,
+                                       106.772329,
+                                       21.090361
+                                   ],
+                          "listing_count":  480
+                      }
+                  ],
+    "districts":  [
+                      {
+                          "code":  "009",
+                          "name":  "Quận Thanh Xuân",
+                          "province":  "Hà Nội",
+                          "province_code":  "01",
+                          "center_lat":  20.994002,
+                          "center_lon":  105.815634,
+                          "bbox":  [
+                                       105.798727,
+                                       20.984747,
+                                       105.838594,
+                                       21.002808
+                                   ],
+                          "listing_count":  48
+                      },
+                      {
+                          "code":  "008",
+                          "name":  "Quận Hoàng Mai",
+                          "province":  "Hà Nội",
+                          "province_code":  "01",
+                          "center_lat":  20.97669,
+                          "center_lon":  105.861241,
+                          "bbox":  [
+                                       105.825932,
+                                       20.966774,
+                                       105.88666,
+                                       20.987592
+                                   ],
+                          "listing_count":  40
+                      },
+                      {
+                          "code":  "495",
+                          "name":  "Quận Cẩm Lệ",
+                          "province":  "Đà Nẵng",
+                          "province_code":  "48",
+                          "center_lat":  16.024587,
+                          "center_lon":  108.192404,
+                          "bbox":  [
+                                       108.176738,
+                                       15.998693,
+                                       108.21413,
+                                       16.050597
+                                   ],
+                          "listing_count":  22
+                      },
+                      {
+                          "code":  "006",
+                          "name":  "Quận Đống Đa",
+                          "province":  "Hà Nội",
+                          "province_code":  "01",
+                          "center_lat":  21.014505,
+                          "center_lon":  105.825287,
+                          "bbox":  [
+                                       105.807408,
+                                       21.000227,
+                                       105.83682399999999,
+                                       21.029427
+                                   ],
+                          "listing_count":  41
+                      },
+                      {
+                          "code":  "005",
+                          "name":  "Quận Cầu Giấy",
+                          "province":  "Hà Nội",
+                          "province_code":  "01",
+                          "center_lat":  21.034304,
+                          "center_lon":  105.792209,
+                          "bbox":  [
+                                       105.779828,
+                                       21.014018,
+                                       105.800913,
+                                       21.047786
+                                   ],
+                          "listing_count":  43
+                      },
+                      {
+                          "code":  "494",
+                          "name":  "Quận Ngũ Hành Sơn",
+                          "province":  "Đà Nẵng",
+                          "province_code":  "48",
+                          "center_lat":  16.016896,
+                          "center_lon":  108.251952,
+                          "bbox":  [
+                                       108.24199,
+                                       15.986078,
+                                       108.262774,
+                                       16.036597
+                                   ],
+                          "listing_count":  23
+                      },
+                      {
+                          "code":  "491",
+                          "name":  "Quận Thanh Khê",
+                          "province":  "Đà Nẵng",
+                          "province_code":  "48",
+                          "center_lat":  16.062596,
+                          "center_lon":  108.188571,
+                          "bbox":  [
+                                       108.171554,
+                                       16.048889,
+                                       108.209144,
+                                       16.077551
+                                   ],
+                          "listing_count":  30
+                      },
+                      {
+                          "code":  "772",
+                          "name":  "Quận 11",
+                          "province":  "Hồ Chí Minh",
+                          "province_code":  "79",
+                          "center_lat":  10.766006,
+                          "center_lon":  106.648178,
+                          "bbox":  [
+                                       106.636302,
+                                       10.75443,
+                                       106.65952,
+                                       10.77307
+                                   ],
+                          "listing_count":  40
+                      },
+                      {
+                          "code":  "778",
+                          "name":  "Quận 7",
+                          "province":  "Hồ Chí Minh",
+                          "province_code":  "79",
+                          "center_lat":  10.739217,
+                          "center_lon":  106.720795,
+                          "bbox":  [
+                                       106.699042,
+                                       10.726834,
+                                       106.747359,
+                                       10.764626
+                                   ],
+                          "listing_count":  51
+                      },
+                      {
+                          "code":  "764",
+                          "name":  "Quận Gò Vấp",
+                          "province":  "Hồ Chí Minh",
+                          "province_code":  "79",
+                          "center_lat":  10.837748,
+                          "center_lon":  106.673334,
+                          "bbox":  [
+                                       106.652269,
+                                       10.820995,
+                                       106.68828,
+                                       10.855403
+                                   ],
+                          "listing_count":  39
+                      },
+                      {
+                          "code":  "492",
+                          "name":  "Quận Hải Châu",
+                          "province":  "Đà Nẵng",
+                          "province_code":  "48",
+                          "center_lat":  16.061307,
+                          "center_lon":  108.220766,
+                          "bbox":  [
+                                       108.213025,
+                                       16.02806,
+                                       108.222786,
+                                       16.095212
+                                   ],
+                          "listing_count":  34
+                      },
+                      {
+                          "code":  "774",
+                          "name":  "Quận 5",
+                          "province":  "Hồ Chí Minh",
+                          "province_code":  "79",
+                          "center_lat":  10.753981,
+                          "center_lon":  106.66566,
+                          "bbox":  [
+                                       106.641707,
+                                       10.741221,
+                                       106.70522,
+                                       10.772924
+                                   ],
+                          "listing_count":  45
+                      },
+                      {
+                          "code":  "771",
+                          "name":  "Quận 10",
+                          "province":  "Hồ Chí Minh",
+                          "province_code":  "79",
+                          "center_lat":  10.779226,
+                          "center_lon":  106.669915,
+                          "bbox":  [
+                                       106.615746,
+                                       10.735997,
+                                       106.71066,
+                                       10.830517
+                                   ],
+                          "listing_count":  45
+                      },
+                      {
+                          "code":  "019",
+                          "name":  "Quận Nam Từ Liêm",
+                          "province":  "Hà Nội",
+                          "province_code":  "01",
+                          "center_lat":  21.019918,
+                          "center_lon":  105.761337,
+                          "bbox":  [
+                                       105.74162,
+                                       20.995116,
+                                       105.778524,
+                                       21.033
+                                   ],
+                          "listing_count":  48
+                      },
+                      {
+                          "code":  "766",
+                          "name":  "Quận Tân Bình",
+                          "province":  "Hồ Chí Minh",
+                          "province_code":  "79",
+                          "center_lat":  10.808968,
+                          "center_lon":  106.654048,
+                          "bbox":  [
+                                       106.578351,
+                                       10.743442,
+                                       106.752384,
+                                       11.048931
+                                   ],
+                          "listing_count":  47
+                      },
+                      {
+                          "code":  "769",
+                          "name":  "Thành phố Thủ Đức",
+                          "province":  "Hồ Chí Minh",
+                          "province_code":  "79",
+                          "center_lat":  10.833263,
+                          "center_lon":  106.727308,
+                          "bbox":  [
+                                       106.659632,
+                                       10.77335,
+                                       106.801094,
+                                       10.877442
+                                   ],
+                          "listing_count":  46
+                      },
+                      {
+                          "code":  "021",
+                          "name":  "Quận Bắc Từ Liêm",
+                          "province":  "Hà Nội",
+                          "province_code":  "01",
+                          "center_lat":  21.071419,
+                          "center_lon":  105.759887,
+                          "bbox":  [
+                                       105.729325,
+                                       21.04464,
+                                       105.786552,
+                                       21.090361
+                                   ],
+                          "listing_count":  36
+                      },
+                      {
+                          "code":  "773",
+                          "name":  "Quận 4",
+                          "province":  "Hồ Chí Minh",
+                          "province_code":  "79",
+                          "center_lat":  10.773736,
+                          "center_lon":  106.683897,
+                          "bbox":  [
+                                       106.624976,
+                                       10.751677,
+                                       106.70708,
+                                       10.824936
+                                   ],
+                          "listing_count":  48
+                      },
+                      {
+                          "code":  "490",
+                          "name":  "Quận Liên Chiểu",
+                          "province":  "Đà Nẵng",
+                          "province_code":  "48",
+                          "center_lat":  16.080782,
+                          "center_lon":  108.147598,
+                          "bbox":  [
+                                       108.11898,
+                                       16.05204,
+                                       108.168362,
+                                       16.133709
+                                   ],
+                          "listing_count":  34
+                      },
+                      {
+                          "code":  "493",
+                          "name":  "Quận Sơn Trà",
+                          "province":  "Đà Nẵng",
+                          "province_code":  "48",
+                          "center_lat":  16.090984,
+                          "center_lon":  108.24507,
+                          "bbox":  [
+                                       108.231445,
+                                       16.075964,
+                                       108.248582,
+                                       16.102173
+                                   ],
+                          "listing_count":  27
+                      },
+                      {
+                          "code":  "765",
+                          "name":  "Quận Bình Thạnh",
+                          "province":  "Hồ Chí Minh",
+                          "province_code":  "79",
+                          "center_lat":  10.805123,
+                          "center_lon":  106.703232,
+                          "bbox":  [
+                                       106.688429,
+                                       10.791992,
+                                       106.718363,
+                                       10.813252
+                                   ],
+                          "listing_count":  41
+                      },
+                      {
+                          "code":  "768",
+                          "name":  "Quận Phú Nhuận",
+                          "province":  "Hồ Chí Minh",
+                          "province_code":  "79",
+                          "center_lat":  10.798647,
+                          "center_lon":  106.680362,
+                          "bbox":  [
+                                       106.674019,
+                                       10.791274,
+                                       106.687231,
+                                       10.808577
+                                   ],
+                          "listing_count":  44
+                      },
+                      {
+                          "code":  "003",
+                          "name":  "Quận Tây Hồ",
+                          "province":  "Hà Nội",
+                          "province_code":  "01",
+                          "center_lat":  21.060414,
+                          "center_lon":  105.823628,
+                          "bbox":  [
+                                       105.805691,
+                                       21.043121,
+                                       105.835964,
+                                       21.083203
+                                   ],
+                          "listing_count":  43
+                      },
+                      {
+                          "code":  "002",
+                          "name":  "Quận Hoàn Kiếm",
+                          "province":  "Hà Nội",
+                          "province_code":  "01",
+                          "center_lat":  21.02991,
+                          "center_lon":  105.849578,
+                          "bbox":  [
+                                       105.841225,
+                                       21.02078,
+                                       105.85976,
+                                       21.038612
+                                   ],
+                          "listing_count":  40
+                      },
+                      {
+                          "code":  "770",
+                          "name":  "Quận 3",
+                          "province":  "Hồ Chí Minh",
+                          "province_code":  "79",
+                          "center_lat":  10.768975,
+                          "center_lon":  106.685477,
+                          "bbox":  [
+                                       106.640862,
+                                       10.715104,
+                                       106.729132,
+                                       10.781986
+                                   ],
+                          "listing_count":  36
+                      },
+                      {
+                          "code":  "001",
+                          "name":  "Quận Ba Đình",
+                          "province":  "Hà Nội",
+                          "province_code":  "01",
+                          "center_lat":  20.72756,
+                          "center_lon":  105.857146,
+                          "bbox":  [
+                                       105.814382,
+                                       10.848323,
+                                       106.772329,
+                                       21.046311
+                                   ],
+                          "listing_count":  33
+                      },
+                      {
+                          "code":  "760",
+                          "name":  "Quận 1",
+                          "province":  "Hồ Chí Minh",
+                          "province_code":  "79",
+                          "center_lat":  10.77262,
+                          "center_lon":  106.696804,
+                          "bbox":  [
+                                       106.687322,
+                                       10.752345,
+                                       106.700833,
+                                       10.7899
+                                   ],
+                          "listing_count":  38
+                      },
+                      {
+                          "code":  "004",
+                          "name":  "Quận Long Biên",
+                          "province":  "Hà Nội",
+                          "province_code":  "01",
+                          "center_lat":  21.036323,
+                          "center_lon":  105.882939,
+                          "bbox":  [
+                                       105.727638,
+                                       20.925378,
+                                       105.918974,
+                                       21.06967
+                                   ],
+                          "listing_count":  39
+                      },
+                      {
+                          "code":  "268",
+                          "name":  "Quận Hà Đông",
+                          "province":  "Hà Nội",
+                          "province_code":  "01",
+                          "center_lat":  20.973953,
+                          "center_lon":  105.778664,
+                          "bbox":  [
+                                       105.722966,
+                                       20.924493,
+                                       105.913428,
+                                       21.081217
+                                   ],
+                          "listing_count":  36
+                      },
+                      {
+                          "code":  "007",
+                          "name":  "Quận Hai Bà Trưng",
+                          "province":  "Hà Nội",
+                          "province_code":  "01",
+                          "center_lat":  21.006463,
+                          "center_lon":  105.85645,
+                          "bbox":  [
+                                       105.843593,
+                                       20.993994,
+                                       105.875791,
+                                       21.017572
+                                   ],
+                          "listing_count":  33
+                      }
+                  ],
+    "wards":  [
+                  {
+                      "code":  "26944",
+                      "name":  "Phường 1",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.791992,
+                      "center_lon":  106.709068,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "26956",
+                      "name":  "Phường 22",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.81071,
+                      "center_lon":  106.703022,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27211",
+                      "name":  "Phường 5",
+                      "district":  "Quận 11",
+                      "district_code":  "772",
+                      "center_lat":  10.77307,
+                      "center_lon":  106.65443,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "27229",
+                      "name":  "Phường 8",
+                      "district":  "Quận 11",
+                      "district_code":  "772",
+                      "center_lat":  10.769086,
+                      "center_lon":  106.640992,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00175",
+                      "name":  "Phường Trung Hoà",
+                      "district":  "Quận Cầu Giấy",
+                      "district_code":  "005",
+                      "center_lat":  21.014018,
+                      "center_lon":  105.798996,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "20206",
+                      "name":  "Phường Thanh Khê Tây",
+                      "district":  "Quận Thanh Khê",
+                      "district_code":  "491",
+                      "center_lat":  16.077551,
+                      "center_lon":  108.171554,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00328",
+                      "name":  "Phường Lĩnh Nam",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.97918,
+                      "center_lon":  105.884678,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26980",
+                      "name":  "Phường 3",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.803648,
+                      "center_lon":  106.666092,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00622",
+                      "name":  "Phường Xuân Phương",
+                      "district":  "Quận Nam Từ Liêm",
+                      "district_code":  "019",
+                      "center_lat":  21.011398,
+                      "center_lon":  105.744953,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00620",
+                      "name":  "Phường Phúc Diễn",
+                      "district":  "Quận Bắc Từ Liêm",
+                      "district_code":  "021",
+                      "center_lat":  21.052161,
+                      "center_lon":  105.754968,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26983",
+                      "name":  "Phường 11",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.80083,
+                      "center_lon":  106.643734,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "09541",
+                      "name":  "Phường Mộ Lao",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.983757,
+                      "center_lon":  105.783644,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00343",
+                      "name":  "Phường Nhân Chính",
+                      "district":  "Quận Thanh Xuân",
+                      "district_code":  "009",
+                      "center_lat":  21.002808,
+                      "center_lon":  105.811433,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27493",
+                      "name":  "Phường Phú Mỹ",
+                      "district":  "Quận 7",
+                      "district_code":  "778",
+                      "center_lat":  10.741106,
+                      "center_lon":  106.721343,
+                      "listing_count":  13
+                  },
+                  {
+                      "code":  "00616",
+                      "name":  "Phường Cổ Nhuế 1",
+                      "district":  "Quận Bắc Từ Liêm",
+                      "district_code":  "021",
+                      "center_lat":  21.072948,
+                      "center_lon":  105.772822,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "20263",
+                      "name":  "Phường Thọ Quang",
+                      "district":  "Quận Sơn Trà",
+                      "district_code":  "493",
+                      "center_lat":  16.088856,
+                      "center_lon":  108.241716,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27073",
+                      "name":  "Phường 11",
+                      "district":  "Quận Phú Nhuận",
+                      "district_code":  "768",
+                      "center_lat":  10.79738,
+                      "center_lon":  106.674019,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "09886",
+                      "name":  "Phường Dương Nội",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.983044,
+                      "center_lon":  105.791325,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27043",
+                      "name":  "Phường 4",
+                      "district":  "Quận Phú Nhuận",
+                      "district_code":  "768",
+                      "center_lat":  10.797102,
+                      "center_lon":  106.674019,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26890",
+                      "name":  "Phường 1",
+                      "district":  "Quận Gò Vấp",
+                      "district_code":  "764",
+                      "center_lat":  10.850478,
+                      "center_lon":  106.652269,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27184",
+                      "name":  "Phường 1",
+                      "district":  "Quận 10",
+                      "district_code":  "771",
+                      "center_lat":  10.763226,
+                      "center_lon":  106.677715,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26887",
+                      "name":  "Phường 5",
+                      "district":  "Quận Gò Vấp",
+                      "district_code":  "764",
+                      "center_lat":  10.820995,
+                      "center_lon":  106.688148,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "09552",
+                      "name":  "Phường Phú La",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.972117,
+                      "center_lon":  105.729853,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27046",
+                      "name":  "Xã Phường 5",
+                      "district":  "Quận Phú Nhuận",
+                      "district_code":  "768",
+                      "center_lat":  10.803876,
+                      "center_lon":  106.684861,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "26986",
+                      "name":  "Phường 7",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.814196,
+                      "center_lon":  106.578351,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00301",
+                      "name":  "Phường Thanh Trì",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.976768,
+                      "center_lon":  105.886151,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27472",
+                      "name":  "Phường Tân Kiểng",
+                      "district":  "Quận 7",
+                      "district_code":  "778",
+                      "center_lat":  10.737567,
+                      "center_lon":  106.72966,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00193",
+                      "name":  "Phường Văn Chương",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.02295,
+                      "center_lon":  105.826135,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00319",
+                      "name":  "Phường Tân Mai",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.979984,
+                      "center_lon":  105.847317,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00331",
+                      "name":  "Phường Thịnh Liệt",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.972258,
+                      "center_lon":  105.843121,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00325",
+                      "name":  "Phường Giáp Bát",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.980859,
+                      "center_lon":  105.844132,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "26998",
+                      "name":  "Phường 8",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.786309,
+                      "center_lon":  106.659482,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "26818",
+                      "name":  "Phường Linh Tây",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.86497,
+                      "center_lon":  106.759733,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "26758",
+                      "name":  "Phường Nguyễn Cư Trinh",
+                      "district":  "Quận 1",
+                      "district_code":  "760",
+                      "center_lat":  10.775394,
+                      "center_lon":  106.699625,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "00592",
+                      "name":  "Phường Cầu Diễn",
+                      "district":  "Quận Nam Từ Liêm",
+                      "district_code":  "019",
+                      "center_lat":  21.033,
+                      "center_lon":  105.761833,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "09568",
+                      "name":  "Phường Phú Lãm",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  21.081217,
+                      "center_lon":  105.913428,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "20260",
+                      "name":  "Phường Khuê Trung",
+                      "district":  "Quận Cẩm Lệ",
+                      "district_code":  "495",
+                      "center_lat":  16.022057,
+                      "center_lon":  108.210955,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "27190",
+                      "name":  "Phường 2",
+                      "district":  "Quận 10",
+                      "district_code":  "771",
+                      "center_lat":  10.735997,
+                      "center_lon":  106.626503,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00617",
+                      "name":  "Phường Cổ Nhuế 2",
+                      "district":  "Quận Bắc Từ Liêm",
+                      "district_code":  "021",
+                      "center_lat":  21.04464,
+                      "center_lon":  105.786131,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "20305",
+                      "name":  "Phường Hòa Phát",
+                      "district":  "Quận Cẩm Lệ",
+                      "district_code":  "495",
+                      "center_lat":  16.041516,
+                      "center_lon":  108.183848,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "20215",
+                      "name":  "Phường Chính Gián",
+                      "district":  "Quận Thanh Khê",
+                      "district_code":  "491",
+                      "center_lat":  16.067187,
+                      "center_lon":  108.199711,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "27253",
+                      "name":  "Phường 16",
+                      "district":  "Quận 11",
+                      "district_code":  "772",
+                      "center_lat":  10.75443,
+                      "center_lon":  106.64831,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27277",
+                      "name":  "Phường 18",
+                      "district":  "Quận 4",
+                      "district_code":  "773",
+                      "center_lat":  10.760754,
+                      "center_lon":  106.70708,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "26902",
+                      "name":  "Phường 3",
+                      "district":  "Quận Gò Vấp",
+                      "district_code":  "764",
+                      "center_lat":  10.821369,
+                      "center_lon":  106.68828,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27484",
+                      "name":  "Phường Phú Thuận",
+                      "district":  "Quận 7",
+                      "district_code":  "778",
+                      "center_lat":  10.732368,
+                      "center_lon":  106.734671,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00049",
+                      "name":  "Phường Hàng Đào",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.034703,
+                      "center_lon":  105.849972,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00061",
+                      "name":  "Phường Hàng Bạc",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.032886,
+                      "center_lon":  105.852844,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "09553",
+                      "name":  "Phường Phúc La",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.960904,
+                      "center_lon":  105.792741,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26899",
+                      "name":  "Phường 11",
+                      "district":  "Quận Gò Vấp",
+                      "district_code":  "764",
+                      "center_lat":  10.838417,
+                      "center_lon":  106.675343,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "20312",
+                      "name":  "Phường Hòa Thọ Đông",
+                      "district":  "Quận Cẩm Lệ",
+                      "district_code":  "495",
+                      "center_lat":  16.010653,
+                      "center_lon":  108.194482,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27301",
+                      "name":  "Phường 4",
+                      "district":  "Quận 5",
+                      "district_code":  "774",
+                      "center_lat":  10.749768,
+                      "center_lon":  106.673626,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00634",
+                      "name":  "Phường Đại Mỗ",
+                      "district":  "Quận Nam Từ Liêm",
+                      "district_code":  "019",
+                      "center_lat":  20.995116,
+                      "center_lon":  105.752306,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "26737",
+                      "name":  "Phường Đa Kao",
+                      "district":  "Quận 1",
+                      "district_code":  "760",
+                      "center_lat":  10.775394,
+                      "center_lon":  106.699625,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00334",
+                      "name":  "Phường Trần Phú",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.968346,
+                      "center_lon":  105.883016,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00190",
+                      "name":  "Phường Ô Chợ Dừa",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.02295,
+                      "center_lon":  105.826135,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27475",
+                      "name":  "Phường Tân Hưng",
+                      "district":  "Quận 7",
+                      "district_code":  "778",
+                      "center_lat":  10.731728,
+                      "center_lon":  106.699042,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "00163",
+                      "name":  "Phường Mai Dịch",
+                      "district":  "Quận Cầu Giấy",
+                      "district_code":  "005",
+                      "center_lat":  21.031643,
+                      "center_lon":  105.779828,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "00037",
+                      "name":  "Phường Phúc Tân",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.038612,
+                      "center_lon":  105.853232,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "26989",
+                      "name":  "Phường 5",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.79396,
+                      "center_lon":  106.651879,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27100",
+                      "name":  "Phường Bình Trưng Tây",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.868618,
+                      "center_lon":  106.735061,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "20285",
+                      "name":  "Phường Khuê Mỹ",
+                      "district":  "Quận Ngũ Hành Sơn",
+                      "district_code":  "494",
+                      "center_lat":  16.036597,
+                      "center_lon":  108.246845,
+                      "listing_count":  10
+                  },
+                  {
+                      "code":  "20287",
+                      "name":  "Phường Hoà Quý",
+                      "district":  "Quận Ngũ Hành Sơn",
+                      "district_code":  "494",
+                      "center_lat":  15.986078,
+                      "center_lon":  108.24199,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00076",
+                      "name":  "Phường Hàng Bông",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.028488,
+                      "center_lon":  105.845774,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27061",
+                      "name":  "Phường 2",
+                      "district":  "Quận Phú Nhuận",
+                      "district_code":  "768",
+                      "center_lat":  10.796771,
+                      "center_lon":  106.686651,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00247",
+                      "name":  "Phường Phạm Đình Hổ",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  21.01567,
+                      "center_lon":  105.855507,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00637",
+                      "name":  "Phường Trung Văn",
+                      "district":  "Quận Nam Từ Liêm",
+                      "district_code":  "019",
+                      "center_lat":  21.031592,
+                      "center_lon":  105.752996,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26794",
+                      "name":  "Phường Linh Xuân",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.87271,
+                      "center_lon":  106.764993,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27466",
+                      "name":  "Phường Tân Thuận Đông",
+                      "district":  "Quận 7",
+                      "district_code":  "778",
+                      "center_lat":  10.764626,
+                      "center_lon":  106.747359,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "20194",
+                      "name":  "Phường Hòa Hiệp Bắc",
+                      "district":  "Quận Liên Chiểu",
+                      "district_code":  "490",
+                      "center_lat":  16.133709,
+                      "center_lon":  108.11898,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00022",
+                      "name":  "Phường Đội Cấn",
+                      "district":  "Quận Ba Đình",
+                      "district_code":  "001",
+                      "center_lat":  21.033379,
+                      "center_lon":  105.829331,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00124",
+                      "name":  "Phường Đức Giang",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  21.06967,
+                      "center_lon":  105.904924,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27094",
+                      "name":  "Phường An Khánh",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.794959,
+                      "center_lon":  106.736531,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00601",
+                      "name":  "Phường Đông Ngạc",
+                      "district":  "Quận Bắc Từ Liêm",
+                      "district_code":  "021",
+                      "center_lat":  21.086793,
+                      "center_lon":  105.779892,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27076",
+                      "name":  "Xã Phường 15",
+                      "district":  "Quận Phú Nhuận",
+                      "district_code":  "768",
+                      "center_lat":  10.798957,
+                      "center_lon":  106.679881,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "20269",
+                      "name":  "Phường Mân Thái",
+                      "district":  "Quận Sơn Trà",
+                      "district_code":  "493",
+                      "center_lat":  16.09017,
+                      "center_lon":  108.246748,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "26740",
+                      "name":  "Phường Bến Nghé",
+                      "district":  "Quận 1",
+                      "district_code":  "760",
+                      "center_lat":  10.773438,
+                      "center_lon":  106.700833,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "09551",
+                      "name":  "Phường La Khê",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.963843,
+                      "center_lon":  105.766796,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27232",
+                      "name":  "Phường 10",
+                      "district":  "Quận 11",
+                      "district_code":  "772",
+                      "center_lat":  10.758713,
+                      "center_lon":  106.65952,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27208",
+                      "name":  "Phường 15",
+                      "district":  "Quận 11",
+                      "district_code":  "772",
+                      "center_lat":  10.77307,
+                      "center_lon":  106.65443,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00166",
+                      "name":  "Phường Dịch Vọng",
+                      "district":  "Quận Cầu Giấy",
+                      "district_code":  "005",
+                      "center_lat":  21.031004,
+                      "center_lon":  105.787436,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00148",
+                      "name":  "Phường Thạch Bàn",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  21.029587,
+                      "center_lon":  105.911781,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "26749",
+                      "name":  "Phường Phạm Ngũ Lão",
+                      "district":  "Quận 1",
+                      "district_code":  "760",
+                      "center_lat":  10.765872,
+                      "center_lon":  106.692632,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00304",
+                      "name":  "Phường Vĩnh Hưng",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.980648,
+                      "center_lon":  105.88666,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00295",
+                      "name":  "Phường Minh Khai",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  20.998316,
+                      "center_lon":  105.870662,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26821",
+                      "name":  "Phường Linh Đông",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.855463,
+                      "center_lon":  106.749532,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00628",
+                      "name":  "Phường Tây Mỗ",
+                      "district":  "Quận Nam Từ Liêm",
+                      "district_code":  "019",
+                      "center_lat":  21.011398,
+                      "center_lon":  105.744953,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "20306",
+                      "name":  "Phường Hòa An",
+                      "district":  "Quận Cẩm Lệ",
+                      "district_code":  "495",
+                      "center_lat":  16.050597,
+                      "center_lon":  108.176737,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00289",
+                      "name":  "Phường Quỳnh Mai",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  21.010011,
+                      "center_lon":  105.850593,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00115",
+                      "name":  "Phường Thượng Thanh",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  21.059107,
+                      "center_lon":  105.889637,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "26851",
+                      "name":  "Phường Phước Long A",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.844193,
+                      "center_lon":  106.779153,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00626",
+                      "name":  "Phường Mỹ Đình 2",
+                      "district":  "Quận Nam Từ Liêm",
+                      "district_code":  "019",
+                      "center_lat":  21.029321,
+                      "center_lon":  105.778524,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "26995",
+                      "name":  "Phường 6",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.806169,
+                      "center_lon":  106.661079,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27259",
+                      "name":  "Phường 13",
+                      "district":  "Quận 4",
+                      "district_code":  "773",
+                      "center_lat":  10.759412,
+                      "center_lon":  106.658652,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "00091",
+                      "name":  "Phường Phú Thượng",
+                      "district":  "Quận Tây Hồ",
+                      "district_code":  "003",
+                      "center_lat":  21.081458,
+                      "center_lon":  105.81481,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00604",
+                      "name":  "Phường Thụy Phương",
+                      "district":  "Quận Bắc Từ Liêm",
+                      "district_code":  "021",
+                      "center_lat":  21.045482,
+                      "center_lon":  105.78373,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "26875",
+                      "name":  "Phường 17",
+                      "district":  "Quận Gò Vấp",
+                      "district_code":  "764",
+                      "center_lat":  10.837165,
+                      "center_lon":  106.658063,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27091",
+                      "name":  "Phường An Phú",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.860971,
+                      "center_lon":  106.691786,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27481",
+                      "name":  "Phường Tân Quy",
+                      "district":  "Quận 7",
+                      "district_code":  "778",
+                      "center_lat":  10.742648,
+                      "center_lon":  106.709811,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00031",
+                      "name":  "Phường Giảng Võ",
+                      "district":  "Quận Ba Đình",
+                      "district_code":  "001",
+                      "center_lat":  21.031977,
+                      "center_lon":  105.829934,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00008",
+                      "name":  "Phường Liễu Giai",
+                      "district":  "Quận Ba Đình",
+                      "district_code":  "001",
+                      "center_lat":  21.031496,
+                      "center_lon":  105.815071,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "10123",
+                      "name":  "Phường Biên Giang",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.929139,
+                      "center_lon":  105.722966,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00058",
+                      "name":  "Phường Lý Thái Tổ",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.029618,
+                      "center_lon":  105.855381,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "26971",
+                      "name":  "Phường 12",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.743442,
+                      "center_lon":  106.61965,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "26962",
+                      "name":  "Phường 28",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.80492,
+                      "center_lon":  106.688429,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00112",
+                      "name":  "Phường Thụy Khuê",
+                      "district":  "Quận Tây Hồ",
+                      "district_code":  "003",
+                      "center_lat":  21.043121,
+                      "center_lon":  105.833992,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26884",
+                      "name":  "Phường 10",
+                      "district":  "Quận Gò Vấp",
+                      "district_code":  "764",
+                      "center_lat":  10.838417,
+                      "center_lon":  106.675343,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "10117",
+                      "name":  "Phường Đồng Mai",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.924493,
+                      "center_lon":  105.738888,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27490",
+                      "name":  "Phường Tân Phong",
+                      "district":  "Quận 7",
+                      "district_code":  "778",
+                      "center_lat":  10.73638,
+                      "center_lon":  106.712068,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "26812",
+                      "name":  "Phường Hiệp Bình Chánh",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.830782,
+                      "center_lon":  106.712587,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00226",
+                      "name":  "Phường Phương Liên - Trung Tự",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.01144,
+                      "center_lon":  105.833341,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00256",
+                      "name":  "Phường Lê Đại Hành",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  21.010766,
+                      "center_lon":  105.84735,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00367",
+                      "name":  "Phường Thanh Xuân Bắc",
+                      "district":  "Quận Thanh Xuân",
+                      "district_code":  "009",
+                      "center_lat":  20.994288,
+                      "center_lon":  105.798727,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "20254",
+                      "name":  "Phường Bình Thuận",
+                      "district":  "Quận Hải Châu",
+                      "district_code":  "492",
+                      "center_lat":  16.054371,
+                      "center_lon":  108.222411,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "26824",
+                      "name":  "Phường Bình Thọ",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.809676,
+                      "center_lon":  106.695154,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "26806",
+                      "name":  "Phường Tam Phú",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.77335,
+                      "center_lon":  106.659632,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27292",
+                      "name":  "Phường 2",
+                      "district":  "Quận 4",
+                      "district_code":  "773",
+                      "center_lat":  10.763277,
+                      "center_lon":  106.70162,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27469",
+                      "name":  "Phường Tân Thuận Tây",
+                      "district":  "Quận 7",
+                      "district_code":  "778",
+                      "center_lat":  10.737567,
+                      "center_lon":  106.72966,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00373",
+                      "name":  "Phường Hạ Đình",
+                      "district":  "Quận Thanh Xuân",
+                      "district_code":  "009",
+                      "center_lat":  20.984747,
+                      "center_lon":  105.809321,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27325",
+                      "name":  "Phường 1",
+                      "district":  "Quận 5",
+                      "district_code":  "774",
+                      "center_lat":  10.759109,
+                      "center_lon":  106.683717,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "26839",
+                      "name":  "Phường Hiệp Phú",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.830782,
+                      "center_lon":  106.712587,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00271",
+                      "name":  "Phường Thanh Nhàn",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  21.006634,
+                      "center_lon":  105.856174,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00283",
+                      "name":  "Phường Vĩnh Tuy",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  20.998513,
+                      "center_lon":  105.875791,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "09544",
+                      "name":  "Phường Vạn Phúc",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.978604,
+                      "center_lon":  105.76667,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "09571",
+                      "name":  "Phường Phú Lương",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.95128,
+                      "center_lon":  105.754989,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00364",
+                      "name":  "Phường Khương Đình",
+                      "district":  "Quận Thanh Xuân",
+                      "district_code":  "009",
+                      "center_lat":  20.992474,
+                      "center_lon":  105.813605,
+                      "listing_count":  8
+                  },
+                  {
+                      "code":  "09542",
+                      "name":  "Phường Văn Quán",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.977732,
+                      "center_lon":  105.784799,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27226",
+                      "name":  "Phường 11",
+                      "district":  "Quận 11",
+                      "district_code":  "772",
+                      "center_lat":  10.767956999999999,
+                      "center_lon":  106.650815,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00205",
+                      "name":  "Phường Thổ Quan",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.02295,
+                      "center_lon":  105.826135,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00133",
+                      "name":  "Phường Ngọc Lâm",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  21.045507,
+                      "center_lon":  105.869111,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00611",
+                      "name":  "Phường Xuân Tảo",
+                      "district":  "Quận Bắc Từ Liêm",
+                      "district_code":  "021",
+                      "center_lat":  21.073012,
+                      "center_lon":  105.761396,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27148",
+                      "name":  "Phường 4",
+                      "district":  "Quận 3",
+                      "district_code":  "770",
+                      "center_lat":  10.7791,
+                      "center_lon":  106.691497,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26872",
+                      "name":  "Phường 15",
+                      "district":  "Quận Gò Vấp",
+                      "district_code":  "764",
+                      "center_lat":  10.838417,
+                      "center_lon":  106.675343,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "26803",
+                      "name":  "Phường Tam Bình",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.868618,
+                      "center_lon":  106.735061,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "26992",
+                      "name":  "Phường 10",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  11.048931,
+                      "center_lon":  106.752384,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00598",
+                      "name":  "Phường Liên Mạc",
+                      "district":  "Quận Bắc Từ Liêm",
+                      "district_code":  "021",
+                      "center_lat":  21.073012,
+                      "center_lon":  105.761396,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27202",
+                      "name":  "Phường 6",
+                      "district":  "Quận 10",
+                      "district_code":  "771",
+                      "center_lat":  10.754557,
+                      "center_lon":  106.633621,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00106",
+                      "name":  "Phường Yên Phụ",
+                      "district":  "Quận Tây Hồ",
+                      "district_code":  "003",
+                      "center_lat":  21.056413,
+                      "center_lon":  105.835179,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00085",
+                      "name":  "Phường Phan Chu Trinh",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.02414,
+                      "center_lon":  105.85976,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00178",
+                      "name":  "Phường Cát Linh",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.02838,
+                      "center_lon":  105.827276,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00073",
+                      "name":  "Phường Cửa Nam",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.025389,
+                      "center_lon":  105.841225,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27220",
+                      "name":  "Phường 3",
+                      "district":  "Quận 11",
+                      "district_code":  "772",
+                      "center_lat":  10.768143,
+                      "center_lon":  106.636302,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "20236",
+                      "name":  "Phường Hải Châu",
+                      "district":  "Quận Hải Châu",
+                      "district_code":  "492",
+                      "center_lat":  16.061892,
+                      "center_lon":  108.222786,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "20195",
+                      "name":  "Phường Hòa Hiệp Nam",
+                      "district":  "Quận Liên Chiểu",
+                      "district_code":  "490",
+                      "center_lat":  16.108439,
+                      "center_lon":  108.132198,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "00154",
+                      "name":  "Phường Cự Khối",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  21.008093,
+                      "center_lon":  105.913116,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00007",
+                      "name":  "Phường Cống Vị",
+                      "district":  "Quận Ba Đình",
+                      "district_code":  "001",
+                      "center_lat":  21.034709,
+                      "center_lon":  105.824519,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "26842",
+                      "name":  "Phường Tăng Nhơn Phú A",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.77335,
+                      "center_lon":  106.659632,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "20284",
+                      "name":  "Phường Mỹ An",
+                      "district":  "Quận Ngũ Hành Sơn",
+                      "district_code":  "494",
+                      "center_lat":  16.025095,
+                      "center_lon":  108.259534,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27271",
+                      "name":  "Phường 8",
+                      "district":  "Quận 4",
+                      "district_code":  "773",
+                      "center_lat":  10.824936,
+                      "center_lon":  106.624976,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00019",
+                      "name":  "Phường Điện Biên",
+                      "district":  "Quận Ba Đình",
+                      "district_code":  "001",
+                      "center_lat":  21.034125,
+                      "center_lon":  105.83775,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00103",
+                      "name":  "Phường Xuân La",
+                      "district":  "Quận Tây Hồ",
+                      "district_code":  "003",
+                      "center_lat":  21.063382,
+                      "center_lon":  105.805691,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00079",
+                      "name":  "Phường Tràng Tiền",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.027196,
+                      "center_lon":  105.856575,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "20275",
+                      "name":  "Phường Phước Mỹ",
+                      "district":  "Quận Sơn Trà",
+                      "district_code":  "493",
+                      "center_lat":  16.075964,
+                      "center_lon":  108.244903,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "00632",
+                      "name":  "Phường Phú Đô",
+                      "district":  "Quận Nam Từ Liêm",
+                      "district_code":  "019",
+                      "center_lat":  21.016675,
+                      "center_lon":  105.770065,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00232",
+                      "name":  "Phường Phương Mai",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.003356,
+                      "center_lon":  105.836618,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27265",
+                      "name":  "Phường 9",
+                      "district":  "Quận 4",
+                      "district_code":  "773",
+                      "center_lat":  10.806005,
+                      "center_lon":  106.663814,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "26882",
+                      "name":  "Phường 14",
+                      "district":  "Quận Gò Vấp",
+                      "district_code":  "764",
+                      "center_lat":  10.827738,
+                      "center_lon":  106.68737,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27478",
+                      "name":  "Phường Bình Thuận",
+                      "district":  "Quận 7",
+                      "district_code":  "778",
+                      "center_lat":  10.737567,
+                      "center_lon":  106.72966,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27286",
+                      "name":  "Phường 3",
+                      "district":  "Quận 4",
+                      "district_code":  "773",
+                      "center_lat":  10.754381,
+                      "center_lon":  106.698756,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "00349",
+                      "name":  "Phường Khương Trung",
+                      "district":  "Quận Thanh Xuân",
+                      "district_code":  "009",
+                      "center_lat":  20.992858,
+                      "center_lon":  105.815373,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "26881",
+                      "name":  "Phường 12",
+                      "district":  "Quận Gò Vấp",
+                      "district_code":  "764",
+                      "center_lat":  10.838417,
+                      "center_lon":  106.675343,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27331",
+                      "name":  "Phường 14",
+                      "district":  "Quận 5",
+                      "district_code":  "774",
+                      "center_lat":  10.755825,
+                      "center_lon":  106.668302,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "26920",
+                      "name":  "Phường 25",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.799955,
+                      "center_lon":  106.718363,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00055",
+                      "name":  "Phường Cửa Đông",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.032562,
+                      "center_lon":  105.845404,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26926",
+                      "name":  "Phường 7",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.802406,
+                      "center_lon":  106.694052,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00631",
+                      "name":  "Phường Mễ Trì",
+                      "district":  "Quận Nam Từ Liêm",
+                      "district_code":  "019",
+                      "center_lat":  21.014557,
+                      "center_lon":  105.775655,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "20290",
+                      "name":  "Phường Hoà Hải",
+                      "district":  "Quận Ngũ Hành Sơn",
+                      "district_code":  "494",
+                      "center_lat":  16.00402,
+                      "center_lon":  108.262774,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "00064",
+                      "name":  "Phường Hàng Gai",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.032027,
+                      "center_lon":  105.849196,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "26898",
+                      "name":  "Phường 8",
+                      "district":  "Quận Gò Vấp",
+                      "district_code":  "764",
+                      "center_lat":  10.855403,
+                      "center_lon":  106.653165,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00610",
+                      "name":  "Phường Xuân Đỉnh",
+                      "district":  "Quận Bắc Từ Liêm",
+                      "district_code":  "021",
+                      "center_lat":  21.068748,
+                      "center_lon":  105.786552,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27328",
+                      "name":  "Phường 11",
+                      "district":  "Quận 5",
+                      "district_code":  "774",
+                      "center_lat":  10.741221,
+                      "center_lon":  106.666408,
+                      "listing_count":  10
+                  },
+                  {
+                      "code":  "00280",
+                      "name":  "Phường Đồng Tâm",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  20.99657,
+                      "center_lon":  105.845207,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00181",
+                      "name":  "Phường Văn Miếu - Quốc Tử Giám",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.029427,
+                      "center_lon":  105.83682399999999,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00277",
+                      "name":  "Phường Bách Khoa",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  21.005527,
+                      "center_lon":  105.843593,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00082",
+                      "name":  "Phường Trần Hưng Đạo",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.02078,
+                      "center_lon":  105.843937,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00235",
+                      "name":  "Phường Thịnh Quang",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.004403,
+                      "center_lon":  105.820804,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27187",
+                      "name":  "Phường 8",
+                      "district":  "Quận 10",
+                      "district_code":  "771",
+                      "center_lat":  10.772528,
+                      "center_lon":  106.668202,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00016",
+                      "name":  "Phường Ngọc Hà",
+                      "district":  "Quận Ba Đình",
+                      "district_code":  "001",
+                      "center_lat":  21.03767,
+                      "center_lon":  105.829527,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26950",
+                      "name":  "Phường 17",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.81071,
+                      "center_lon":  106.703022,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00109",
+                      "name":  "Phường Bưởi",
+                      "district":  "Quận Tây Hồ",
+                      "district_code":  "003",
+                      "center_lat":  21.043127,
+                      "center_lon":  105.832007,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "00136",
+                      "name":  "Phường Phúc Lợi",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  21.028681,
+                      "center_lon":  105.918974,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00167",
+                      "name":  "Phường Dịch Vọng Hậu",
+                      "district":  "Quận Cầu Giấy",
+                      "district_code":  "005",
+                      "center_lat":  21.026166,
+                      "center_lon":  105.785258,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "20230",
+                      "name":  "Phường Thuận Phước",
+                      "district":  "Quận Hải Châu",
+                      "district_code":  "492",
+                      "center_lat":  16.095212,
+                      "center_lon":  108.220626,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "27052",
+                      "name":  "Phường 7",
+                      "district":  "Quận Phú Nhuận",
+                      "district_code":  "768",
+                      "center_lat":  10.796771,
+                      "center_lon":  106.686651,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27172",
+                      "name":  "Phường 12",
+                      "district":  "Quận 10",
+                      "district_code":  "771",
+                      "center_lat":  10.746127,
+                      "center_lon":  106.71066,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "27109",
+                      "name":  "Phường Cát Lái",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.791217,
+                      "center_lon":  106.761956,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27127",
+                      "name":  "Phường 14",
+                      "district":  "Quận 3",
+                      "district_code":  "770",
+                      "center_lat":  10.776698,
+                      "center_lon":  106.691264,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "26911",
+                      "name":  "Phường 27",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.81071,
+                      "center_lon":  106.703022,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00355",
+                      "name":  "Phường Thanh Xuân Trung",
+                      "district":  "Quận Thanh Xuân",
+                      "district_code":  "009",
+                      "center_lat":  20.993867,
+                      "center_lon":  105.805473,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27169",
+                      "name":  "Phường 14",
+                      "district":  "Quận 10",
+                      "district_code":  "771",
+                      "center_lat":  10.818762,
+                      "center_lon":  106.706828,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27295",
+                      "name":  "Phường 15",
+                      "district":  "Quận 4",
+                      "district_code":  "773",
+                      "center_lat":  10.780309,
+                      "center_lon":  106.705488,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27142",
+                      "name":  "Phường 9",
+                      "district":  "Quận 3",
+                      "district_code":  "770",
+                      "center_lat":  10.740879,
+                      "center_lon":  106.644449,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27088",
+                      "name":  "Phường Thảo Điền",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.817076,
+                      "center_lon":  106.731549,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "20233",
+                      "name":  "Phường Thạch Thang",
+                      "district":  "Quận Hải Châu",
+                      "district_code":  "492",
+                      "center_lat":  16.058954,
+                      "center_lon":  108.219484,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26761",
+                      "name":  "Phường Cầu Kho",
+                      "district":  "Quận 1",
+                      "district_code":  "760",
+                      "center_lat":  10.775394,
+                      "center_lon":  106.699625,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00241",
+                      "name":  "Phường Nguyễn Du",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  21.016455,
+                      "center_lon":  105.849541,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27307",
+                      "name":  "Phường 2",
+                      "district":  "Quận 5",
+                      "district_code":  "774",
+                      "center_lat":  10.763108,
+                      "center_lon":  106.641707,
+                      "listing_count":  8
+                  },
+                  {
+                      "code":  "27247",
+                      "name":  "Phường 1",
+                      "district":  "Quận 11",
+                      "district_code":  "772",
+                      "center_lat":  10.756727,
+                      "center_lon":  106.639396,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "27163",
+                      "name":  "Phường 15",
+                      "district":  "Quận 10",
+                      "district_code":  "771",
+                      "center_lat":  10.766766,
+                      "center_lon":  106.675286,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "26734",
+                      "name":  "Phường Tân Định",
+                      "district":  "Quận 1",
+                      "district_code":  "760",
+                      "center_lat":  10.7899,
+                      "center_lon":  106.690051,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27193",
+                      "name":  "Phường 4",
+                      "district":  "Quận 10",
+                      "district_code":  "771",
+                      "center_lat":  10.830517,
+                      "center_lon":  106.615746,
+                      "listing_count":  9
+                  },
+                  {
+                      "code":  "00307",
+                      "name":  "Phường Định Công",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.981682,
+                      "center_lon":  105.849816,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00139",
+                      "name":  "Phường Bồ Đề",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  21.038968,
+                      "center_lon":  105.88005,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27304",
+                      "name":  "Phường 9",
+                      "district":  "Quận 5",
+                      "district_code":  "774",
+                      "center_lat":  10.758955,
+                      "center_lon":  106.673049,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00130",
+                      "name":  "Phường Gia Thụy",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  21.039418,
+                      "center_lon":  105.897686,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27343",
+                      "name":  "Phường 13",
+                      "district":  "Quận 5",
+                      "district_code":  "774",
+                      "center_lat":  10.772924,
+                      "center_lon":  106.70522,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27049",
+                      "name":  "Phường 9",
+                      "district":  "Quận Phú Nhuận",
+                      "district_code":  "768",
+                      "center_lat":  10.808577,
+                      "center_lon":  106.674305,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00157",
+                      "name":  "Phường Nghĩa Đô",
+                      "district":  "Quận Cầu Giấy",
+                      "district_code":  "005",
+                      "center_lat":  21.047786,
+                      "center_lon":  105.800913,
+                      "listing_count":  9
+                  },
+                  {
+                      "code":  "26743",
+                      "name":  "Phường Bến Thành",
+                      "district":  "Quận 1",
+                      "district_code":  "760",
+                      "center_lat":  10.773438,
+                      "center_lon":  106.700833,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "26848",
+                      "name":  "Phường Phước Long B",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.839219,
+                      "center_lon":  106.769575,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00340",
+                      "name":  "Phường Yên Sở",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.966774,
+                      "center_lon":  105.870079,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "20314",
+                      "name":  "Phường Hòa Xuân",
+                      "district":  "Quận Cẩm Lệ",
+                      "district_code":  "495",
+                      "center_lat":  15.998693,
+                      "center_lon":  108.21413,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27004",
+                      "name":  "Phường 14",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.800763,
+                      "center_lon":  106.639979,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "26755",
+                      "name":  "Phường Cô Giang",
+                      "district":  "Quận 1",
+                      "district_code":  "760",
+                      "center_lat":  10.761834,
+                      "center_lon":  106.695065,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00358",
+                      "name":  "Phường Phương Liệt",
+                      "district":  "Quận Thanh Xuân",
+                      "district_code":  "009",
+                      "center_lat":  20.984871,
+                      "center_lon":  105.838594,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "27064",
+                      "name":  "Phường 8",
+                      "district":  "Quận Phú Nhuận",
+                      "district_code":  "768",
+                      "center_lat":  10.797102,
+                      "center_lon":  106.674019,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00619",
+                      "name":  "Phường Phú Diễn",
+                      "district":  "Quận Bắc Từ Liêm",
+                      "district_code":  "021",
+                      "center_lat":  21.049772,
+                      "center_lon":  105.759128,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00292",
+                      "name":  "Phường Bạch Mai",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  21.008683,
+                      "center_lon":  105.851414,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00298",
+                      "name":  "Phường Trương Định",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  20.993994,
+                      "center_lon":  105.850016,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00043",
+                      "name":  "Phường Hàng Mã",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.037291,
+                      "center_lon":  105.846633,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "09562",
+                      "name":  "Phường Yên Nghĩa",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.949915,
+                      "center_lon":  105.737253,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27181",
+                      "name":  "Phường 9",
+                      "district":  "Quận 10",
+                      "district_code":  "771",
+                      "center_lat":  10.766501,
+                      "center_lon":  106.675721,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "20207",
+                      "name":  "Phường Thanh Khê Đông",
+                      "district":  "Quận Thanh Khê",
+                      "district_code":  "491",
+                      "center_lat":  16.060977,
+                      "center_lon":  108.183164,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00088",
+                      "name":  "Phường Hàng Bài",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.02222,
+                      "center_lon":  105.850815,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27316",
+                      "name":  "Phường 7",
+                      "district":  "Quận 5",
+                      "district_code":  "774",
+                      "center_lat":  10.74178,
+                      "center_lon":  106.666234,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26953",
+                      "name":  "Phường 19",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.791992,
+                      "center_lon":  106.709068,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27154",
+                      "name":  "Phường 3",
+                      "district":  "Quận 3",
+                      "district_code":  "770",
+                      "center_lat":  10.780859,
+                      "center_lon":  106.694603,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "26876",
+                      "name":  "Phường 6",
+                      "district":  "Quận Gò Vấp",
+                      "district_code":  "764",
+                      "center_lat":  10.8519,
+                      "center_lon":  106.679374,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "26917",
+                      "name":  "Phường 12",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.81071,
+                      "center_lon":  106.703022,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27298",
+                      "name":  "Phường 1",
+                      "district":  "Quận 4",
+                      "district_code":  "773",
+                      "center_lat":  10.781944,
+                      "center_lon":  106.695577,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27133",
+                      "name":  "Phường 11",
+                      "district":  "Quận 3",
+                      "district_code":  "770",
+                      "center_lat":  10.715104,
+                      "center_lon":  106.729132,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00208",
+                      "name":  "Phường Nam Đồng",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.014231,
+                      "center_lon":  105.831717,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00151",
+                      "name":  "Phường Phúc Đồng",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  21.038573,
+                      "center_lon":  105.898194,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00316",
+                      "name":  "Phường Đại Kim",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.972778,
+                      "center_lon":  105.825932,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "09538",
+                      "name":  "Phường Quang Trung",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.971624,
+                      "center_lon":  105.77679,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "26977",
+                      "name":  "Phường 1",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.781399,
+                      "center_lon":  106.656046,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00313",
+                      "name":  "Phường Tương Mai",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.987592,
+                      "center_lon":  105.862882,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27283",
+                      "name":  "Phường 4",
+                      "district":  "Quận 4",
+                      "district_code":  "773",
+                      "center_lat":  10.761546,
+                      "center_lon":  106.69611,
+                      "listing_count":  9
+                  },
+                  {
+                      "code":  "00602",
+                      "name":  "Phường Đức Thắng",
+                      "district":  "Quận Bắc Từ Liêm",
+                      "district_code":  "021",
+                      "center_lat":  21.079948,
+                      "center_lon":  105.773625,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00118",
+                      "name":  "Phường Ngọc Thụy",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  21.043826,
+                      "center_lon":  105.86562,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00001",
+                      "name":  "Phường Phúc Xá",
+                      "district":  "Quận Ba Đình",
+                      "district_code":  "001",
+                      "center_lat":  10.848323,
+                      "center_lon":  106.772329,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "20242",
+                      "name":  "Phường Phước Ninh",
+                      "district":  "Quận Hải Châu",
+                      "district_code":  "492",
+                      "center_lat":  16.063912,
+                      "center_lon":  108.221342,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00214",
+                      "name":  "Phường Quang Trung",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.012032,
+                      "center_lon":  105.825305,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "26941",
+                      "name":  "Phường 2",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.812552,
+                      "center_lon":  106.705953,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "26830",
+                      "name":  "Phường Long Bình",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.830782,
+                      "center_lon":  106.712587,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "20198",
+                      "name":  "Phường Hòa Khánh Nam",
+                      "district":  "Quận Liên Chiểu",
+                      "district_code":  "490",
+                      "center_lat":  16.05204,
+                      "center_lon":  108.153532,
+                      "listing_count":  8
+                  },
+                  {
+                      "code":  "26923",
+                      "name":  "Phường 5",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.802362,
+                      "center_lon":  106.695238,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "26752",
+                      "name":  "Phường Cầu Ông Lãnh",
+                      "district":  "Quận 1",
+                      "district_code":  "760",
+                      "center_lat":  10.752345,
+                      "center_lon":  106.687322,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00097",
+                      "name":  "Phường Tứ Liên",
+                      "district":  "Quận Tây Hồ",
+                      "district_code":  "003",
+                      "center_lat":  21.0606,
+                      "center_lon":  105.835964,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "26827",
+                      "name":  "Phường Trường Thọ",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.77335,
+                      "center_lon":  106.659632,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00595",
+                      "name":  "Phường Thượng Cát",
+                      "district":  "Quận Bắc Từ Liêm",
+                      "district_code":  "021",
+                      "center_lat":  21.090361,
+                      "center_lon":  105.73447,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "00346",
+                      "name":  "Phường Thượng Đình",
+                      "district":  "Quận Thanh Xuân",
+                      "district_code":  "009",
+                      "center_lat":  20.997698,
+                      "center_lon":  105.81223,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "27166",
+                      "name":  "Phường 13",
+                      "district":  "Quận 10",
+                      "district_code":  "771",
+                      "center_lat":  10.766481,
+                      "center_lon":  106.67567,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00623",
+                      "name":  "Phường Phương Canh",
+                      "district":  "Quận Nam Từ Liêm",
+                      "district_code":  "019",
+                      "center_lat":  21.032865,
+                      "center_lon":  105.74162,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "00262",
+                      "name":  "Phường Phố Huế",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  21.017572,
+                      "center_lon":  105.851432,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00244",
+                      "name":  "Phường Bạch Đằng",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  21.010531,
+                      "center_lon":  105.863074,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00006",
+                      "name":  "Phường Vĩnh Phúc",
+                      "district":  "Quận Ba Đình",
+                      "district_code":  "001",
+                      "center_lat":  21.04146,
+                      "center_lon":  105.814382,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26905",
+                      "name":  "Phường 13",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.805446,
+                      "center_lon":  106.699071,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27289",
+                      "name":  "Phường 16",
+                      "district":  "Quận 4",
+                      "district_code":  "773",
+                      "center_lat":  10.765994,
+                      "center_lon":  106.70428,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "26845",
+                      "name":  "Phường Tăng Nhơn Phú B",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.77335,
+                      "center_lon":  106.659632,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00625",
+                      "name":  "Phường Mỹ Đình 1",
+                      "district":  "Quận Nam Từ Liêm",
+                      "district_code":  "019",
+                      "center_lat":  21.022057,
+                      "center_lon":  105.77519,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "00172",
+                      "name":  "Phường Yên Hoà",
+                      "district":  "Quận Cầu Giấy",
+                      "district_code":  "005",
+                      "center_lat":  21.016,
+                      "center_lon":  105.797073,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27238",
+                      "name":  "Phường 7",
+                      "district":  "Quận 11",
+                      "district_code":  "772",
+                      "center_lat":  10.765634,
+                      "center_lon":  106.647607,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "27487",
+                      "name":  "Phường Tân Phú",
+                      "district":  "Quận 7",
+                      "district_code":  "778",
+                      "center_lat":  10.726834,
+                      "center_lon":  106.720584,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "20272",
+                      "name":  "Phường An Hải Bắc",
+                      "district":  "Quận Sơn Trà",
+                      "district_code":  "493",
+                      "center_lat":  16.102173,
+                      "center_lon":  108.248582,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "27157",
+                      "name":  "Phường 2",
+                      "district":  "Quận 3",
+                      "district_code":  "770",
+                      "center_lat":  10.781986,
+                      "center_lon":  106.691238,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00145",
+                      "name":  "Phường Long Biên",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  21.061779,
+                      "center_lon":  105.907363,
+                      "listing_count":  8
+                  },
+                  {
+                      "code":  "00034",
+                      "name":  "Phường Thành Công",
+                      "district":  "Quận Ba Đình",
+                      "district_code":  "001",
+                      "center_lat":  21.033089,
+                      "center_lon":  105.838415,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27007",
+                      "name":  "Phường 15",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.821654,
+                      "center_lon":  106.638766,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "26914",
+                      "name":  "Phường 26",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.813252,
+                      "center_lon":  106.705921,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00067",
+                      "name":  "Phường Chương Dương",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.02994,
+                      "center_lon":  105.857895,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "26878",
+                      "name":  "Phường 16",
+                      "district":  "Quận Gò Vấp",
+                      "district_code":  "764",
+                      "center_lat":  10.838417,
+                      "center_lon":  106.675343,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "20209",
+                      "name":  "Phường Xuân Hà",
+                      "district":  "Quận Thanh Khê",
+                      "district_code":  "491",
+                      "center_lat":  16.070945,
+                      "center_lon":  108.194886,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00217",
+                      "name":  "Phường Trung Liệt",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.010304,
+                      "center_lon":  105.819026,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "20257",
+                      "name":  "Phường Hòa Cường Bắc",
+                      "district":  "Quận Hải Châu",
+                      "district_code":  "492",
+                      "center_lat":  16.043251,
+                      "center_lon":  108.217988,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "26974",
+                      "name":  "Phường 13",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.798216,
+                      "center_lon":  106.641246,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "26968",
+                      "name":  "Phường 4",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.812476,
+                      "center_lon":  106.667503,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "26797",
+                      "name":  "Phường Bình Chiểu",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.877442,
+                      "center_lon":  106.733285,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "26833",
+                      "name":  "Phường Long Thạnh Mỹ",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.844193,
+                      "center_lon":  106.779153,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "20278",
+                      "name":  "Phường An Hải Nam",
+                      "district":  "Quận Sơn Trà",
+                      "district_code":  "493",
+                      "center_lat":  16.102173,
+                      "center_lon":  108.248582,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "20245",
+                      "name":  "Phường Hòa Thuận Tây",
+                      "district":  "Quận Hải Châu",
+                      "district_code":  "492",
+                      "center_lat":  16.058954,
+                      "center_lon":  108.219484,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00169",
+                      "name":  "Phường Quan Hoa",
+                      "district":  "Quận Cầu Giấy",
+                      "district_code":  "005",
+                      "center_lat":  21.040078,
+                      "center_lon":  105.79884,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27085",
+                      "name":  "Phường 13",
+                      "district":  "Quận Phú Nhuận",
+                      "district_code":  "768",
+                      "center_lat":  10.796771,
+                      "center_lon":  106.686651,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "26815",
+                      "name":  "Phường Linh Chiểu",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.85502,
+                      "center_lon":  106.763694,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "20266",
+                      "name":  "Phường Nại Hiên Đông",
+                      "district":  "Quận Sơn Trà",
+                      "district_code":  "493",
+                      "center_lat":  16.092398,
+                      "center_lon":  108.231445,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00199",
+                      "name":  "Phường Láng Hạ",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.015411,
+                      "center_lon":  105.814141,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00259",
+                      "name":  "Phường Đồng Nhân",
+                      "district":  "Quận Hai Bà Trưng",
+                      "district_code":  "007",
+                      "center_lat":  21.011596,
+                      "center_lon":  105.856885,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "20197",
+                      "name":  "Phường Hòa Khánh Bắc",
+                      "district":  "Quận Liên Chiểu",
+                      "district_code":  "490",
+                      "center_lat":  16.076505,
+                      "center_lon":  108.148836,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "00127",
+                      "name":  "Phường Việt Hưng",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  21.061025,
+                      "center_lon":  105.904304,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "26746",
+                      "name":  "Phường Nguyễn Thái Bình",
+                      "district":  "Quận 1",
+                      "district_code":  "760",
+                      "center_lat":  10.775394,
+                      "center_lon":  106.699625,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00229",
+                      "name":  "Phường Kim Liên",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.000227,
+                      "center_lon":  105.833042,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00160",
+                      "name":  "Phường Nghĩa Tân",
+                      "district":  "Quận Cầu Giấy",
+                      "district_code":  "005",
+                      "center_lat":  21.045542,
+                      "center_lon":  105.791994,
+                      "listing_count":  6
+                  },
+                  {
+                      "code":  "00070",
+                      "name":  "Phường Hàng Trống",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.026014,
+                      "center_lon":  105.849222,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "20258",
+                      "name":  "Phường Hòa Cường Nam",
+                      "district":  "Quận Hải Châu",
+                      "district_code":  "492",
+                      "center_lat":  16.02806,
+                      "center_lon":  108.221686,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00352",
+                      "name":  "Phường Khương Mai",
+                      "district":  "Quận Thanh Xuân",
+                      "district_code":  "009",
+                      "center_lat":  20.998722,
+                      "center_lon":  105.825213,
+                      "listing_count":  8
+                  },
+                  {
+                      "code":  "00046",
+                      "name":  "Phường Hàng Buồm",
+                      "district":  "Quận Hoàn Kiếm",
+                      "district_code":  "002",
+                      "center_lat":  21.035521,
+                      "center_lon":  105.852327,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "26857",
+                      "name":  "Phường Long Phước",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.83968,
+                      "center_lon":  106.709295,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "20227",
+                      "name":  "Phường Thanh Bình",
+                      "district":  "Quận Hải Châu",
+                      "district_code":  "492",
+                      "center_lat":  16.079424,
+                      "center_lon":  108.213025,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27097",
+                      "name":  "Phường Bình Trưng Đông",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.877442,
+                      "center_lon":  106.733285,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00187",
+                      "name":  "Phường Láng Thượng",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.019534,
+                      "center_lon":  105.807408,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27178",
+                      "name":  "Phường 10",
+                      "district":  "Quận 10",
+                      "district_code":  "771",
+                      "center_lat":  10.76137,
+                      "center_lon":  106.705486,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "20224",
+                      "name":  "Phường An Khê",
+                      "district":  "Quận Thanh Khê",
+                      "district_code":  "491",
+                      "center_lat":  16.048889,
+                      "center_lon":  108.184575,
+                      "listing_count":  9
+                  },
+                  {
+                      "code":  "27070",
+                      "name":  "Phường 10",
+                      "district":  "Quận Phú Nhuận",
+                      "district_code":  "768",
+                      "center_lat":  10.791274,
+                      "center_lon":  106.678488,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "20218",
+                      "name":  "Phường Thạc Gián",
+                      "district":  "Quận Thanh Khê",
+                      "district_code":  "491",
+                      "center_lat":  16.062163,
+                      "center_lon":  108.209144,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27001",
+                      "name":  "Phường 9",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.797582,
+                      "center_lon":  106.665224,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27139",
+                      "name":  "Phường Võ Thị Sáu",
+                      "district":  "Quận 3",
+                      "district_code":  "770",
+                      "center_lat":  10.778891,
+                      "center_lon":  106.686997,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00094",
+                      "name":  "Phường Nhật Tân",
+                      "district":  "Quận Tây Hồ",
+                      "district_code":  "003",
+                      "center_lat":  21.083203,
+                      "center_lon":  105.815631,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "26908",
+                      "name":  "Phường 11",
+                      "district":  "Quận Bình Thạnh",
+                      "district_code":  "765",
+                      "center_lat":  10.792752,
+                      "center_lon":  106.707024,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "27160",
+                      "name":  "Phường 1",
+                      "district":  "Quận 3",
+                      "district_code":  "770",
+                      "center_lat":  10.781944,
+                      "center_lon":  106.695577,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "26866",
+                      "name":  "Phường Phú Hữu",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.844193,
+                      "center_lon":  106.779153,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "20200",
+                      "name":  "Phường Hòa Minh",
+                      "district":  "Quận Liên Chiểu",
+                      "district_code":  "490",
+                      "center_lat":  16.062603,
+                      "center_lon":  108.168362,
+                      "listing_count":  8
+                  },
+                  {
+                      "code":  "26836",
+                      "name":  "Phường Tân Phú",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.859294,
+                      "center_lon":  106.801094,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "26800",
+                      "name":  "Phường Linh Trung",
+                      "district":  "Thành phố Thủ Đức",
+                      "district_code":  "769",
+                      "center_lat":  10.861087,
+                      "center_lon":  106.769645,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "26965",
+                      "name":  "Phường 2",
+                      "district":  "Quận Tân Bình",
+                      "district_code":  "766",
+                      "center_lat":  10.811627,
+                      "center_lon":  106.66319,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "27334",
+                      "name":  "Phường 5",
+                      "district":  "Quận 5",
+                      "district_code":  "774",
+                      "center_lat":  10.756696,
+                      "center_lon":  106.659726,
+                      "listing_count":  5
+                  },
+                  {
+                      "code":  "00322",
+                      "name":  "Phường Hoàng Văn Thụ",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.981919,
+                      "center_lon":  105.8768,
+                      "listing_count":  7
+                  },
+                  {
+                      "code":  "00100",
+                      "name":  "Phường Quảng An",
+                      "district":  "Quận Tây Hồ",
+                      "district_code":  "003",
+                      "center_lat":  21.056727,
+                      "center_lon":  105.821492,
+                      "listing_count":  11
+                  },
+                  {
+                      "code":  "00607",
+                      "name":  "Phường Tây Tựu",
+                      "district":  "Quận Bắc Từ Liêm",
+                      "district_code":  "021",
+                      "center_lat":  21.069945,
+                      "center_lon":  105.729325,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "20311",
+                      "name":  "Phường Hòa Thọ Tây",
+                      "district":  "Quận Cẩm Lệ",
+                      "district_code":  "495",
+                      "center_lat":  16.0001,
+                      "center_lon":  108.183591,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00004",
+                      "name":  "Phường Trúc Bạch",
+                      "district":  "Quận Ba Đình",
+                      "district_code":  "001",
+                      "center_lat":  21.046311,
+                      "center_lon":  105.838399,
+                      "listing_count":  4
+                  },
+                  {
+                      "code":  "00238",
+                      "name":  "Phường Khương Thượng",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.000227,
+                      "center_lon":  105.833042,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00028",
+                      "name":  "Phường Kim Mã",
+                      "district":  "Quận Ba Đình",
+                      "district_code":  "001",
+                      "center_lat":  21.031712,
+                      "center_lon":  105.827281,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27058",
+                      "name":  "Phường 1",
+                      "district":  "Quận Phú Nhuận",
+                      "district_code":  "768",
+                      "center_lat":  10.796177,
+                      "center_lon":  106.687231,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "27130",
+                      "name":  "Phường 12",
+                      "district":  "Quận 3",
+                      "district_code":  "770",
+                      "center_lat":  10.769192,
+                      "center_lon":  106.640862,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "09556",
+                      "name":  "Phường Hà Cầu",
+                      "district":  "Quận Hà Đông",
+                      "district_code":  "268",
+                      "center_lat":  20.964438,
+                      "center_lon":  105.770949,
+                      "listing_count":  2
+                  },
+                  {
+                      "code":  "00121",
+                      "name":  "Phường Giang Biên",
+                      "district":  "Quận Long Biên",
+                      "district_code":  "004",
+                      "center_lat":  20.925378,
+                      "center_lon":  105.727638,
+                      "listing_count":  3
+                  },
+                  {
+                      "code":  "00202",
+                      "name":  "Phường Khâm Thiên",
+                      "district":  "Quận Đống Đa",
+                      "district_code":  "006",
+                      "center_lat":  21.018811,
+                      "center_lon":  105.834481,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00337",
+                      "name":  "Phường Hoàng Liệt",
+                      "district":  "Quận Hoàng Mai",
+                      "district_code":  "008",
+                      "center_lat":  20.971131,
+                      "center_lon":  105.84127,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "00013",
+                      "name":  "Phường Quán Thánh",
+                      "district":  "Quận Ba Đình",
+                      "district_code":  "001",
+                      "center_lat":  21.04301,
+                      "center_lon":  105.836419,
+                      "listing_count":  1
+                  },
+                  {
+                      "code":  "27310",
+                      "name":  "Phường 12",
+                      "district":  "Quận 5",
+                      "district_code":  "774",
+                      "center_lat":  10.756696,
+                      "center_lon":  106.659726,
+                      "listing_count":  1
+                  }
+              ]
+}
