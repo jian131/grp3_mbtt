@@ -12,7 +12,7 @@ HK_BOUNDS = {
     "lon_max": 105.86
 }
 
-with open('app/data/vn_rental_3cities_verified.json', encoding='utf-8') as f:
+with open('app/data/listings_vn_postmerge.json', encoding='utf-8') as f:
     data = json.load(f)
 
 hk_records = [r for r in data if 'Hoàn Kiếm' in str(r.get('district', ''))]

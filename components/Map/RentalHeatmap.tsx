@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
 import { fetchListings, Listing } from '@/lib/api';
+import { useMapEvents } from 'react-leaflet';
 import {
   MAP_ZOOM,
   DEFAULT_CENTER,
@@ -18,8 +19,15 @@ const MapContainer = dynamic(() => import('react-leaflet').then((mod) => mod.Map
 const TileLayer = dynamic(() => import('react-leaflet').then((mod) => mod.TileLayer), { ssr: false });
 const CircleMarker = dynamic(() => import('react-leaflet').then((mod) => mod.CircleMarker), { ssr: false });
 const Popup = dynamic(() => import('react-leaflet').then((mod) => mod.Popup), { ssr: false });
+const Polyline = dynamic(() => import('react-leaflet').then((mod) => mod.Polyline), { ssr: false });
 
 type HeatmapMode = 'price' | 'potential';
+type RouteProfile = 'driving' | 'walking';
+
+interface RouteCacheEntry {
+  coords: Array<[number, number]>;
+  stats: { distanceKm: number; durationMin: number; durationLabel: string };
+}
 
 interface Props {
   filterProvince?: string;
@@ -61,8 +69,17 @@ export default function RentalHeatmap({
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
   const [mapReady, setMapReady] = useState(false);
+  const [origin, setOrigin] = useState<{ lat: number; lon: number } | null>(null);
+  const [originInput, setOriginInput] = useState({ lat: '', lon: '' });
+  const [routeCoords, setRouteCoords] = useState<Array<[number, number]>>([]);
+  const [routeStats, setRouteStats] = useState<{ distanceKm: number; durationMin: number; durationLabel: string } | null>(null);
+  const [routeLoading, setRouteLoading] = useState(false);
+  const [routeError, setRouteError] = useState<string | null>(null);
+  const [routeProfile, setRouteProfile] = useState<RouteProfile>('driving');
   const mapRef = useRef<L.Map | null>(null);
   const lastFocusKeyRef = useRef<string>('');
+  const routeAbortRef = useRef<AbortController | null>(null);
+  const routeCacheRef = useRef<Map<string, RouteCacheEntry>>(new Map());
 
   useEffect(() => {
     setIsClient(true);
@@ -195,6 +212,151 @@ export default function RentalHeatmap({
     }
   }, [listings]);
 
+  const selectedListing = selectedListingId
+    ? listings.find(l => l.id === selectedListingId)
+    : null;
+
+  const clearRoute = useCallback(() => {
+    setRouteCoords([]);
+    setRouteStats(null);
+    setRouteError(null);
+  }, []);
+
+  const handleUseLocation = useCallback(() => {
+    if (!navigator.geolocation) {
+      setRouteError('Trình duyệt không hỗ trợ định vị');
+      return;
+    }
+
+    setRouteError(null);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+        if (!isValidVietnamCoords(lat, lon)) {
+          setRouteError('Vị trí ngoài phạm vi Việt Nam');
+          return;
+        }
+        setOrigin({ lat, lon });
+      },
+      (err) => {
+        setRouteError(err.message || 'Không lấy được vị trí');
+      },
+      { enableHighAccuracy: true, timeout: 12000 }
+    );
+  }, []);
+
+  const handleSetManualOrigin = useCallback(() => {
+    const lat = Number(originInput.lat);
+    const lon = Number(originInput.lon);
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+      setRouteError('Lat/Lon không hợp lệ');
+      return;
+    }
+    if (!isValidVietnamCoords(lat, lon)) {
+      setRouteError('Vị trí ngoài phạm vi Việt Nam');
+      return;
+    }
+    setRouteError(null);
+    setOrigin({ lat, lon });
+  }, [originInput.lat, originInput.lon]);
+
+  const handleSetOriginFromMap = useCallback((lat: number, lon: number) => {
+    if (!isValidVietnamCoords(lat, lon)) {
+      setRouteError('Vị trí ngoài phạm vi Việt Nam');
+      return;
+    }
+    setRouteError(null);
+    setOrigin({ lat, lon });
+    setOriginInput({ lat: lat.toFixed(6), lon: lon.toFixed(6) });
+  }, []);
+
+  useEffect(() => {
+    if (!origin || !selectedListing) {
+      clearRoute();
+      return;
+    }
+
+    const destLat = selectedListing.lat || selectedListing.latitude || 0;
+    const destLon = selectedListing.lon || selectedListing.longitude || 0;
+    if (!isValidVietnamCoords(destLat, destLon)) {
+      setRouteError('Điểm đến không hợp lệ');
+      clearRoute();
+      return;
+    }
+
+    const cacheKey = `${routeProfile}:${origin.lat.toFixed(6)},${origin.lon.toFixed(6)}->${destLat.toFixed(6)},${destLon.toFixed(6)}`;
+    const cached = routeCacheRef.current.get(cacheKey);
+    if (cached) {
+      setRouteCoords(cached.coords);
+      setRouteStats(cached.stats);
+      setRouteError(null);
+      return;
+    }
+
+    if (routeAbortRef.current) {
+      routeAbortRef.current.abort();
+    }
+
+    const controller = new AbortController();
+    routeAbortRef.current = controller;
+    setRouteLoading(true);
+    setRouteError(null);
+
+    const url = `https://router.project-osrm.org/route/v1/${routeProfile}/${origin.lon},${origin.lat};${destLon},${destLat}?overview=full&geometries=geojson`;
+
+    fetch(url, { signal: controller.signal })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data?.routes?.length) {
+          throw new Error('Không tìm được tuyến đường');
+        }
+        const route = data.routes[0];
+        const coords = route.geometry.coordinates.map((pt: [number, number]) => [pt[1], pt[0]] as [number, number]);
+        const distanceKm = Math.round((route.distance / 1000) * 10) / 10;
+        const avgSpeedKmh = routeProfile === 'walking' ? 4.5 : 25;
+        const durationMin = Math.round(((distanceKm / avgSpeedKmh) * 60) * 10) / 10;
+        const stats = {
+          distanceKm,
+          durationMin,
+          durationLabel: 'Ước tính'
+        };
+        setRouteCoords(coords);
+        setRouteStats(stats);
+        routeCacheRef.current.set(cacheKey, { coords, stats });
+      })
+      .catch((err) => {
+        if (err?.name === 'AbortError') return;
+        setRouteError(err?.message || 'Lỗi chỉ đường');
+        clearRoute();
+      })
+      .finally(() => {
+        setRouteLoading(false);
+      });
+  }, [origin, selectedListing, routeProfile, clearRoute]);
+
+  useEffect(() => {
+    if (!mapRef.current || routeCoords.length < 2) return;
+    const points = routeCoords.map(([lat, lon]) => ({ lat, lon }));
+    const bounds = calculateBoundsFromPoints(points);
+    if (bounds) {
+      mapRef.current.flyToBounds(bounds, {
+        padding: [50, 50],
+        duration: 0.6,
+        maxZoom: MAP_ZOOM.DISTRICT
+      });
+    }
+  }, [routeCoords]);
+
+  const MapClickHandler = () => {
+    useMapEvents({
+      click: (event) => {
+        handleSetOriginFromMap(event.latlng.lat, event.latlng.lng);
+      }
+    });
+    return null;
+  };
+
   if (!isClient) {
     return (
       <div className="w-full h-full bg-slate-900 animate-pulse rounded-xl flex items-center justify-center text-cyan-500">
@@ -239,6 +401,80 @@ export default function RentalHeatmap({
         >
           🎯 Potential Map
         </button>
+      </div>
+
+      {/* Route Controls */}
+      <div className="absolute top-14 left-4 z-[1000] glass-panel p-3 rounded-lg w-[260px] space-y-2">
+        <div className="text-xs font-bold text-cyan-400">Chỉ đường tới mặt bằng</div>
+        <div className="flex gap-2">
+          <button
+            onClick={handleUseLocation}
+            className="px-2 py-1 rounded text-xs font-bold bg-white/10 text-gray-300 hover:bg-white/20 transition-all"
+          >
+            Dùng vị trí của tôi
+          </button>
+          <button
+            onClick={() => {
+              setOrigin(null);
+              clearRoute();
+            }}
+            className="px-2 py-1 rounded text-xs font-bold bg-white/10 text-gray-300 hover:bg-white/20 transition-all"
+          >
+            Xóa
+          </button>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setRouteProfile('driving')}
+            className={`px-2 py-1 rounded text-xs font-bold transition-all ${routeProfile === 'driving' ? 'bg-cyan-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
+          >
+            Lái xe
+          </button>
+          <button
+            onClick={() => setRouteProfile('walking')}
+            className={`px-2 py-1 rounded text-xs font-bold transition-all ${routeProfile === 'walking' ? 'bg-cyan-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
+          >
+            Đi bộ
+          </button>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <input
+            value={originInput.lat}
+            onChange={(e) => setOriginInput(prev => ({ ...prev, lat: e.target.value }))}
+            placeholder="Lat"
+            className="bg-black/30 text-xs text-white px-2 py-1 rounded border border-white/10"
+          />
+          <input
+            value={originInput.lon}
+            onChange={(e) => setOriginInput(prev => ({ ...prev, lon: e.target.value }))}
+            placeholder="Lon"
+            className="bg-black/30 text-xs text-white px-2 py-1 rounded border border-white/10"
+          />
+        </div>
+        <button
+          onClick={handleSetManualOrigin}
+          className="px-2 py-1 rounded text-xs font-bold bg-white/10 text-gray-300 hover:bg-white/20 transition-all"
+        >
+          Đặt điểm xuất phát
+        </button>
+        <div className="text-[11px] text-gray-400">Mẹo: bấm vào bản đồ để đặt điểm xuất phát.</div>
+        <div className="text-[11px] text-gray-400">
+          {origin
+            ? `Điểm xuất phát: ${origin.lat.toFixed(5)}, ${origin.lon.toFixed(5)}`
+            : 'Cần điểm xuất phát để vẽ tuyến'}
+        </div>
+        <div className="text-[11px] text-gray-400">
+          {selectedListing
+            ? `Điểm đến: ${selectedListing.title || selectedListing.name}`
+            : 'Chọn một mặt bằng'}
+        </div>
+        {routeLoading && <div className="text-[11px] text-cyan-400">Đang tìm tuyến...</div>}
+        {routeStats && (
+          <div className="text-[11px] text-green-400">
+            {routeStats.distanceKm} km | {routeStats.durationMin} phút ({routeStats.durationLabel})
+          </div>
+        )}
+        {routeError && <div className="text-[11px] text-red-400">{routeError}</div>}
       </div>
 
       {/* Map Controls */}
@@ -294,6 +530,30 @@ export default function RentalHeatmap({
           attribution='&copy; <a href="https://carto.com/">CARTO</a>'
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
         />
+
+        <MapClickHandler />
+
+        {routeCoords.length > 1 && (
+          // @ts-ignore
+          <Polyline
+            positions={routeCoords}
+            pathOptions={{ color: '#22d3ee', weight: 4, opacity: 0.9 }}
+          />
+        )}
+
+        {origin && (
+          // @ts-ignore
+          <CircleMarker
+            center={[origin.lat, origin.lon]}
+            pathOptions={{ fillColor: '#f97316', color: '#f97316', weight: 2, opacity: 1, fillOpacity: 0.9 }}
+            radius={7}
+          >
+            {/* @ts-ignore */}
+            <Popup>
+              <div className="p-2 text-xs text-white bg-slate-900 rounded-lg">Origin</div>
+            </Popup>
+          </CircleMarker>
+        )}
 
         {listings.map((listing) => {
           const lat = listing.lat || listing.latitude || 0;

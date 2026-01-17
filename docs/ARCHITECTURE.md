@@ -108,7 +108,7 @@ lib/api.ts → HTTP Request
     ↓
 n8n Webhook
     ↓
-Read File Node → /data/vn_rental_3cities_verified.json
+Read File Node → /data/listings_vn_postmerge.json
     ↓
 Filter/Transform (JavaScript Code Nodes)
     ↓
@@ -152,7 +152,7 @@ Embed in /bi-dashboard via iframe
 All workflows follow this pattern:
 
 1. **Webhook Trigger** - Listen for HTTP request
-2. **Read File** - Load `/data/vn_rental_3cities_verified.json`
+2. **Read File** - Load `/data/listings_vn_postmerge.json`
 3. **Filter** - JavaScript code node applies filters
 4. **Transform** - Map fields, calculate derived values
 5. **Respond** - Return JSON with consistent format

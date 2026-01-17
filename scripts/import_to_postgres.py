@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 
 # Configuration
-DATA_FILE = Path(__file__).parent.parent / "app" / "data" / "vn_rental_3cities_verified.json"
+DATA_FILE = Path(__file__).parent.parent / "app" / "data" / "listings_vn_postmerge.json"
 POSTGRES_CONFIG = {
     "host": "localhost",
     "port": 5433,

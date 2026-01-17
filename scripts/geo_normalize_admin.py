@@ -566,7 +566,9 @@ def main():
     script_dir = Path(__file__).parent
     project_root = script_dir.parent
 
-    # Input/output paths
+    # ARCHIVED: This script was used to normalize old dataset
+    # Current dataset: app/data/listings_vn_postmerge.json (already normalized)
+    # Input/output paths (for reference only)
     input_file = project_root / "app" / "data" / "vn_rental_3cities_verified.json"
     output_json = project_root / "app" / "data" / "vn_rental_3cities_geo_verified.json"
     output_csv = project_root / "app" / "data" / "vn_rental_3cities_geo_verified.csv"

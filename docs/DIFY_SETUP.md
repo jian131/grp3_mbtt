@@ -99,7 +99,7 @@ Test trong Dify UI:
 
 Khi có data mới:
 
-1. Thay file `app/data/vn_rental_3cities_verified.json`
+1. Thay file `app/data/listings_vn_postmerge.json`
 2. Redeploy: `npx vercel --prod`
 3. Chatbot tự động dùng data mới
 

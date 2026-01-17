@@ -118,7 +118,7 @@ interface Listing {
 **n8n Data Source:**
 
 ```
-/data/files/vn_rental_3cities_verified.json  (Docker volume mount)
+/data/files/listings_vn_postmerge.json  (Docker volume mount)
 ```
 
 ### Superset
@@ -193,7 +193,7 @@ npx vercel --prod
 
 ```bash
 # Copy updated JSON to Docker volume
-docker cp app/data/vn_rental_3cities_verified.json n8n_container:/data/files/
+docker cp app/data/listings_vn_postmerge.json n8n_container:/data/files/
 
 # Restart n8n to reload data
 docker-compose restart n8n

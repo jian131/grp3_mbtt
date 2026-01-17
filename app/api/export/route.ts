@@ -10,7 +10,7 @@ function loadListings(): any[] {
   if (listingsCache) return listingsCache;
 
   try {
-    const dataPath = path.join(process.cwd(), 'app/data/vn_rental_3cities_verified.json');
+    const dataPath = path.join(process.cwd(), 'app/data/listings_vn_postmerge.json');
     const rawData = fs.readFileSync(dataPath, 'utf8');
     listingsCache = JSON.parse(rawData);
     return listingsCache || [];

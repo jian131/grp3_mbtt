@@ -25,7 +25,7 @@ except ImportError:
     exit(1)
 
 # Paths
-DATA_FILE = Path("app/data/vn_rental_3cities_verified.json")
+DATA_FILE = Path("app/data/listings_vn_postmerge.json")
 GADM_FILE = Path("data/boundaries/gadm41_VNM_3.json")
 REPORT_MD = Path("reports/geo_qc_report.md")
 REPORT_JSON = Path("reports/geo_qc_report.json")

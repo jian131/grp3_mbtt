@@ -75,7 +75,7 @@ Khi có data mới:
 
 ```bash
 # 1. Replace file
-cp new_data.json app/data/vn_rental_3cities_verified.json
+cp new_data.json app/data/listings_vn_postmerge.json
 
 # 2. Redeploy
 npx vercel --prod

@@ -250,13 +250,11 @@ Visit http://localhost:3000 and verify:
 **Solutions:**
 
 1. **Check workflow is active**:
-
    - Go to http://localhost:5678
    - Workflows → JFinder_API_NoPostgres
    - Ensure **Active** toggle is ON
 
 2. **Check webhook URLs**:
-
    - Click on Webhook nodes
    - Verify URLs match expected format: `/webhook/search`
 
@@ -281,7 +279,6 @@ Visit http://localhost:3000 and verify:
    ```
 
 2. **Check environment variables**:
-
    - Verify `.env.local` has correct `NEXT_PUBLIC_N8N_URL`
    - Should be: `http://localhost:5678/webhook`
 
@@ -311,7 +308,6 @@ Visit http://localhost:3000 and verify:
    ```
 
 2. **Verify connection string**:
-
    - In Superset: Settings → Database Connections
    - Edit PostgreSQL connection
    - URI: `postgresql://jfinder:jfinder_password@postgres:5432/jfinder_db`
@@ -392,7 +388,7 @@ If dataset file changes:
 1. **Replace JSON file**:
 
    ```bash
-   cp new_data.json app/data/vn_rental_3cities_verified.json
+   cp new_data.json app/data/listings_vn_postmerge.json
    ```
 
 2. **Restart n8n** (to reload file):
@@ -415,7 +411,6 @@ If dataset file changes:
 ### Update n8n Workflow
 
 1. **Export current workflow**:
-
    - n8n → Workflows → JFinder_API_NoPostgres
    - ⋯ Menu → Download
    - Save to `n8n/` folder

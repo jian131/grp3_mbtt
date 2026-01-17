@@ -75,7 +75,7 @@ npm run dev
 ├──────────────────┤   └──────────────────┘
 │  /webhook/search │
 │  /webhook/stats  │   Data Source:
-│  /webhook/roi    │   vn_rental_3cities_verified.json
+│  /webhook/roi    │   listings_vn_postmerge.json
 │  /webhook/val    │   (1170 records)
 └──────────────────┘
 
@@ -107,7 +107,7 @@ grp3_mbtt/
 │   │   ├── roi/              # ROI calculation
 │   │   └── valuation/        # Property valuation
 │   ├── data/                 # Verified dataset (1170 records)
-│   │   └── vn_rental_3cities_verified.json
+│   │   └── listings_vn_postmerge.json
 │   ├── search/               # Search page
 │   ├── listing/[id]/         # Detail page
 │   ├── analysis/             # ROI + Valuation page
@@ -293,11 +293,12 @@ All routes compile successfully after cleanup.
 
 ## 📊 Data
 
-### Dataset: vn_rental_3cities_verified.json
+### Dataset: listings_vn_postmerge.json
 
 - **Total Records:** 1,170
-- **Cities:** Hà Nội (490), Hồ Chí Minh (580), Đà Nẵng (100)
-- **Geo Verification:** 100% (GADM point-in-polygon)
+- **Cities:** Hà Nội (480), Hồ Chí Minh (520), Đà Nẵng (170)
+- **Geo Verification:** 100% (Nominatim + GADM)
+- **Coordinates:** Spread (no overlapping points)
 - **Fields:** 35+ attributes including:
   - Location: lat/lng, province, district, ward
   - Property: type, area, frontage, floors

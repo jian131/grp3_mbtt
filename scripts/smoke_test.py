@@ -154,7 +154,7 @@ def test_frontend_home():
 def test_data_file():
     """Test verified data file exists and is valid"""
     try:
-        with open("app/data/vn_rental_3cities_verified.json", "r", encoding="utf-8") as f:
+        with open("app/data/listings_vn_postmerge.json", "r", encoding="utf-8") as f:
             data = json.load(f)
         success = isinstance(data, list) and len(data) == 1170
         log_result("Data File Integrity", success, f"Records: {len(data)}")
