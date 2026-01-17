@@ -427,13 +427,13 @@ export default function RentalHeatmap({
         </button>
       </div>
 
-      {/* Route Controls */}
-      <div className="absolute top-14 left-4 z-[1000] glass-panel p-3 rounded-lg w-[260px] space-y-2">
+      {/* Route Controls - Enhanced Visibility */}
+      <div className="absolute top-14 left-4 z-[1001] bg-slate-800/95 backdrop-blur-md p-3 rounded-lg w-[260px] space-y-2 border border-cyan-500/30 shadow-xl">
         <div className="text-xs font-bold text-cyan-400">Chỉ đường tới mặt bằng</div>
         <div className="flex gap-2">
           <button
             onClick={handleUseLocation}
-            className="px-2 py-1 rounded text-xs font-bold bg-white/10 text-gray-300 hover:bg-white/20 transition-all"
+            className="px-2 py-1 rounded text-xs font-bold bg-slate-700 text-gray-200 hover:bg-slate-600 transition-all"
           >
             Dùng vị trí của tôi
           </button>
@@ -442,7 +442,7 @@ export default function RentalHeatmap({
               setOrigin(null);
               clearRoute();
             }}
-            className="px-2 py-1 rounded text-xs font-bold bg-white/10 text-gray-300 hover:bg-white/20 transition-all"
+            className="px-2 py-1 rounded text-xs font-bold bg-slate-700 text-gray-200 hover:bg-slate-600 transition-all"
           >
             Xóa
           </button>
@@ -450,13 +450,13 @@ export default function RentalHeatmap({
         <div className="flex gap-2">
           <button
             onClick={() => setRouteProfile('driving')}
-            className={`px-2 py-1 rounded text-xs font-bold transition-all ${routeProfile === 'driving' ? 'bg-cyan-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
+            className={`px-2 py-1 rounded text-xs font-bold transition-all ${routeProfile === 'driving' ? 'bg-cyan-500 text-white' : 'bg-slate-700 text-gray-200 hover:bg-slate-600'}`}
           >
             Lái xe
           </button>
           <button
             onClick={() => setRouteProfile('walking')}
-            className={`px-2 py-1 rounded text-xs font-bold transition-all ${routeProfile === 'walking' ? 'bg-cyan-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
+            className={`px-2 py-1 rounded text-xs font-bold transition-all ${routeProfile === 'walking' ? 'bg-cyan-500 text-white' : 'bg-slate-700 text-gray-200 hover:bg-slate-600'}`}
           >
             Đi bộ
           </button>
@@ -477,7 +477,7 @@ export default function RentalHeatmap({
         </div>
         <button
           onClick={handleSetManualOrigin}
-          className="px-2 py-1 rounded text-xs font-bold bg-white/10 text-gray-300 hover:bg-white/20 transition-all"
+          className="w-full px-2 py-1 rounded text-xs font-bold bg-slate-700 text-gray-200 hover:bg-slate-600 transition-all"
         >
           Đặt điểm xuất phát
         </button>
