@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import listingsData from '@/app/data/vn_rental_3cities_verified.json';
 
-// Free API key: https://console.groq.com/keys
-const GROQ_API_KEY = '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';
+// Get API key from environment variable
+const GROQ_API_KEY = process.env.GROQ_API_KEY || '';
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 interface Listing {
