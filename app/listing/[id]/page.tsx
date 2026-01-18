@@ -199,8 +199,8 @@ export default function ListingDetailPage() {
     };
     const baseDistance = computeDistanceKm(originPoint, currentPoint);
     const speed = getSpeedKmh(travelMode);
-    const ETA_IMPROVE_PCT = 10; // cần tốt hơn ít nhất 10%
-    const PRICE_IMPROVE_M = 3;  // hoặc rẻ hơn ít nhất 3 triệu
+    const ETA_IMPROVE_PCT = 5; // cần tốt hơn ít nhất 5% (giảm từ 10%)
+    const PRICE_IMPROVE_M = 1;  // hoặc rẻ hơn ít nhất 1 triệu (giảm từ 3)
     const MAX_CANDIDATES = 15; // tránh spam OSRM
 
     const nearest = [...altCandidates]

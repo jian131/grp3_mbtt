@@ -248,7 +248,7 @@ export default function RentalHeatmap({
 
   const handleUseLocation = useCallback(() => {
     if (!navigator.geolocation) {
-      setRouteError('TrÃ¬nh duyá»‡t khÃ´ng há»— trá»£ Ä‘á»‹nh vá»‹');
+      setRouteError('Trình duyệt không hỗ trợ định vị');
       return;
     }
 
@@ -258,13 +258,13 @@ export default function RentalHeatmap({
         const lat = pos.coords.latitude;
         const lon = pos.coords.longitude;
         if (!isValidVietnamCoords(lat, lon)) {
-          setRouteError('Vá»‹ trÃ­ ngoÃ i pháº¡m vi Viá»‡t Nam');
+          setRouteError('Vị trí ngoài phạm vi Việt Nam');
           return;
         }
         setOrigin({ lat, lon });
       },
       (err) => {
-        setRouteError(err.message || 'KhÃ´ng láº¥y Ä‘Æ°á»£c vá»‹ trÃ­');
+        setRouteError(err.message || 'Không lấy được vị trí');
       },
       { enableHighAccuracy: true, timeout: 12000 }
     );
@@ -274,11 +274,11 @@ export default function RentalHeatmap({
     const lat = Number(originInput.lat);
     const lon = Number(originInput.lon);
     if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
-      setRouteError('Lat/Lon khÃ´ng há»£p lá»‡');
+      setRouteError('Lat/Lon không hợp lệ');
       return;
     }
     if (!isValidVietnamCoords(lat, lon)) {
-      setRouteError('Vá»‹ trÃ­ ngoÃ i pháº¡m vi Viá»‡t Nam');
+      setRouteError('Vị trí ngoài phạm vi Việt Nam');
       return;
     }
     setRouteError(null);
@@ -287,7 +287,7 @@ export default function RentalHeatmap({
 
   const handleSetOriginFromMap = useCallback((lat: number, lon: number) => {
     if (!isValidVietnamCoords(lat, lon)) {
-      setRouteError('Vá»‹ trÃ­ ngoÃ i pháº¡m vi Viá»‡t Nam');
+      setRouteError('Vị trí ngoài phạm vi Việt Nam');
       return;
     }
     setRouteError(null);
@@ -304,7 +304,7 @@ export default function RentalHeatmap({
     const destLat = selectedListing.lat || selectedListing.latitude || 0;
     const destLon = selectedListing.lon || selectedListing.longitude || 0;
     if (!isValidVietnamCoords(destLat, destLon)) {
-      setRouteError('Äiá»ƒm Ä‘áº¿n khÃ´ng há»£p lá»‡');
+      setRouteError('Điểm đến không hợp lệ');
       clearRoute();
       return;
     }
@@ -333,7 +333,7 @@ export default function RentalHeatmap({
       .then((res) => res.json())
       .then((data) => {
         if (!data?.routes?.length) {
-          throw new Error('KhÃ´ng tÃ¬m Ä‘Æ°á»£c tuyáº¿n Ä‘Æ°á»ng');
+          throw new Error('Không tìm được tuyến đường');
         }
         const route = data.routes[0];
         const coords = route.geometry.coordinates.map((pt: [number, number]) => [pt[1], pt[0]] as [number, number]);
@@ -343,7 +343,7 @@ export default function RentalHeatmap({
         const stats = {
           distanceKm,
           durationMin,
-          durationLabel: 'Æ¯á»›c tÃ­nh'
+          durationLabel: 'Ước tính'
         };
         setRouteCoords(coords);
         setRouteStats(stats);
@@ -351,7 +351,7 @@ export default function RentalHeatmap({
       })
       .catch((err) => {
         if (err?.name === 'AbortError') return;
-        setRouteError(err?.message || 'Lá»—i chá»‰ Ä‘Æ°á»ng');
+        setRouteError(err?.message || 'Lỗi chỉ đường');
         clearRoute();
       })
       .finally(() => {
@@ -417,17 +417,17 @@ export default function RentalHeatmap({
           onClick={() => setMode('price')}
           className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${mode === 'price' ? 'bg-cyan-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
         >
-          ðŸ’° Price Map
+          💰 Price Map
         </button>
         <button
           onClick={() => setMode('potential')}
           className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${mode === 'potential' ? 'bg-purple-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
         >
-          ðŸŽ¯ Potential Map
+          🎯 Potential Map
         </button>
       </div>
 
-      {      {/* Route Controls - Enhanced Visibility */}
+      {/* Route Controls - Enhanced Visibility */}
       <div className="absolute top-14 left-4 z-[1001] bg-slate-800/95 backdrop-blur-md p-3 rounded-lg w-[260px] space-y-2 border border-cyan-500/30 shadow-xl">
         <div className="text-xs font-bold text-cyan-400">Chỉ đường tới mặt bằng</div>
         <div className="flex gap-2">
@@ -513,7 +513,8 @@ export default function RentalHeatmap({
           Mở trên Google Maps
         </a>
       </div>
-      {/* Map Controls */}}
+
+      {/* Map Controls */}
       <div className="absolute top-4 right-4 z-[1000] flex gap-2">
         <button
           onClick={handleResetView}
@@ -528,7 +529,7 @@ export default function RentalHeatmap({
           className="px-3 py-1.5 rounded-full text-xs font-bold bg-white/10 text-gray-300 hover:bg-white/20 transition-all disabled:opacity-50"
           title="Fit to current results"
         >
-          ðŸŽ¯ Fit Results
+          🎯 Fit Results
         </button>
       </div>
 
@@ -543,8 +544,8 @@ export default function RentalHeatmap({
       {filterDistrict && (
         <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-[1000] glass-panel px-4 py-2 rounded-full">
           <span className="text-xs text-white font-bold">
-            ðŸ“ {filterDistrict}
-            {filterProvince && `, ${filterProvince.replace('ThÃ nh phá»‘ ', '')}`}
+            📍 {filterDistrict}
+            {filterProvince && `, ${filterProvince.replace('Thành phố ', '')}`}
           </span>
         </div>
       )}
@@ -637,19 +638,19 @@ export default function RentalHeatmap({
                   </div>
                   <div className="space-y-1 text-xs">
                     <div className="flex justify-between">
-                      <span className="text-gray-400">GiÃ¡ thuÃª:</span>
+                      <span className="text-gray-400">Giá thuê:</span>
                       <span className="font-bold text-green-400">
-                        {listing.price_million || listing.price} tr/thÃ¡ng
+                        {((listing.price_million || listing.price || 0)).toLocaleString('vi-VN')} tr/tháng
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-400">Diá»‡n tÃ­ch:</span>
-                      <span>{listing.area_m2 || listing.area} mÂ²</span>
+                      <span className="text-gray-400">Diện tích:</span>
+                      <span>{listing.area_m2 || listing.area} m²</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-400">AI Score:</span>
                       <span className="font-bold text-purple-400">
-                        {listing.ai?.potentialScore || listing.ai_potential_score || 'N/A'}/100
+                        {(listing.ai?.potentialScore || listing.ai_potential_score || 0).toFixed(1)}/100
                       </span>
                     </div>
                   </div>
@@ -660,7 +661,7 @@ export default function RentalHeatmap({
                     href={`/listing/${listing.id}`}
                     className="mt-2 block text-center text-xs text-cyan-400 hover:text-cyan-300 font-bold"
                   >
-                    Xem chi tiáº¿t â†’
+                    Xem chi tiết →
                   </a>
                 </div>
               </Popup>
@@ -672,7 +673,7 @@ export default function RentalHeatmap({
       {/* Legend */}
       <div className="absolute bottom-4 right-4 glass-panel p-4 rounded-lg shadow-lg z-[1000] space-y-2 border border-white/10">
         <h4 className="font-bold text-cyan-400 text-sm mb-2 uppercase tracking-wider">
-          {mode === 'price' ? 'ðŸ’° Price Heatmap' : 'ðŸŽ¯ Potential Map'}
+          {mode === 'price' ? '💰 Price Heatmap' : '🎯 Potential Map'}
         </h4>
         {mode === 'price' ? (
           <>
@@ -680,28 +681,28 @@ export default function RentalHeatmap({
               <div className="w-4 h-4 rounded-full bg-red-500"></div> Cao (&gt;100tr)
             </div>
             <div className="flex items-center gap-2 text-xs text-gray-300">
-              <div className="w-4 h-4 rounded-full bg-orange-500"></div> Trung bÃ¬nh (50-100tr)
+              <div className="w-4 h-4 rounded-full bg-orange-500"></div> Trung bình (50-100tr)
             </div>
             <div className="flex items-center gap-2 text-xs text-gray-300">
-              <div className="w-4 h-4 rounded-full bg-green-500"></div> Tháº¥p (25-50tr)
+              <div className="w-4 h-4 rounded-full bg-green-500"></div> Thấp (25-50tr)
             </div>
             <div className="flex items-center gap-2 text-xs text-gray-300">
-              <div className="w-4 h-4 rounded-full bg-blue-500"></div> Ráº¥t tháº¥p (&lt;25tr)
+              <div className="w-4 h-4 rounded-full bg-blue-500"></div> Rất thấp (&lt;25tr)
             </div>
           </>
         ) : (
           <>
             <div className="flex items-center gap-2 text-xs text-gray-300">
-              <div className="w-4 h-4 rounded-full bg-cyan-400"></div> Ráº¥t cao (&gt;85)
+              <div className="w-4 h-4 rounded-full bg-cyan-400"></div> Rất cao (&gt;85)
             </div>
             <div className="flex items-center gap-2 text-xs text-gray-300">
               <div className="w-4 h-4 rounded-full bg-blue-400"></div> Cao (70-85)
             </div>
             <div className="flex items-center gap-2 text-xs text-gray-300">
-              <div className="w-4 h-4 rounded-full bg-indigo-400"></div> Trung bÃ¬nh (50-70)
+              <div className="w-4 h-4 rounded-full bg-indigo-400"></div> Trung bình (50-70)
             </div>
             <div className="flex items-center gap-2 text-xs text-gray-300">
-              <div className="w-4 h-4 rounded-full bg-purple-400"></div> Tháº¥p (&lt;50)
+              <div className="w-4 h-4 rounded-full bg-purple-400"></div> Thấp (&lt;50)
             </div>
           </>
         )}
@@ -709,4 +710,3 @@ export default function RentalHeatmap({
     </div>
   );
 }
-
