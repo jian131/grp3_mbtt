@@ -4,7 +4,7 @@
 
 ## 📊 Tổng quan
 
-- **1,170** mặt bằng tại 3 thành phố (Hà Nội, HCM, Đà Nẵng)
+- **1,170** mặt bằng tại Việt Nam
 - **100%** tọa độ đã xác minh
 - Tích hợp AI phân tích tiềm năng kinh doanh
 
