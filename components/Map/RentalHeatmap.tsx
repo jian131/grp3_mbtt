@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState, useCallback, useRef } from 'react';
 import dynamic from 'next/dynamic';
@@ -91,15 +91,15 @@ export default function RentalHeatmap({
       const validListings = externalListings.filter(l =>
         isValidVietnamCoords(l.lat || l.latitude || 0, l.lon || l.longitude || 0)
       );
-      // DEBUG: Ba Đình coord validation
+      // DEBUG: Ba ÄÃ¬nh coord validation
       validListings.forEach(l => {
         const lat = l.lat || l.latitude || 0;
         const lon = l.lon || l.longitude || 0;
         const district = (l.district || '').toLowerCase();
-        if (district.includes('ba đình') || district.includes('ba dinh')) {
-          // Ba Đình bounds: lat [21.02, 21.06], lon [105.80, 105.86]
+        if (district.includes('ba Ä‘Ã¬nh') || district.includes('ba dinh')) {
+          // Ba ÄÃ¬nh bounds: lat [21.02, 21.06], lon [105.80, 105.86]
           if (lat < 21.02 || lat > 21.06 || lon < 105.80 || lon > 105.86) {
-            console.warn(`⚠️ WRONG COORDS for Ba Đình listing ${l.id}: lat=${lat}, lon=${lon} (expected: lat 21.02-21.06, lon 105.80-105.86)`);
+            console.warn(`âš ï¸ WRONG COORDS for Ba ÄÃ¬nh listing ${l.id}: lat=${lat}, lon=${lon} (expected: lat 21.02-21.06, lon 105.80-105.86)`);
           }
         }
       });
@@ -122,14 +122,14 @@ export default function RentalHeatmap({
       const validData = data.filter(l =>
         isValidVietnamCoords(l.lat || l.latitude || 0, l.lon || l.longitude || 0)
       );
-      // DEBUG: Ba Đình coord validation
+      // DEBUG: Ba ÄÃ¬nh coord validation
       validData.forEach(l => {
         const lat = l.lat || l.latitude || 0;
         const lon = l.lon || l.longitude || 0;
         const district = (l.district || '').toLowerCase();
-        if (district.includes('ba đình') || district.includes('ba dinh')) {
+        if (district.includes('ba Ä‘Ã¬nh') || district.includes('ba dinh')) {
           if (lat < 21.02 || lat > 21.06 || lon < 105.80 || lon > 105.86) {
-            console.warn(`⚠️ WRONG COORDS for Ba Đình listing ${l.id}: lat=${lat}, lon=${lon} (expected: lat 21.02-21.06, lon 105.80-105.86)`);
+            console.warn(`âš ï¸ WRONG COORDS for Ba ÄÃ¬nh listing ${l.id}: lat=${lat}, lon=${lon} (expected: lat 21.02-21.06, lon 105.80-105.86)`);
           }
         }
       });
@@ -499,6 +499,19 @@ export default function RentalHeatmap({
           </div>
         )}
         {routeError && <div className="text-[11px] text-red-400">{routeError}</div>}
+        <a
+          className={`block text-center text-[11px] font-bold px-2 py-1 rounded ${origin && selectedListing ? 'bg-cyan-600 text-white hover:bg-cyan-500' : 'bg-white/10 text-gray-500 cursor-not-allowed'}`}
+          href={
+            origin && selectedListing
+              ? `https://www.google.com/maps/dir/?api=1&origin=${origin.lat},${origin.lon}&destination=${(selectedListing.lat || selectedListing.latitude)?.toString()},${(selectedListing.lon || selectedListing.longitude)?.toString()}&travelmode=${routeProfile === 'walking' ? 'walking' : 'driving'}`
+              : undefined
+          }
+          target="_blank"
+          rel="noreferrer"
+          aria-disabled={!origin || !selectedListing}
+        >
+          Mở trên Google Maps
+        </a>
       </div>
 
       {/* Map Controls */}
@@ -508,7 +521,7 @@ export default function RentalHeatmap({
           className="px-3 py-1.5 rounded-full text-xs font-bold bg-white/10 text-gray-300 hover:bg-white/20 transition-all"
           title="Reset view to Vietnam"
         >
-          🌏 Reset
+          ðŸŒ Reset
         </button>
         <button
           onClick={handleFitToResults}
@@ -627,7 +640,7 @@ export default function RentalHeatmap({
                     <div className="flex justify-between">
                       <span className="text-gray-400">Giá thuê:</span>
                       <span className="font-bold text-green-400">
-                        {listing.price_million || listing.price} tr/tháng
+                        {((listing.price_million || listing.price || 0)).toLocaleString('vi-VN')} tr/tháng
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -637,12 +650,12 @@ export default function RentalHeatmap({
                     <div className="flex justify-between">
                       <span className="text-gray-400">AI Score:</span>
                       <span className="font-bold text-purple-400">
-                        {listing.ai?.potentialScore || listing.ai_potential_score || 'N/A'}/100
+                        {(listing.ai?.potentialScore || listing.ai_potential_score || 0).toFixed(1)}/100
                       </span>
                     </div>
                   </div>
                   <div className="mt-2 pt-2 border-t border-white/10 text-xs text-gray-400">
-                    📍 {listing.ward && `${listing.ward}, `}{listing.district}
+                    ðŸ“ {listing.ward && `${listing.ward}, `}{listing.district}
                   </div>
                   <a
                     href={`/listing/${listing.id}`}

@@ -34,20 +34,59 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate Dify config
-    if (!DIFY_API_KEY) {
-      return NextResponse.json(
-        { error: 'Dify API key not configured. Set DIFY_API_KEY in environment.' },
-        { status: 500 }
-      );
-    }
-
     // Build context from internal JSON ONLY
     const { context, listings, filters } = buildChatContext(message);
 
     console.log('[Chat API] Query:', message);
     console.log('[Chat API] Filters:', filters);
     console.log('[Chat API] Listings found:', listings.length);
+
+    // FALLBACK MODE: If no Dify API key, return listings directly without AI
+    // NOTE: Dify integration requires proper app setup with context variable
+    // For now, always use fallback mode for reliability
+    if (!DIFY_API_KEY || true) { // Force fallback for now
+      console.log('[Chat API] Using fallback mode (no Dify or forced)');
+
+      // Build simple response based on results
+      let fallbackAnswer = '';
+      if (listings.length === 0) {
+        fallbackAnswer = 'Không tìm thấy mặt bằng phù hợp với tiêu chí của bạn. Thử thay đổi điều kiện tìm kiếm.';
+      } else {
+        const provinceList = [...new Set(listings.map(l => l.province))].join(', ');
+        const priceList = listings.map(l => l.price || 0).filter(p => p > 0);
+        const minPrice = priceList.length > 0 ? Math.min(...priceList) : 0;
+        const maxPrice = priceList.length > 0 ? Math.max(...priceList) : 0;
+        fallbackAnswer = `Tìm thấy **${listings.length} mặt bằng** phù hợp tại ${provinceList}. ` +
+          (minPrice > 0 ? `Giá từ ${minPrice.toLocaleString('vi-VN')}đ đến ${maxPrice.toLocaleString('vi-VN')}đ. ` : '') +
+          `Xem chi tiết bên dưới.`;
+      }
+
+      return NextResponse.json({
+        answer: fallbackAnswer,
+        conversationId: null,
+        messageId: null,
+        listings: listings.slice(0, 10).map(l => ({
+          id: l.id,
+          name: l.name,
+          province: l.province,
+          district: l.district,
+          ward: l.ward,
+          address: l.address,
+          type: l.type,
+          area: l.area,
+          price: l.price,
+          potentialScore: l.ai?.potentialScore || 0,
+          latitude: l.latitude,
+          longitude: l.longitude
+        })),
+        filters: filters,
+        metadata: {
+          totalListingsFound: listings.length,
+          mode: 'fallback',
+          timestamp: new Date().toISOString()
+        }
+      });
+    }
 
     // System prompt - LOCK DOWN to context only
     const systemPrompt = `Bạn là trợ lý tìm kiếm mặt bằng thương mại tại Việt Nam.
@@ -64,19 +103,17 @@ ${context}
 
 Hãy trả lời câu hỏi của người dùng dựa HOÀN TOÀN trên context trên.`;
 
-    // Call Dify API
+    // Call Dify API (Chat App format)
     const difyPayload = {
-      inputs: {
-        context: context,
-        system_prompt: systemPrompt
-      },
       query: message,
+      inputs: {},
       response_mode: 'blocking',
       conversation_id: conversationId || '',
-      user: 'user-' + Date.now()
+      user: 'user-' + Date.now(),
+      files: []
     };
 
-    console.log('[Chat API] Calling Dify...');
+    console.log('[Chat API] Calling Dify with context length:', context.length);
 
     const difyResponse = await fetch(`${DIFY_BASE_URL}/chat-messages`, {
       method: 'POST',

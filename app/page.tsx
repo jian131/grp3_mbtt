@@ -1,5 +1,3 @@
-import DifyChatWidget from '@/components/DifyChatWidget';
-
 export default function HomePage() {
   return (
     <div className="min-h-screen text-white font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
@@ -96,9 +94,6 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-
-      {/* Dify AI Chatbot Widget */}
-      <DifyChatWidget />
 
     </div>
   );
