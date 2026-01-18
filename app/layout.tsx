@@ -5,6 +5,7 @@ import Navbar from "./components/navbar/page";
 import Footer from "./components/footer/page";
 import { BackendStatusProvider } from "@/lib/BackendStatusContext";
 import BackendOfflineBanner from "./components/BackendOfflineBanner";
+import ChatButton from "@/components/ChatButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,7 @@ export default function RootLayout({
           <footer>
             <Footer/>
           </footer>
+          <ChatButton />
         </BackendStatusProvider>
       </body>
     </html>
